@@ -11,14 +11,57 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Echoglossian.EFCoreSqlite.Migrations
 {
   [DbContext(typeof(EchoglossianDbContext))]
-  [Migration("20240419164241_AddObjectivesToQuestPlate")]
-  partial class AddObjectivesToQuestPlate
+  [Migration("20240825221820_AddNewDataEntities")]
+  partial class AddNewDataEntities
   {
     /// <inheritdoc />
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
 #pragma warning disable 612, 618
-      modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
+      modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.ActionTooltip", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("GameVersion")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalActionTooltip")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalActionTooltipLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedActionTooltip")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("actiontooltips", (string)null);
+          });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.BattleTalkMessage", b =>
           {
@@ -31,7 +74,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalBattleTalkMessage")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalBattleTalkMessageLang")
@@ -49,15 +91,12 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("SenderName")
                       .IsRequired()
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedBattleTalkMessage")
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedSenderName")
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -72,7 +111,97 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("battletalkmessages");
+            b.ToTable("battletalkmessages", (string)null);
+          });
+
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.GameWindow", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("GameVersion")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalWindowStrings")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalWindowStringsLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedWindowStrings")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("WindowAddonName")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("gamewindows", (string)null);
+          });
+
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.ItemTooltip", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("GameVersion")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalItemTooltip")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalItemTooltipLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedItemTooltip")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("itemtooltips", (string)null);
           });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.Journal.QuestPlate", b =>
@@ -93,7 +222,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalQuestMessage")
                       .IsRequired()
-                      .HasMaxLength(2500)
                       .HasColumnType("TEXT");
 
             b.Property<string>("QuestId")
@@ -102,7 +230,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("QuestName")
                       .IsRequired()
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<byte[]>("RowVersion")
@@ -110,14 +237,15 @@ namespace Echoglossian.EFCoreSqlite.Migrations
                       .ValueGeneratedOnAddOrUpdate()
                       .HasColumnType("BLOB");
 
+            b.Property<string>("SummariesAsText")
+                      .HasColumnType("TEXT");
+
             b.Property<string>("TranslatedQuestMessage")
                       .IsRequired()
-                      .HasMaxLength(2500)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedQuestName")
                       .IsRequired()
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -132,7 +260,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("questplates");
+            b.ToTable("questplates", (string)null);
           });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.LocationName", b =>
@@ -146,7 +274,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalLocationName")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalLocationNameLang")
@@ -173,7 +300,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("locationnames");
+            b.ToTable("locationnames", (string)null);
           });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.NpcNames", b =>
@@ -187,7 +314,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalNpcName")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalNpcNameLang")
@@ -200,7 +326,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
                       .HasColumnType("BLOB");
 
             b.Property<string>("TranslatedNpcName")
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -215,7 +340,46 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("npcnames");
+            b.ToTable("npcnames", (string)null);
+          });
+
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.SelectString", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalSelectString")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalSelectStringLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedSelectString")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("selectstrings", (string)null);
           });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.TalkMessage", b =>
@@ -233,7 +397,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalTalkMessage")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalTalkMessageLang")
@@ -247,15 +410,12 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("SenderName")
                       .IsRequired()
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedSenderName")
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedTalkMessage")
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -270,7 +430,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("talkmessages");
+            b.ToTable("talkmessages", (string)null);
           });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.TalkSubtitleMessage", b =>
@@ -284,7 +444,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalTalkSubtitleMessage")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalTalkSubtitleMessageLang")
@@ -297,7 +456,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
                       .HasColumnType("BLOB");
 
             b.Property<string>("TranslatedTalkSubtitleMessage")
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -312,7 +470,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("talksubtitlemessages");
+            b.ToTable("talksubtitlemessages", (string)null);
           });
 
       modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.ToastMessage", b =>
@@ -330,7 +488,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalToastMessage")
                       .IsRequired()
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<byte[]>("RowVersion")
@@ -340,11 +497,9 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("ToastType")
                       .IsRequired()
-                      .HasMaxLength(40)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedToastMessage")
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -359,7 +514,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.HasKey("Id");
 
-            b.ToTable("toastmessages");
+            b.ToTable("toastmessages", (string)null);
           });
 #pragma warning restore 612, 618
     }

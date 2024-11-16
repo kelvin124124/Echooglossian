@@ -5,7 +5,6 @@
 
 using System;
 using System.Text.Unicode;
-
 using Dalamud.Interface.ManagedFontAtlas;
 
 namespace Echoglossian
@@ -30,8 +29,8 @@ namespace Echoglossian
             .With(Echoglossian.ScriptCharList.AsSpan())
             .With(Echoglossian.PuaCharCodes.AsSpan())
             .With(Echoglossian.PuaChars.AsSpan())
-            .With(UnicodeRanges.All)
-            .With(Echoglossian.LangComboItems.AsSpan());
+            .With(Echoglossian.LangComboItems.AsSpan())
+           .With(UnicodeRanges.All.ToString().AsSpan());
 
           // more ranges here
 
@@ -62,8 +61,8 @@ namespace Echoglossian
             .With(Echoglossian.ScriptCharList.AsSpan())
             .With(Echoglossian.PuaCharCodes.AsSpan())
             .With(Echoglossian.PuaChars.AsSpan())
-            .With(UnicodeRanges.All)
-            .With(Echoglossian.SelectedLanguage.ExclusiveCharsToAdd.AsSpan());
+            .With(Echoglossian.SelectedLanguage.ExclusiveCharsToAdd.AsSpan())
+          .With(UnicodeRanges.All.ToString().AsSpan());
 
           // more ranges here
 

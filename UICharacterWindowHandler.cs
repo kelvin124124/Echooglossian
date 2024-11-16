@@ -44,7 +44,7 @@ namespace Echoglossian
 
       // Use LINQ to gather values into the dictionary
       this.CharacterWindowAtkValues = Enumerable.Range(0, cwAtkValsCount)
-          .Where(i => cwAtkVals[i].Type == ValueType.String)
+          .Where(i => cwAtkVals[i].Type == ValueType.String || cwAtkVals[i].Type == ValueType.String8)
           .Select(i => new
           {
             Index = i,

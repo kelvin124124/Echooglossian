@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Lumina.Excel;
-using Lumina.Excel.GeneratedSheets;
+
+using Lumina.Excel.Sheets;
 
 namespace Echoglossian
 {
@@ -21,7 +22,7 @@ namespace Echoglossian
 
       var addonList = uiStuffz?.ToList();
 
-      PluginLog.Debug($"Addon list: {uiStuffz?.RowCount.ToString()}");
+      PluginLog.Debug($"Addon list: {uiStuffz?.Count.ToString()}");
       if (uiStuffz != null)
       {
         foreach (var a in uiStuffz)

@@ -59,7 +59,7 @@ namespace Echoglossian
                  DateTime.Now,
                  DateTime.Now);
               string result = InsertTalkData(translatedTalkData);
-              PluginLog.Debug($"Talk Message DB Insert operation result: {result}");
+              PluginLog.Debug($"TranslateTalk - Talk Message DB Insert operation result: {result}");
             }
           }
           catch (Exception e)
@@ -205,7 +205,7 @@ namespace Echoglossian
                DateTime.Now);
 
             string result = InsertTalkData(translatedTalkData);
-            PluginLog.Debug($"Talk Message DB Insert operation result: {result}");
+            PluginLog.Debug($"TranslateTalkUsingImGuiAndSwapping - Talk Message DB Insert operation result: {result}");
 
             return;
           }
@@ -307,7 +307,7 @@ namespace Echoglossian
                   DateTime.Now,
                   DateTime.Now);
                 string result = InsertTalkData(translatedTalkData);
-                PluginLog.Debug($"Talk Message DB Insert operation result: {result}");
+                PluginLog.Debug($"TranslateTalkUsingImGuiWithoutSwapping - Talk Message DB Insert operation result: {result}");
               }
 
               return;

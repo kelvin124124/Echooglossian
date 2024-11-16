@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// <copyright file="GameWindow.cs" company="lokinmodar">
+// Copyright (c) lokinmodar. All rights reserved.
+// Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License license.
+// </copyright>
+
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Echoglossian.EFCoreSqlite.Models
 {
@@ -64,7 +65,6 @@ namespace Echoglossian.EFCoreSqlite.Models
       this.GameVersion = gameVersion;
       this.CreatedDate = createdDate;
       this.UpdatedDate = updatedDate;
-
     }
 
     public override string ToString()

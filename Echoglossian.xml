@@ -99,7 +99,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.EchoglossianDbContext"/> class.
             </summary>
-            <param name="configDir">PluginConfigs directory</param>
+            <param name="configDir"></param>
         </member>
         <member name="T:Echoglossian.EFCoreSqlite.Migrations.EchoglossianDBupd">
             <inheritdoc />
@@ -137,6 +137,46 @@
         <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddSummaryToQuestPlate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Echoglossian.EFCoreSqlite.Migrations.AddNewDataEntities">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNewDataEntities.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNewDataEntities.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNewDataEntities.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Models.ActionTooltip.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.String,System.DateTime,System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.ActionTooltip"/> class.
+            </summary>
+            <param name="originalActionTooltip"></param>
+            <param name="originalActionTooltipLang"></param>
+            <param name="translatedActionTooltip"></param>
+            <param name="translationLang"></param>
+            <param name="translationEngine"></param>
+            <param name="gameVersion"></param>
+            <param name="createdDate"></param>
+            <param name="updatedDate"></param>
+        </member>
         <member name="M:Echoglossian.EFCoreSqlite.Models.BattleTalkMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.BattleTalkMessage"/> class.
@@ -160,6 +200,19 @@
             <param name="originalWindowStrings"></param>
             <param name="originalWindowStringsLang"></param>
             <param name="translatedWindowStrings"></param>
+            <param name="translationLang"></param>
+            <param name="translationEngine"></param>
+            <param name="gameVersion"></param>
+            <param name="createdDate"></param>
+            <param name="updatedDate"></param>
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Models.ItemTooltip.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.String,System.DateTime,System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.ItemTooltip"/> class.
+            </summary>
+            <param name="originalItemTooltip"></param>
+            <param name="originalItemTooltipLang"></param>
+            <param name="translatedItemTooltip"></param>
             <param name="translationLang"></param>
             <param name="translationEngine"></param>
             <param name="gameVersion"></param>
@@ -202,6 +255,18 @@
             <param name="originalNpcName"></param>
             <param name="originalNpcNameLang"></param>
             <param name="translatedNpcName"></param>
+            <param name="translationLang"></param>
+            <param name="translationEngine"></param>
+            <param name="createdDate"></param>
+            <param name="updatedDate"></param>
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Models.SelectString.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.SelectString"/> class.
+            </summary>
+            <param name="originalSelectString"></param>
+            <param name="originalSelectStringLang"></param>
+            <param name="translatedSelectString"></param>
             <param name="translationLang"></param>
             <param name="translationEngine"></param>
             <param name="createdDate"></param>

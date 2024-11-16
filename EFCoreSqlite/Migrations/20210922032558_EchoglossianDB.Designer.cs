@@ -17,7 +17,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
       modelBuilder
           .HasAnnotation("ProductVersion", "5.0.10");
 
-      modelBuilder.Entity("EFCoreSqlite.Models.BattleTalkMessage", b =>
+      modelBuilder.Entity("Echoglossian.Echoglossian.EFCoreSqlite.Models.BattleTalkMessage", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.ToTable("battletalkmessages");
           });
 
-      modelBuilder.Entity("EFCoreSqlite.Models.Journal.QuestPlate", b =>
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.Journal.QuestPlate", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -129,7 +129,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.ToTable("questplates");
           });
 
-      modelBuilder.Entity("EFCoreSqlite.Models.TalkMessage", b =>
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.TalkMessage", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -184,7 +184,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.ToTable("talkmessages");
           });
 
-      modelBuilder.Entity("EFCoreSqlite.Models.ToastMessage", b =>
+      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.ToastMessage", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
