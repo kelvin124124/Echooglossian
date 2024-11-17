@@ -6,6 +6,7 @@
 using System;
 using System.Text.Unicode;
 using Dalamud.Interface.ManagedFontAtlas;
+using Dalamud.Plugin.Services;
 
 namespace Echoglossian
 {
@@ -21,6 +22,21 @@ namespace Echoglossian
     {
       this.configuration = configuration;
 
+      var AllUnicodeRanges = UnicodeRanges.All;
+
+      Echoglossian.PluginLog.Debug($"SymbolsFontPath: ${Echoglossian.SymbolsFontFilePath}");
+      Echoglossian.PluginLog.Debug($"FontFilePath: ${Echoglossian.FontFilePath}");
+      Echoglossian.PluginLog.Debug($"ComplementaryFont3FilePath: ${Echoglossian.ComplementaryFont3FilePath}");
+      Echoglossian.PluginLog.Debug($"ComplementaryFont4FilePath: ${Echoglossian.ComplementaryFont4FilePath}");
+      Echoglossian.PluginLog.Debug($"ComplementaryFont5FilePath: ${Echoglossian.ComplementaryFont5FilePath}");
+      Echoglossian.PluginLog.Debug($"ComplementaryFont6FilePath: ${Echoglossian.ComplementaryFont6FilePath}");
+      Echoglossian.PluginLog.Debug($"ComplementaryFont7FilePath: ${Echoglossian.ComplementaryFont7FilePath}");
+      Echoglossian.PluginLog.Debug($"SpecialFontFilePath: ${Echoglossian.SpecialFontFilePath}");
+      Echoglossian.PluginLog.Debug($"LangComboFontFilePath: ${Echoglossian.LangComboFontFilePath}");
+      Echoglossian.PluginLog.Debug($"DummyFontFilePath: ${Echoglossian.DummyFontFilePath}");
+      Echoglossian.PluginLog.Debug($"UndicodeRanges.All: ${UnicodeRanges.All.ToString()}");
+
+
       this.GeneralFontHandle = Echoglossian.PluginInterface.UiBuilder.FontAtlas.NewDelegateFontHandle(
         e => e.OnPreBuild(tk =>
         {
@@ -29,8 +45,8 @@ namespace Echoglossian
             .With(Echoglossian.ScriptCharList.AsSpan())
             .With(Echoglossian.PuaCharCodes.AsSpan())
             .With(Echoglossian.PuaChars.AsSpan())
-            .With(Echoglossian.LangComboItems.AsSpan())
-           .With(UnicodeRanges.All.ToString().AsSpan());
+            .With(AllUnicodeRanges.FirstCodePoint, AllUnicodeRanges.FirstCodePoint + AllUnicodeRanges.Length - 1)
+            .With(Echoglossian.LangComboItems.AsSpan());
 
           // more ranges here
 
@@ -61,8 +77,9 @@ namespace Echoglossian
             .With(Echoglossian.ScriptCharList.AsSpan())
             .With(Echoglossian.PuaCharCodes.AsSpan())
             .With(Echoglossian.PuaChars.AsSpan())
-            .With(Echoglossian.SelectedLanguage.ExclusiveCharsToAdd.AsSpan())
-          .With(UnicodeRanges.All.ToString().AsSpan());
+            .With(AllUnicodeRanges.FirstCodePoint, AllUnicodeRanges.FirstCodePoint + AllUnicodeRanges.Length - 1)
+            .With(Echoglossian.SelectedLanguage.ExclusiveCharsToAdd.AsSpan());
+
 
           // more ranges here
 
