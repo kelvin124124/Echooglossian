@@ -33,7 +33,7 @@ namespace Echoglossian
           this.translator = new DeepLTranslator(pluginLog, config.DeeplTranslatorUsingApiKey, config.DeeplTranslatorApiKey);
           break;
         case TransEngines.ChatGPT:
-          this.translator = new ChatGPTTranslator(pluginLog, config.ChatGptApiKey);
+          this.translator = new ChatGPTTranslator(pluginLog, config.ChatGPTBaseUrl, config.ChatGptApiKey, config.LlmModel, config.ChatGptTemperature);
           break;
         case TransEngines.Bing:
           break;
