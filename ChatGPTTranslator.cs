@@ -94,7 +94,7 @@ namespace Echoglossian
         };
 
         ChatCompletion completion = await this.chatClient.CompleteChatAsync(messages, chatCompletionOptions);
-        string translatedText = completion.ToString().Trim();
+        string translatedText = completion.Content[0].Text.Trim();
 
         translatedText = translatedText.Trim('"');
 
