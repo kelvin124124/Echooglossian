@@ -628,6 +628,34 @@ public partial class Echoglossian
               this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
             }
 
+            ImGui.Spacing();
+
+            if (ImGui.InputText("Model endpoint", ref this.configuration.ChatGPTBaseUrl, 400))
+            {
+              this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
+            }
+
+            ImGui.Spacing();
+
+            if (ImGui.InputText("LLM Model", ref this.configuration.LlmModel, 400))
+            {
+              this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
+            }
+
+            ImGui.Spacing();
+
+            float temperature = this.configuration.ChatGptTemperature;
+            if (ImGui.SliderFloat("Temperature", ref temperature, 0.1f, 1.0f, "%.1f"))
+            {
+              this.configuration.ChatGptTemperature = temperature;
+            }
+
+            ImGui.SameLine();
+            if (ImGui.Button("Apply"))
+            {
+              this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
+            }
+
             break;
         }
 

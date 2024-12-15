@@ -4,10 +4,12 @@
 // </copyright>
 
 using System;
+using System.ClientModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Dalamud.Plugin.Services;
+using OpenAI;
 using OpenAI.Chat;
 
 namespace Echoglossian
@@ -17,14 +19,14 @@ namespace Echoglossian
     private readonly ChatClient chatClient;
     private readonly IPluginLog pluginLog;
     private readonly string model;
-    private readonly float temperature;
+    private float temperature;
     private Dictionary<string, string> translationCache = new Dictionary<string, string>();
 
-    public ChatGPTTranslator(IPluginLog pluginLog, string apiKey, string model = "gpt-4o-mini")
+    public ChatGPTTranslator(IPluginLog pluginLog, string baseUrl = "https://api.openai.com/v1/chat/completions", string apiKey = "", string model = "gpt-4o-mini", float temperature = 0.1f)
     {
       this.pluginLog = pluginLog;
       this.model = model;
-      this.temperature = 0.1f;
+      this.temperature = temperature;
 
       if (string.IsNullOrWhiteSpace(apiKey))
       {
@@ -35,7 +37,11 @@ namespace Echoglossian
       {
         try
         {
-          this.chatClient = new ChatClient(model, apiKey);
+          var clientOptions = new OpenAIClientOptions
+          {
+            Endpoint = new Uri(baseUrl),
+          };
+          this.chatClient = new ChatClient(model, new ApiKeyCredential(apiKey), clientOptions);
         }
         catch (Exception ex)
         {
@@ -94,7 +100,7 @@ namespace Echoglossian
         };
 
         ChatCompletion completion = await this.chatClient.CompleteChatAsync(messages, chatCompletionOptions);
-        string translatedText = completion.ToString().Trim();
+        string translatedText = completion.Content[0].Text.Trim();
 
         translatedText = translatedText.Trim('"');
 
