@@ -28,6 +28,8 @@ namespace Echoglossian
       this.model = model;
       this.temperature = temperature;
 
+      pluginLog.Debug($"ChatGPTTranslator: {baseUrl}, {apiKey}, {model}, {temperature}");
+
       if (string.IsNullOrWhiteSpace(apiKey))
       {
         this.pluginLog.Warning("API Key is empty or invalid. ChatGPT transaltion will not be available.");
@@ -41,6 +43,9 @@ namespace Echoglossian
           {
             Endpoint = new Uri(baseUrl),
           };
+
+          pluginLog.Debug($"ChatGPTTranslator: {clientOptions}");
+
           this.chatClient = new ChatClient(model, new ApiKeyCredential(apiKey), clientOptions);
         }
         catch (Exception ex)
