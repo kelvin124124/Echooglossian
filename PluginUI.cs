@@ -563,7 +563,9 @@ public partial class Echoglossian
         var engines = this.enginesList.Where((_, i) => langDict[languageInt].SupportedEngines.Contains(i)).ToArray();
         if (ImGui.Combo(Resources.TranslationEngineChoose, ref chosenTransEngine, engines, engines.Length))
         {
-          this.configuration.ChosenTransEngine = chosenTransEngine;
+
+          //this.configuration.ChosenTransEngine = chosenTransEngine; 
+          this.configuration.ChosenTransEngine = this.languagesDictionary[this.configuration.Lang].SupportedEngines[chosenTransEngine];
           this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
         }
 
