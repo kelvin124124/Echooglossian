@@ -122,7 +122,7 @@ namespace Echoglossian
 
     public string ChatGptApiKey = string.Empty;
 
-    public string ChatGPTBaseUrl = "https://api.openai.com/v1/chat/completions";
+    public string ChatGPTBaseUrl = "https://api.openai.com/v1";
 
     public string LlmModel = "gpt-4o-mini";
 

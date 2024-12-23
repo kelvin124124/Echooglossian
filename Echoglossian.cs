@@ -287,6 +287,14 @@ namespace Echoglossian
       // Disabling BattleTalk translation by default if the language is not supported by the game font while we fix the overlays
       this.configuration.TranslateBattleTalk = this.configuration.OverlayOnlyLanguage ? false : true;
       this.configuration.UseImGuiForBattleTalk = false;
+
+      // Fix wrong chatgpt base url in v3.17
+      // TODO: remove it in later versions
+      if (this.configuration.ChatGPTBaseUrl == "https://api.openai.com/v1/chat/completions")
+      {
+        this.configuration.ChatGPTBaseUrl = "https://api.openai.com/v1/chat";
+        PluginInterface.SavePluginConfig(this.configuration);
+      }
     }
 
     /// <inheritdoc />

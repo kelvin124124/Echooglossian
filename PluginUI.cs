@@ -561,9 +561,11 @@ public partial class Echoglossian
         ImGui.Checkbox(Resources.TranslateTextsAgain, ref this.configuration.TranslateAlreadyTranslatedTexts);
 
         var engines = this.enginesList.Where((_, i) => langDict[languageInt].SupportedEngines.Contains(i)).ToArray();
+        chosenTransEngine = Array.IndexOf(langDict[languageInt].SupportedEngines, this.configuration.ChosenTransEngine);
         if (ImGui.Combo(Resources.TranslationEngineChoose, ref chosenTransEngine, engines, engines.Length))
         {
-          this.configuration.ChosenTransEngine = chosenTransEngine;
+          this.configuration.ChosenTransEngine = langDict[languageInt].SupportedEngines[chosenTransEngine];
+          PluginLog.Debug("Chosen translation engine: " + this.configuration.ChosenTransEngine);
           this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
         }
 
