@@ -6,6 +6,7 @@
 using System;
 using System.ClientModel;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Dalamud.Plugin.Services;
@@ -22,13 +23,13 @@ namespace Echoglossian
     private float temperature;
     private Dictionary<string, string> translationCache = new Dictionary<string, string>();
 
-    public ChatGPTTranslator(IPluginLog pluginLog, string baseUrl = "https://api.openai.com/v1/chat/completions", string apiKey = "", string model = "gpt-4o-mini", float temperature = 0.1f)
+    public ChatGPTTranslator(IPluginLog pluginLog, string baseUrl = "https://api.openai.com/v1", string apiKey = "", string model = "gpt-4o-mini", float temperature = 0.1f)
     {
       this.pluginLog = pluginLog;
       this.model = model;
       this.temperature = temperature;
 
-      pluginLog.Debug($"ChatGPTTranslator: {baseUrl}, {apiKey}, {model}, {temperature}");
+      pluginLog.Debug($"ChatGPTTranslator: {baseUrl}, {apiKey[..20]}***{apiKey[^5..]}, {temperature}");
 
       if (string.IsNullOrWhiteSpace(apiKey))
       {
@@ -44,7 +45,7 @@ namespace Echoglossian
             Endpoint = new Uri(baseUrl),
           };
 
-          pluginLog.Debug($"ChatGPTTranslator: {clientOptions}");
+          pluginLog.Debug($"ChatGPTTranslator: {string.Join(", ", clientOptions.GetType().GetProperties().Select(p => $"{p.Name}={p.GetValue(clientOptions)}"))}");
 
           this.chatClient = new ChatClient(model, new ApiKeyCredential(apiKey), clientOptions);
         }

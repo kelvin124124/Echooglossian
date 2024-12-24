@@ -1,4 +1,4 @@
-﻿// <copyright file="PluginUI.cs" company="lokinmodar">
+// <copyright file="PluginUI.cs" company="lokinmodar">
 // Copyright (c) lokinmodar. All rights reserved.
 // Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License license.
 // </copyright>
@@ -561,11 +561,14 @@ public partial class Echoglossian
         ImGui.Checkbox(Resources.TranslateTextsAgain, ref this.configuration.TranslateAlreadyTranslatedTexts);
 
         var engines = this.enginesList.Where((_, i) => langDict[languageInt].SupportedEngines.Contains(i)).ToArray();
+        chosenTransEngine = Array.IndexOf(langDict[languageInt].SupportedEngines, this.configuration.ChosenTransEngine);
         if (ImGui.Combo(Resources.TranslationEngineChoose, ref chosenTransEngine, engines, engines.Length))
         {
+           //this.configuration.ChosenTransEngine = chosenTransEngine; 
 
-          //this.configuration.ChosenTransEngine = chosenTransEngine; 
-          this.configuration.ChosenTransEngine = this.languagesDictionary[this.configuration.Lang].SupportedEngines[chosenTransEngine];
+          this.configuration.ChosenTransEngine = langDict[languageInt].SupportedEngines[chosenTransEngine];
+          PluginLog.Debug("Chosen translation engine: " + this.configuration.ChosenTransEngine);
+
           this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
         }
 
