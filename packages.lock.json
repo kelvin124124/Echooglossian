@@ -4,11 +4,11 @@
     "net8.0-windows7.0": {
       "AWSSDK.Translate": {
         "type": "Direct",
-        "requested": "[3.7.400.53, )",
-        "resolved": "3.7.400.53",
-        "contentHash": "BGNmRuQV5zyBEZC4cIzwDSiPA3Wi5etCYN8Sh7/OyMiBsnWNIjqijOqff+AyoNRktsZC9reGMkHfnrIr0UgF8A==",
+        "requested": "[3.7.400.69, )",
+        "resolved": "3.7.400.69",
+        "contentHash": "przBn+Tqv6xOJgtVqeJ+2hvwwpVDWaCd7K5HLs7JiR/MD86WzF++Eh8qCC8j8NXZNWFeHIvb6JZ4hVVX5GbYFg==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.400.53, 4.0.0)"
+          "AWSSDK.Core": "[3.7.400.69, 4.0.0)"
         }
       },
       "DalamudPackager": {
@@ -90,11 +90,11 @@
       },
       "OpenAI": {
         "type": "Direct",
-        "requested": "[2.0.0, )",
-        "resolved": "2.0.0",
-        "contentHash": "WI9e5tC15ZBt02scCp2gcHrjxQRVX2Ws3eUu/YsICqellH3MwdRggGujSZg69oBJMtk1AYmqb9l08ix0l5AcqQ==",
+        "requested": "[2.1.0, )",
+        "resolved": "2.1.0",
+        "contentHash": "zl72nyP4O94ZyEoCLoE8qoc5vp8kSJmRuqR+UdK+jNIjFJGWJYjsb4rAGpMWWRTbPYuk82E8myMJdVQurMLDnQ==",
         "dependencies": {
-          "System.ClientModel": "1.1.0",
+          "System.ClientModel": "1.2.1",
           "System.Diagnostics.DiagnosticSource": "6.0.1"
         }
       },
@@ -144,8 +144,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.7.400.53",
-        "contentHash": "OwJTHfD3tXKLPiB/UUr6SSigFycQm6JNTReh5j2kYJP0CgcZmV+qeePEpIptxCVbq28esef/8hdzezkzNhN+fA=="
+        "resolved": "3.7.400.69",
+        "contentHash": "s8hAQxtbPxSEtq5tkvVN2qdbY2ggxyGsAwNJ0acpP76rV77KKpJg7PsferHUvUj4g4BKkj3fSTru128v0afJYw=="
       },
       "Humanizer.Core": {
         "type": "Transitive",
@@ -467,11 +467,11 @@
       },
       "System.ClientModel": {
         "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "UocOlCkxLZrG2CKMAAImPcldJTxeesHnHGHwhJ0pNlZEvEXcWKuQvVOER2/NiOkJGRJk978SNdw3j6/7O9H1lg==",
+        "resolved": "1.2.1",
+        "contentHash": "s9+M5El+DXdCRRLzxak8uGBKWT8H/eIssGpFtpaMKdJULrQbBDPH/zFbVyHX+NDczhS5EvjHFbBH9/L+0UhmcA==",
         "dependencies": {
-          "System.Memory.Data": "1.0.2",
-          "System.Text.Json": "6.0.9"
+          "System.Memory.Data": "6.0.0",
+          "System.Text.Json": "6.0.10"
         }
       },
       "System.CodeDom": {
@@ -549,11 +549,10 @@
       },
       "System.Memory.Data": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "JGkzeqgBsiZwKJZ1IxPNsDFZDhUvuEdX8L8BDC8N3KOj+6zMcNU28CNN59TpZE/VJYy9cP+5M+sbxtWJx3/xtw==",
+        "resolved": "6.0.0",
+        "contentHash": "ntFHArH3I4Lpjf5m4DCXQHJuGwWPNVJPaAvM95Jy/u+2Yzt2ryiyIN04LAogkjP9DeRcEOiviAjQotfmPq/FrQ==",
         "dependencies": {
-          "System.Text.Encodings.Web": "4.7.2",
-          "System.Text.Json": "4.6.0"
+          "System.Text.Json": "6.0.0"
         }
       },
       "System.Reflection.Metadata": {

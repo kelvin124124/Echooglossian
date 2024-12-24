@@ -12,7 +12,9 @@ using Echoglossian.EFCoreSqlite;
 using Echoglossian.EFCoreSqlite.Models;
 using Echoglossian.EFCoreSqlite.Models.Journal;
 using ImGuiNET;
+using Lumina.Excel.Sheets;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace Echoglossian
 {
@@ -442,8 +444,15 @@ namespace Echoglossian
 
       var pluginConfig = PluginInterface.GetPluginConfig() as Config;
 
+
+
       try
       {
+        if (!ShouldSaveToDB(talkMessage.TranslatedTalkMessage))
+        {
+          return "No data to save.";
+        }
+
         if (pluginConfig.CopyTranslationToClipboard)
         {
           ImGui.SetClipboardText(talkMessage.ToString());
@@ -472,6 +481,11 @@ namespace Echoglossian
 
       try
       {
+        if (!ShouldSaveToDB(battleTalkMessage.TranslatedBattleTalkMessage))
+        {
+          return "No data to save.";
+        }
+
         context.BattleTalkMessage.Attach(battleTalkMessage);
 
         if (pluginConfig.CopyTranslationToClipboard)
@@ -500,6 +514,11 @@ namespace Echoglossian
 
       try
       {
+        if (!ShouldSaveToDB(talkSubtitleMessage.TranslatedTalkSubtitleMessage))
+        {
+          return "No data to save.";
+        }
+
         context.TalkSubtitleMessage.Attach(talkSubtitleMessage);
 
         if (pluginConfig.CopyTranslationToClipboard)
@@ -731,6 +750,16 @@ namespace Echoglossian
         #endif*/
         PluginLog.Debug("Could not find any Other Toasts in Database");
       }
+    }
+
+    public static bool ShouldSaveToDB(string text)
+    {
+      if (text.Contains("[Translation Error: HTTP 404") || text.Contains("[Translation Error: HTTP 429") || text.Contains("[Translation Error: HTTP 500"))
+      {
+        return false;
+      }
+
+      return true;
     }
   }
 }
