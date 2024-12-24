@@ -292,7 +292,7 @@ namespace Echoglossian
       // TODO: remove it in later versions
       if (this.configuration.ChatGPTBaseUrl == "https://api.openai.com/v1/chat/completions")
       {
-        this.configuration.ChatGPTBaseUrl = "https://api.openai.com/v1/chat";
+        this.configuration.ChatGPTBaseUrl = "https://api.openai.com/v1";
         PluginInterface.SavePluginConfig(this.configuration);
       }
     }
