@@ -1,4 +1,4 @@
-﻿// <copyright file="PluginUI.cs" company="lokinmodar">
+// <copyright file="PluginUI.cs" company="lokinmodar">
 // Copyright (c) lokinmodar. All rights reserved.
 // Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License license.
 // </copyright>
@@ -564,8 +564,11 @@ public partial class Echoglossian
         chosenTransEngine = Array.IndexOf(langDict[languageInt].SupportedEngines, this.configuration.ChosenTransEngine);
         if (ImGui.Combo(Resources.TranslationEngineChoose, ref chosenTransEngine, engines, engines.Length))
         {
+           //this.configuration.ChosenTransEngine = chosenTransEngine; 
+
           this.configuration.ChosenTransEngine = langDict[languageInt].SupportedEngines[chosenTransEngine];
           PluginLog.Debug("Chosen translation engine: " + this.configuration.ChosenTransEngine);
+
           this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
         }
 
