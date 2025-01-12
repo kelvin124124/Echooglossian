@@ -305,4 +305,16 @@
   <data name="ChatGPTAPIKeyLink" xml:space="preserve">
     <value>Klik her for at oprette en OpenAi API-nøgle</value>
   </data>
+  <data name="RemoveDiacriticsToggle" xml:space="preserve">
+    <value>Fortolk den oversatte tekst og erstatte diakritiske tegn med deres almindelige bogstavækvivalenter</value>
+  </data>
+  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>API-nøglen er tom eller ugyldig. ChatGPT-oversættelse vil ikke være tilgængelig.</value>
+  </data>
+  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[ChatGPT-oversættelse er ikke tilgængelig. Tjek venligst din API-nøgle.]</value>
+  </data>
+  <data name="TranslationError" xml:space="preserve">
+    <value>Oversættelsesfejl:</value>
+  </data>
 </root>

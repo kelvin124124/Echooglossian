@@ -333,4 +333,16 @@
   <data name="ChatGPTAPIKeyLink" xml:space="preserve">
     <value>Klicken Sie hier, um einen OpenAi API-Schlüssel zu erstellen</value>
   </data>
+  <data name="RemoveDiacriticsToggle" xml:space="preserve">
+    <value>Analysieren Sie den übersetzten Text, indem Sie diakritische Zeichen durch ihre üblichen Buchstabenäquivalente ersetzen</value>
+  </data>
+  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>Der API-Schlüssel ist leer oder ungültig. Die ChatGPT-Übersetzung wird nicht verfügbar sein.</value>
+  </data>
+  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[ChatGPT-Übersetzung nicht verfügbar. Bitte überprüfen Sie Ihren API-Schlüssel.]</value>
+  </data>
+  <data name="TranslationError" xml:space="preserve">
+    <value>Übersetzungsfehler:</value>
+  </data>
 </root>

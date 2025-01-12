@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Dalamud.Plugin.Services;
+using Echoglossian.Properties;
 using OpenAI;
 using OpenAI.Chat;
 
@@ -29,17 +30,17 @@ namespace Echoglossian
       this.model = model;
       this.temperature = temperature;
 
-      pluginLog.Debug($"ChatGPTTranslator: {baseUrl}, {apiKey[..20]}***{apiKey[^5..]}, {temperature}");
-
       if (string.IsNullOrWhiteSpace(apiKey))
       {
-        this.pluginLog.Warning("API Key is empty or invalid. ChatGPT transaltion will not be available.");
+        this.pluginLog.Warning(Resources.APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable);
         this.chatClient = null;
       }
       else
       {
         try
         {
+          pluginLog.Debug($"ChatGPTTranslator: {baseUrl}, {apiKey[..20]}***{apiKey[^5..]}, {temperature}");
+
           var clientOptions = new OpenAIClientOptions
           {
             Endpoint = new Uri(baseUrl),
@@ -67,7 +68,7 @@ namespace Echoglossian
 
       if (this.chatClient == null)
       {
-        return "[ChatGPT translation unavailable. Please check your API key.]";
+        return Resources.ChatGPTTranslationUnavailablePleaseCheckYourAPIKey;
       }
 
       string cacheKey = $"{text}_{sourceLanguage}_{targetLanguage}";
@@ -118,8 +119,8 @@ namespace Echoglossian
       }
       catch (Exception ex)
       {
-        this.pluginLog.Error($"Translation error: {ex.Message}");
-        return $"[Translation Error: {ex.Message}]";
+        this.pluginLog.Error($"{Resources.TranslationError} {ex.Message}");
+        return $"[{Resources.TranslationError} {ex.Message}]";
       }
 
       return null;

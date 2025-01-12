@@ -328,6 +328,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Echoglossian.Properties.Resources.APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable">
+            <summary>
+              Looks up a localized string similar to API Key is empty or invalid. ChatGPT translation will not be available..
+            </summary>
+        </member>
         <member name="P:Echoglossian.Properties.Resources.AssetsCheckingPopupMsg">
             <summary>
               Looks up a localized string similar to Checking Plugin assets!.
@@ -361,6 +366,11 @@
         <member name="P:Echoglossian.Properties.Resources.ChatGPTAPIKeyLink">
             <summary>
               Looks up a localized string similar to Click here to create a OpenAi API Key.
+            </summary>
+        </member>
+        <member name="P:Echoglossian.Properties.Resources.ChatGPTTranslationUnavailablePleaseCheckYourAPIKey">
+            <summary>
+              Looks up a localized string similar to [ChatGPT translation unavailable. Please check your API key.].
             </summary>
         </member>
         <member name="P:Echoglossian.Properties.Resources.choice">
@@ -836,6 +846,11 @@
         <member name="P:Echoglossian.Properties.Resources.TranslationEngineSettingsNotRequired">
             <summary>
               Looks up a localized string similar to This translation engine does not require any special settings..
+            </summary>
+        </member>
+        <member name="P:Echoglossian.Properties.Resources.TranslationError">
+            <summary>
+              Looks up a localized string similar to Translation Error:.
             </summary>
         </member>
         <member name="P:Echoglossian.Properties.Resources.TranslationsEnabled">

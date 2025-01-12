@@ -8,7 +8,7 @@
       <group id="ECHOGLOSSIAN/PROPERTIES/RESOURCES.RESX" datatype="resx">
         <trans-unit id="ConfigTab1Name" translate="yes" xml:space="preserve">
           <source>Talk settings</source>
-          <target state="needs-review-translation">Configuraciones principales</target>
+          <target state="translated">Configuraciones de Diálogos</target>
         </trans-unit>
         <trans-unit id="ConfigWindowTitle" translate="yes" xml:space="preserve">
           <source>Echoglossian Configuration</source>
@@ -22,7 +22,7 @@
         </trans-unit>
         <trans-unit id="HoverTooltipIndicator" translate="no" xml:space="preserve">
           <source>(?)</source>
-          <target state="final" state-qualifier="mt-suggestion">(?)</target>
+          <target state="translated" state-qualifier="mt-suggestion">(?)</target>
         </trans-unit>
         <trans-unit id="LanguageSelectionTooltip" translate="yes" xml:space="preserve">
           <source>Which language to translate the in-game dialogue boxes to.</source>
@@ -74,7 +74,7 @@
         </trans-unit>
         <trans-unit id="OverlayFontSizeOrientations" translate="yes" xml:space="preserve">
           <source>Select the font size for the text overlay</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Seleccione el tamaño de fuente para la superposición de texto del diálogo</target>
+          <target state="translated" state-qualifier="mt-suggestion">Seleccione el tamaño de fuente para la superposición de texto del diálogo</target>
         </trans-unit>
         <trans-unit id="OverlayWidthMultiplierOrientations" translate="yes" xml:space="preserve">
           <source>Adjust translation overlay width</source>
@@ -90,11 +90,11 @@
         </trans-unit>
         <trans-unit id="Name" translate="no" xml:space="preserve">
           <source>Echoglossian</source>
-          <target state="final">Echoglossian</target>
+          <target state="translated">Echoglossian</target>
         </trans-unit>
         <trans-unit id="pix" translate="no" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
           <source>..\Resources\pix.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</source>
-          <target state="final">..\Resources\pix.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
+          <target state="translated">..\Resources\pix.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
         </trans-unit>
         <trans-unit id="PixText" translate="yes" xml:space="preserve">
           <source>Scan the QR code to send me a PIX - only valid in Brazil</source>
@@ -102,7 +102,7 @@
         </trans-unit>
         <trans-unit id="CloseButtonLabel" translate="yes" xml:space="preserve">
           <source>Close</source>
-          <target state="final" state-qualifier="tm-suggestion">Cerrar</target>
+          <target state="translated" state-qualifier="tm-suggestion">Cerrar</target>
         </trans-unit>
         <trans-unit id="PixQrWindowLabel" translate="yes" xml:space="preserve">
           <source>PIX qrcode</source>
@@ -138,7 +138,7 @@
         </trans-unit>
         <trans-unit id="OverlayColorSelectName" translate="no" xml:space="preserve">
           <source>OverlayColorSelect</source>
-          <target state="final">OverlayColorSelect</target>
+          <target state="translated">OverlayColorSelect</target>
         </trans-unit>
         <trans-unit id="OverlayFontColorOrientations" translate="yes" xml:space="preserve">
           <source>Click to choose the overlay font color</source>
@@ -170,23 +170,23 @@
         </trans-unit>
         <trans-unit id="logo" translate="no" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
           <source>..\images\logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</source>
-          <target state="final">..\images\logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
+          <target state="translated">..\images\logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
         </trans-unit>
         <trans-unit id="minfilia" translate="no" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
           <source>..\minfilia.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</source>
-          <target state="final">..\minfilia.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
+          <target state="translated">..\minfilia.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
         </trans-unit>
         <trans-unit id="choice" translate="no" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
           <source>..\images\choice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</source>
-          <target state="final">..\images\choice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
+          <target state="translated">..\images\choice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
         </trans-unit>
         <trans-unit id="cutscenechoice" translate="no" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
           <source>..\images\cutscenechoice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</source>
-          <target state="final">..\images\cutscenechoice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
+          <target state="translated">..\images\cutscenechoice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
         </trans-unit>
         <trans-unit id="prttws" translate="no" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
           <source>..\images\prttws.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</source>
-          <target state="final">..\images\prttws.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
+          <target state="translated">..\images\prttws.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</target>
         </trans-unit>
         <trans-unit id="PluginInterfaceLanguage" translate="yes" xml:space="preserve">
           <source>Choose the language for the plugin configuration window</source>
@@ -247,8 +247,7 @@
         </trans-unit>
         <trans-unit id="ConfigTab5Name" translate="yes" xml:space="preserve">
           <source>TalkSubtitle settings</source>
-          <target state="needs-review-translation">Configuración de Tooltips</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">Configuración de Textos de cutscenes</target>
         </trans-unit>
         <trans-unit id="ConfigTab6Name" translate="yes" xml:space="preserve">
           <source>Other settings</source>
@@ -420,23 +419,35 @@
         </trans-unit>
         <trans-unit id="TranslateTalkSubtitleToggleLabel" translate="yes" xml:space="preserve">
           <source>Translate Cutscene Subtitles</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Traducir subtítulos de escenas</target>
+          <target state="translated" state-qualifier="mt-suggestion">Traducir subtítulos de escenas</target>
         </trans-unit>
         <trans-unit id="ChatGptApiKey" translate="yes" xml:space="preserve">
           <source>ChatGPT API Key</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Clave API de ChatGPT</target>
+          <target state="translated" state-qualifier="mt-suggestion">Clave API de ChatGPT</target>
         </trans-unit>
         <trans-unit id="SettingsForChatGptTransText" translate="yes" xml:space="preserve">
           <source>Settings for ChatGPT</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Configuración de ChatGPT</target>
+          <target state="translated" state-qualifier="mt-suggestion">Configuración de ChatGPT</target>
         </trans-unit>
         <trans-unit id="ChatGPTAPIKeyLink" translate="yes" xml:space="preserve">
           <source>Click here to create a OpenAi API Key</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Haga clic aquí para crear una clave API de OpenAi</target>
+          <target state="translated" state-qualifier="mt-suggestion">Haga clic aquí para crear una clave API de OpenAi</target>
         </trans-unit>
         <trans-unit id="RemoveDiacriticsToggle" translate="yes" xml:space="preserve">
           <source>Parse the translated text replacing diacritics with their common letter equivalents</source>
-          <target state="new">Parse the translated text replacing diacritics with their common letter equivalents</target>
+          <target state="translated" state-qualifier="mt-suggestion">Analice el texto traducido reemplazando los signos diacríticos con sus equivalentes de letras comunes</target>
+        </trans-unit>
+        <trans-unit id="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" translate="yes" xml:space="preserve">
+          <source>API Key is empty or invalid. ChatGPT translation will not be available.</source>
+          <target state="translated" state-qualifier="mt-suggestion">La clave de API está vacía o no es válida. La traducción de ChatGPT no estará disponible.</target>
+        </trans-unit>
+        <trans-unit id="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" translate="yes" xml:space="preserve">
+          <source>[ChatGPT translation unavailable. Please check your API key.]</source>
+          <target state="translated" state-qualifier="mt-suggestion">[La traducción de ChatGPT no está disponible. Por favor, compruebe su clave API.]</target>
+        </trans-unit>
+        <trans-unit id="TranslationError" translate="yes" xml:space="preserve">
+          <source>Translation Error:</source>
+          <target state="translated" state-qualifier="mt-suggestion">Error de traducción:</target>
         </trans-unit>
       </group>
     </body>

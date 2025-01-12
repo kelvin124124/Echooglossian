@@ -166,7 +166,7 @@
     <value>Configurações de diário</value>
   </data>
   <data name="ConfigTab5Name" xml:space="preserve">
-    <value>Configurações de Tooltips</value>
+    <value>Configurações de Legendas de cutscenes</value>
   </data>
   <data name="ConfigTab6Name" xml:space="preserve">
     <value>Outras configurações</value>
@@ -250,22 +250,22 @@
     <value>Solução de problemas</value>
   </data>
   <data name="PluginAssetsDownloadedText" xml:space="preserve">
-    <value>Ativos de plug-in baixados!</value>
+    <value>Arquivos adicionais do plugin baixados!</value>
   </data>
   <data name="PluginAssetsNotDownloadedText" xml:space="preserve">
-    <value>Se você vir texto distorcido ou caracteres inválidos na janela de tradução\né um indicativo de que algumas fontes de ativos de plug-in podem estar ausentes ou corrompidas.\n\n Clicar no botão abaixo aciona uma verificação de ativos e os baixa novamente.</value>
+    <value>Se você vir texto distorcido ou caracteres inválidos na janela de tradução\né um indicativo de que algumas fontes de ativos de plug-in podem estar ausentes ou corrompidas.\n\n Clicar no botão abaixo aciona uma verificação de aquivos e os baixa novamente.</value>
   </data>
   <data name="DownloadPluginAssetsButtonText" xml:space="preserve">
-    <value>Forçar o redownload de ativos de plug-in</value>
+    <value>Forçar o redownload de arquivos adicionais do plugin</value>
   </data>
   <data name="CurrentPluginAssetsStatus" xml:space="preserve">
-    <value>Os ativos do plugin são baixados?</value>
+    <value>Os arquivos adicionais do plugin estão baixados?</value>
   </data>
   <data name="ConfigTab9Name" xml:space="preserve">
     <value>Configurações diversas</value>
   </data>
   <data name="ConfigTab9Text" xml:space="preserve">
-    <value>Opções e configurações de plug-ins diversos</value>
+    <value>Opções e configurações diversas</value>
   </data>
   <data name="ConfigTab9CheckboxClipboardText" xml:space="preserve">
     <value>Copie automaticamente a última tradução para a Área de Transferência do Plugin</value>
@@ -305,5 +305,17 @@
   </data>
   <data name="ChatGPTAPIKeyLink" xml:space="preserve">
     <value>Clique aqui para criar uma chave de API OpenAi</value>
+  </data>
+  <data name="RemoveDiacriticsToggle" xml:space="preserve">
+    <value>Analise o texto traduzido substituindo os diacríticos por seus equivalentes de letras comuns</value>
+  </data>
+  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>A chave de API está vazia ou é inválida. A tradução do ChatGPT não estará disponível.</value>
+  </data>
+  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[Tradução do ChatGPT indisponível. Por favor, verifique sua chave de API.]</value>
+  </data>
+  <data name="TranslationError" xml:space="preserve">
+    <value>Erro de tradução:</value>
   </data>
 </root>

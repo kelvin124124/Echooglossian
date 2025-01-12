@@ -442,4 +442,13 @@
   <data name="RemoveDiacriticsToggle" xml:space="preserve">
     <value>Parse the translated text replacing diacritics with their common letter equivalents</value>
   </data>
+  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>API Key is empty or invalid. ChatGPT translation will not be available.</value>
+  </data>
+  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[ChatGPT translation unavailable. Please check your API key.]</value>
+  </data>
+  <data name="TranslationError" xml:space="preserve">
+    <value>Translation Error:</value>
+  </data>
 </root>

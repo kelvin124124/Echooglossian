@@ -333,4 +333,16 @@
   <data name="ChatGPTAPIKeyLink" xml:space="preserve">
     <value>Egin klik hemen OpenAi-ren API klabe bat sortzeko</value>
   </data>
+  <data name="RemoveDiacriticsToggle" xml:space="preserve">
+    <value>Aztoratu itzulitako testua, zeinu diakritikoak letra arrunten baliokideekin ordezkatuz</value>
+  </data>
+  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>PIIren gakoa hutsik edo ez da baliozkoa. ChatGPTren itzulpena ez da eskuragarri egongo.</value>
+  </data>
+  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[ChatGPTren itzulpena ez eskuragarri. Mesedez, egiaztatu zure API klabea.]</value>
+  </data>
+  <data name="TranslationError" xml:space="preserve">
+    <value>Itzulpen-akatsa:</value>
+  </data>
 </root>

@@ -61,6 +61,15 @@ namespace Echoglossian.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to API Key is empty or invalid. ChatGPT translation will not be available..
+        /// </summary>
+        public static string APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable {
+            get {
+                return ResourceManager.GetString("APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking Plugin assets!.
         /// </summary>
         public static string AssetsCheckingPopupMsg {
@@ -120,6 +129,15 @@ namespace Echoglossian.Properties {
         public static string ChatGPTAPIKeyLink {
             get {
                 return ResourceManager.GetString("ChatGPTAPIKeyLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [ChatGPT translation unavailable. Please check your API key.].
+        /// </summary>
+        public static string ChatGPTTranslationUnavailablePleaseCheckYourAPIKey {
+            get {
+                return ResourceManager.GetString("ChatGPTTranslationUnavailablePleaseCheckYourAPIKey", resourceCulture);
             }
         }
         
@@ -981,6 +999,15 @@ namespace Echoglossian.Properties {
         public static string TranslationEngineSettingsNotRequired {
             get {
                 return ResourceManager.GetString("TranslationEngineSettingsNotRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation Error:.
+        /// </summary>
+        public static string TranslationError {
+            get {
+                return ResourceManager.GetString("TranslationError", resourceCulture);
             }
         }
         

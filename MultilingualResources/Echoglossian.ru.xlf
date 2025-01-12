@@ -435,7 +435,19 @@
         </trans-unit>
         <trans-unit id="RemoveDiacriticsToggle" translate="yes" xml:space="preserve">
           <source>Parse the translated text replacing diacritics with their common letter equivalents</source>
-          <target state="new">Parse the translated text replacing diacritics with their common letter equivalents</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Разбор переведенного текста, замена диакритических знаков их обычными буквенными эквивалентами</target>
+        </trans-unit>
+        <trans-unit id="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" translate="yes" xml:space="preserve">
+          <source>API Key is empty or invalid. ChatGPT translation will not be available.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ключ API пуст или недействителен. Перевод ChatGPT будет недоступен.</target>
+        </trans-unit>
+        <trans-unit id="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" translate="yes" xml:space="preserve">
+          <source>[ChatGPT translation unavailable. Please check your API key.]</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">[Перевод ChatGPT недоступен. Пожалуйста, проверьте свой ключ API.]</target>
+        </trans-unit>
+        <trans-unit id="TranslationError" translate="yes" xml:space="preserve">
+          <source>Translation Error:</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Ошибка перевода:</target>
         </trans-unit>
       </group>
     </body>

@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfigTab1Name" xml:space="preserve">
-    <value>Configuraciones principales</value>
+    <value>Configuraciones de Diálogos</value>
   </data>
   <data name="ConfigWindowTitle" xml:space="preserve">
     <value>Configuración de Echoglossian</value>
@@ -166,7 +166,7 @@
     <value>Configuración del diario</value>
   </data>
   <data name="ConfigTab5Name" xml:space="preserve">
-    <value>Configuración de Tooltips</value>
+    <value>Configuración de Textos de cutscenes</value>
   </data>
   <data name="ConfigTab6Name" xml:space="preserve">
     <value>Otros ajustes</value>
@@ -305,5 +305,17 @@
   </data>
   <data name="ChatGPTAPIKeyLink" xml:space="preserve">
     <value>Haga clic aquí para crear una clave API de OpenAi</value>
+  </data>
+  <data name="RemoveDiacriticsToggle" xml:space="preserve">
+    <value>Analice el texto traducido reemplazando los signos diacríticos con sus equivalentes de letras comunes</value>
+  </data>
+  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>La clave de API está vacía o no es válida. La traducción de ChatGPT no estará disponible.</value>
+  </data>
+  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[La traducción de ChatGPT no está disponible. Por favor, compruebe su clave API.]</value>
+  </data>
+  <data name="TranslationError" xml:space="preserve">
+    <value>Error de traducción:</value>
   </data>
 </root>
