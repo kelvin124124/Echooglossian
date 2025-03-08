@@ -239,7 +239,7 @@ namespace Echoglossian
 
         var summaryText = string.Empty;
         AtkTextNode* summaryNode = null;
-        var summaryBox = journalBox->UldManager.SearchNodeById(48);
+        var summaryBox = journalBox->UldManager.SearchNodeById(52);
         if (summaryBox != null && summaryBox->IsVisible())
         {
           var summaryResNode = summaryBox->GetComponent()->UldManager.SearchNodeById(2);
