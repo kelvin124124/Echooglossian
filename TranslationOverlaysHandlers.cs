@@ -365,7 +365,6 @@ namespace Echoglossian
       ImGui.SetNextWindowSizeConstraints(new Vector2(size, 0), new Vector2(size, this.talkSubtitleTextDimensions.Y * this.configuration.ImGuiTalkSubtitleWindowHeightMult));
       ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(this.configuration.OverlayTalkTextColor, 255));
 
-
       ImGui.Begin(
         "TalkSubtitle translation",
         ImGuiWindowFlags.NoTitleBar
@@ -374,7 +373,6 @@ namespace Echoglossian
         | ImGuiWindowFlags.NoFocusOnAppearing
         | ImGuiWindowFlags.NoMouseInputs
         | ImGuiWindowFlags.NoScrollbar);
-
 
       ImGui.SetWindowFontScale(this.configuration.FontScale);
       if (this.talkSubtitleTranslationSemaphore.Wait(0))
@@ -426,7 +424,6 @@ namespace Echoglossian
         ImGui.SetNextWindowSizeConstraints(new Vector2(size, 0), new Vector2(size * 4f, this.toastTranslationTextDimensions.Y * 2));
         ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(this.configuration.OverlayTalkTextColor, 255));
 
-
         if (this.configuration.SwapTextsUsingImGui == true)
         {
           UINewFontHandler.GeneralFontHandle.Push();
@@ -435,7 +432,6 @@ namespace Echoglossian
         {
           UINewFontHandler.LanguageFontHandle.Push();
         }
-
 
         ImGui.Begin(
           "Toast Translation",

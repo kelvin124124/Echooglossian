@@ -14,15 +14,11 @@ using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Command;
 using Dalamud.Game.Text.Sanitizer;
 using Dalamud.Interface.Textures.TextureWraps;
-using FFXIVClientStructs.FFXIV.Client;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Echoglossian.EFCoreSqlite.Models;
 using Echoglossian.Properties;
-using FFXIVClientStructs.FFXIV.Client.System.Framework;
-using Lumina.Data;
-using FFXIVClientStructs.FFXIV.Client.Game.Event;
 
 namespace Echoglossian
 {
@@ -147,8 +143,6 @@ namespace Echoglossian
 
     public List<ToastMessage> OtherToastsCache { get; set; }
 
-
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Echoglossian"/> class.
     /// </summary>
@@ -165,10 +159,8 @@ namespace Echoglossian
 
       sanitizer = PluginInterface.Sanitizer as Sanitizer;
 
-
       langDict = this.languagesDictionary;
       identifier = Factory.Load($"{PluginInterface.AssemblyLocation.DirectoryName}{Path.DirectorySeparatorChar}Wiki82.profile.xml");
-
 
       try
       {
@@ -197,7 +189,6 @@ namespace Echoglossian
       ComplementaryFont5FilePath = $"{PluginInterface.AssemblyLocation.DirectoryName}{Path.DirectorySeparatorChar}Font{Path.DirectorySeparatorChar}NotoSansJP-VF-5.ttf";
       ComplementaryFont6FilePath = $"{PluginInterface.AssemblyLocation.DirectoryName}{Path.DirectorySeparatorChar}Font{Path.DirectorySeparatorChar}NotoSansJP-VF-6.ttf";
       ComplementaryFont7FilePath = $"{PluginInterface.AssemblyLocation.DirectoryName}{Path.DirectorySeparatorChar}Font{Path.DirectorySeparatorChar}NotoSansJP-VF-7.ttf";
-
 
 #if DEBUG
       // PluginLog.Debug($"Assets state config: {JsonConvert.SerializeObject(this.configuration, Formatting.Indented)}");
@@ -448,7 +439,6 @@ namespace Echoglossian
         return;
       }
 
-
       if (this.configuration.UseImGuiForBattleTalk && this.configuration.TranslateBattleTalk && this.battleTalkDisplayTranslation)
       {
         PluginLog.Debug($"{this.configuration.TranslateBattleTalk} {this.battleTalkDisplayTranslation} {this.battleTalkDisplayTranslation}");
@@ -510,7 +500,6 @@ namespace Echoglossian
       if (this.configuration.TranslateTalk)
       {
         // this.EgloNeutralAddonHandler("Talk", new string[] {  /* "PreUpdate", "PostUpdate",*/ "PreDraw",/* "PostDraw",  "PreReceiveEvent", "PostReceiveEvent", "PreRequestedUpdate", "PostRequestedUpdate" ,*/ "PreRefresh",/* "PostRefresh"*/ });
-
         AddonLifecycle.RegisterListener(AddonEvent.PreRefresh, "Talk", this.UiTalkAsyncHandler);
         AddonLifecycle.RegisterListener(AddonEvent.PreDraw, "Talk", this.UiTalkAsyncHandler);
         AddonLifecycle.RegisterListener(AddonEvent.PreReceiveEvent, "Talk", this.UiTalkAsyncHandler);
@@ -519,7 +508,6 @@ namespace Echoglossian
       if (this.configuration.TranslateBattleTalk)
       {
         // this.EgloNeutralAddonHandler("_BattleTalk", new string[] { /* "PreUpdate", "PostUpdate",*/ "PreDraw",/* "PostDraw",  "PreReceiveEvent", "PostReceiveEvent", "PreRequestedUpdate", "PostRequestedUpdate" ,*/ "PreRefresh",/* "PostRefresh"*/});
-
         AddonLifecycle.RegisterListener(AddonEvent.PreRefresh, "_BattleTalk", this.UiBattleTalkAsyncHandler);
         AddonLifecycle.RegisterListener(AddonEvent.PreDraw, "_BattleTalk", this.UiBattleTalkAsyncHandler);
         AddonLifecycle.RegisterListener(AddonEvent.PreReceiveEvent, "_BattleTalk", this.UiBattleTalkAsyncHandler);

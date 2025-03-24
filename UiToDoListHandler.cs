@@ -10,7 +10,6 @@ using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using Dalamud.Memory;
 using Echoglossian.EFCoreSqlite.Models.Journal;
-using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using Humanizer;
 

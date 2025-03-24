@@ -376,7 +376,6 @@ namespace Echoglossian
       {
         case AddonEvent.PreReceiveEvent:
           // to be sure we don't show the same text twice
-
           var addon = GameGuiInterface.GetAddonByName("Talk");
           var talkAddon = (AtkUnitBase*)addon;
           if (talkAddon == null || !talkAddon->IsVisible)
@@ -437,3 +436,27 @@ namespace Echoglossian
     }
   }
 }
+
+/*
+this handles setting the text to the addon talk in a better way by using AtkValues instead of node text
+
+public void OnEnable()
+{
+    AddonLifecycle.RegisterListener(AddonEvent.PreRefresh, "Talk", OnPreRefresh);
+}
+public void OnDisable()
+{
+    AddonLifecycle.UnregisterListener(AddonEvent.PreRefresh, "Talk", OnPreRefresh);
+}
+
+private void OnPreRefresh(AddonEvent type, AddonArgs args)
+{
+    if (args is not AddonRefreshArgs refreshArgs || refreshArgs.AtkValueCount < 3)
+        return;
+
+    var values = new Span<AtkValue>((void*)refreshArgs.AtkValues, (int)refreshArgs.AtkValueCount); // you can probably use refreshArgs.AtkValueSpan directly here
+    values.GetPointer(0)->SetManagedString("It's-a me, Mario!"); // Text
+    values.GetPointer(1)->SetManagedString("Mario"); // Name
+    values.GetPointer(3)->SetUInt(6); // Style
+}
+*/

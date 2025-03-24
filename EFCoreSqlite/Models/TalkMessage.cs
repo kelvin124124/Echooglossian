@@ -27,9 +27,7 @@ namespace Echoglossian.EFCoreSqlite.Models
     [Required]
     public string OriginalTalkMessageLang { get; set; }
 
-
     public string TranslatedSenderName { get; set; }
-
 
     public string TranslatedTalkMessage { get; set; }
 

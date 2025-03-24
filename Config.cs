@@ -132,6 +132,8 @@ namespace Echoglossian
 
     public float BattleTalkFontScale = 1;
 
+    public int GoogleTranslateVersion = 2;
+
     public string PluginVersion { get; set; } = "2.0.0";
 
     public int Version { get; set; } = 5;

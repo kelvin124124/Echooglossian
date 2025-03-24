@@ -14,12 +14,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using Dalamud.Game.Text;
 using Dalamud.Interface.ImGuiNotification;
 using Echoglossian.Properties;
 using FFXIVClientStructs.FFXIV.Client.Game.Event;
-using FFXIVClientStructs.FFXIV.Client.System.Framework;
-using Lumina;
 using Newtonsoft.Json;
 
 namespace Echoglossian
@@ -336,15 +333,11 @@ namespace Echoglossian
     {
       // var gameVersion = Framework.Instance()->GameVersionString;
       // ChatGuiInterface.Print(new XivChatEntry { Message = $"framework {gameVersion}" });
-
       var gv = DManager.GameData.Repositories?["ffxiv"].Version;
       // ChatGuiInterface.Print(new XivChatEntry { Message = $"repositories game version {gv}" });
 
-
-
       /*return gameVersion;*/
     }
-
 
     public Dictionary<int, string> ParseStringToDictionary(string input)
     {

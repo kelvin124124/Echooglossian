@@ -5,8 +5,8 @@
 
 using System;
 using System.Text.Unicode;
+
 using Dalamud.Interface.ManagedFontAtlas;
-using Dalamud.Plugin.Services;
 
 namespace Echoglossian
 {
@@ -36,7 +36,6 @@ namespace Echoglossian
       Echoglossian.PluginLog.Debug($"DummyFontFilePath: ${Echoglossian.DummyFontFilePath}");
       Echoglossian.PluginLog.Debug($"UndicodeRanges.All: ${UnicodeRanges.All.ToString()}");
 
-
       this.GeneralFontHandle = Echoglossian.PluginInterface.UiBuilder.FontAtlas.NewDelegateFontHandle(
         e => e.OnPreBuild(tk =>
         {
@@ -49,7 +48,6 @@ namespace Echoglossian
             .With(Echoglossian.LangComboItems.AsSpan());
 
           // more ranges here
-
           this.sfc = new SafeFontConfig
           {
             SizePx = this.configuration.FontSize,
@@ -80,9 +78,7 @@ namespace Echoglossian
             .With(AllUnicodeRanges.FirstCodePoint, AllUnicodeRanges.FirstCodePoint + AllUnicodeRanges.Length - 1)
             .With(Echoglossian.SelectedLanguage.ExclusiveCharsToAdd.AsSpan());
 
-
           // more ranges here
-
           this.sfc = new SafeFontConfig
           {
             SizePx = this.configuration.FontSize,
@@ -119,7 +115,6 @@ namespace Echoglossian
     //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
     //     Dispose(disposing: false);
     // }
-
     public void Dispose()
     {
       // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method

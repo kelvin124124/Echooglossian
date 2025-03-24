@@ -12,9 +12,7 @@ using Echoglossian.EFCoreSqlite;
 using Echoglossian.EFCoreSqlite.Models;
 using Echoglossian.EFCoreSqlite.Models.Journal;
 using ImGuiNET;
-using Lumina.Excel.Sheets;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace Echoglossian
 {
@@ -443,8 +441,6 @@ namespace Echoglossian
 #endif
 
       var pluginConfig = PluginInterface.GetPluginConfig() as Config;
-
-
 
       try
       {

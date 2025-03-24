@@ -65,7 +65,6 @@ namespace Echoglossian
 
     public async Task<string> TranslateAsync(string text, string sourceLanguage, string targetLanguage)
     {
-
       if (this.chatClient == null)
       {
         return Resources.ChatGPTTranslationUnavailablePleaseCheckYourAPIKey;

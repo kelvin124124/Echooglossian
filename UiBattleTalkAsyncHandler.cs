@@ -362,7 +362,6 @@ namespace Echoglossian
             return;
           }
 
-
           this.currentSenderTranslationId = Environment.TickCount;
           this.currentSenderTranslation = Resources.WaitingForTranslation;
 
@@ -375,7 +374,6 @@ namespace Echoglossian
           }
 
           this.senderTranslationSemaphore.Release();
-
 
           this.currentBattleTalkTranslationId = Environment.TickCount;
           this.currentBattleTalkTranslation = Resources.WaitingForTranslation;

@@ -27,7 +27,7 @@ namespace Echoglossian
       switch (chosenEngine)
       {
         case TransEngines.Google:
-          this.translator = new GoogleTranslator(pluginLog);
+          this.translator = new GoogleTranslator(pluginLog, config);
           break;
         case TransEngines.Deepl:
           this.translator = new DeepLTranslator(pluginLog, config.DeeplTranslatorUsingApiKey, config.DeeplTranslatorApiKey);

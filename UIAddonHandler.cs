@@ -666,7 +666,6 @@ namespace Echoglossian
       }
 
       // this.AdjustAddonNodesFlags();
-
       if (nameNodeAsTextNode != null)
       {
         var nameTextFromNode = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr));
@@ -888,7 +887,6 @@ namespace Echoglossian
       }
 
       // this.AdjustAddonNodesFlags();
-
       if (nameNodeAsTextNode != null)
       {
         var nameTextFromNode = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr));

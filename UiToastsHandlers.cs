@@ -4,7 +4,6 @@
 // </copyright>
 
 using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -12,7 +11,6 @@ using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Text.SeStringHandling;
 using Echoglossian.EFCoreSqlite.Models;
 using Echoglossian.Properties;
-using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 
 namespace Echoglossian
@@ -304,7 +302,6 @@ namespace Echoglossian
 
     private unsafe void OnQuestToast(ref SeString message, ref QuestToastOptions options, ref bool ishandled)
     {
-
       if (this.DisableTranslationAccordingToState())
       {
         return;
@@ -462,7 +459,6 @@ namespace Echoglossian
         {
 #if DEBUG
           PluginLog.Debug("if found and if not using imgui");
-
 
 #endif
           var foundToastMessage = this.FoundToastMessage.TranslatedToastMessage;

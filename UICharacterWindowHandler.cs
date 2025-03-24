@@ -3,15 +3,12 @@
 // Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License license.
 // </copyright>
 
+using System.Collections.Generic;
+using System.Linq;
+
 using Dalamud.Memory;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using Newtonsoft.Json;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using ValueType = FFXIVClientStructs.FFXIV.Component.GUI.ValueType;
 
@@ -19,7 +16,6 @@ namespace Echoglossian
 {
   public partial class Echoglossian
   {
-
     public bool GatheringCharacterWindowAtkValuesComplete = false;
     public Dictionary<int, string> CharacterWindowAtkValues = new Dictionary<int, string>();
     public string CharacterWindowAtkValuesString = string.Empty; // New string to store the concatenated output
