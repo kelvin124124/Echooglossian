@@ -44,7 +44,7 @@ namespace Echoglossian
           .Select(i => new
           {
             Index = i,
-            Value = MemoryHelper.ReadSeStringAsString(out _, (nint)cwAtkVals[i].String),
+            Value = MemoryHelper.ReadSeStringAsString(out _, (nint)cwAtkVals[i].String.Value),
           })
           .Where(x => x.Value != null)
           .ToDictionary(x => x.Index, x => x.Value);

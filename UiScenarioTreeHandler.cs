@@ -23,7 +23,7 @@ namespace Echoglossian
         return;
       }
 
-      var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[valueIndex].String);
+      var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[valueIndex].String.Value);
       if (questNameText == null || questNameText.Length == 0)
       {
         return;

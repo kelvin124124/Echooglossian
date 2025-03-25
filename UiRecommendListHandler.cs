@@ -61,7 +61,7 @@ namespace Echoglossian
             continue;
           }
 
-          var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr);
+          var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr.Value);
           if (this.translatedQuestNames.ContainsKey(questNameText))
           {
             continue;
@@ -137,7 +137,7 @@ namespace Echoglossian
             continue;
           }
 
-          var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr);
+          var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr.Value);
           if (this.translatedQuestNames.ContainsKey(questNameText))
           {
             continue;

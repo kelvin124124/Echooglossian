@@ -101,7 +101,7 @@ namespace Echoglossian
 
           try
           {
-            string messageToTranslate = Marshal.PtrToStringUTF8(new IntPtr(textNode->NodeText.StringPtr));
+            string messageToTranslate = Marshal.PtrToStringUTF8(new IntPtr(textNode->NodeText.StringPtr.Value));
 
             if (!this.configuration.UseImGuiForToasts)
             {
@@ -205,7 +205,7 @@ namespace Echoglossian
           /*var errorToastId = errorToastByNameMaster->RootNode->ChildNode->NodeID;
           PluginLog.Debug($"error toast id: {errorToastId}");
           var textNode = (AtkTextNode*)errorToastByNameMaster->UldManager.SearchNodeById(errorToastId);
-          //var nodeText = MemoryHelper.ReadString((IntPtr)textNode->NodeText.StringPtr, (int)textNode->NodeText.StringLength);
+          //var nodeText = MemoryHelper.ReadString((IntPtr)textNode->NodeText.StringPtr.Value, (int)textNode->NodeText.StringLength);
           PluginLog.Debug(textNode->NodeText.ToString() ?? "sem nada...");
           textNode->SetText("What is a man? A miserable little pile of secrets. But enough talk… Have at you!");*/
 

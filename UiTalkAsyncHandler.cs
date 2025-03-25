@@ -386,7 +386,7 @@ namespace Echoglossian
           if (textNode == null || textNode->NodeText.IsEmpty)
           { return; }
 
-          var textNodeText = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr);
+          var textNodeText = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
           if (textNodeText == this.translatedText)
           {
             this.translatedName = string.Empty;
@@ -412,8 +412,8 @@ namespace Echoglossian
 
       try
       {
-        string nameToTranslate = updateAtkValues[1].String != null ? MemoryHelper.ReadSeStringAsString(out _, (nint)updateAtkValues[1].String) : string.Empty;
-        string textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)updateAtkValues[0].String);
+        string nameToTranslate = updateAtkValues[1].String != null ? MemoryHelper.ReadSeStringAsString(out _, (nint)updateAtkValues[1].String.Value) : string.Empty;
+        string textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)updateAtkValues[0].String.Value);
 
         PluginLog.Debug($"Talk to translate: {nameToTranslate}: {textToTranslate}");
 

@@ -47,7 +47,7 @@ namespace Echoglossian
             var nameNode = battleTalkAddon->GetTextNodeById(4);
             if (nameNode != null && !nameNode->NodeText.IsEmpty)
             {
-              nameToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr);
+              nameToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr.Value);
             }
 
             var textNode = battleTalkAddon->GetTextNodeById(6);
@@ -57,7 +57,7 @@ namespace Echoglossian
               continue;
             }
 
-            var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr);
+            var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
             if (this.translatedBattleTalkTexts.Contains(sanitizer.Sanitize(textToTranslate)))
             {
               Thread.Sleep(this.delayBetweenTriesToTranslateBattleTalk);
@@ -206,8 +206,8 @@ namespace Echoglossian
           return;
         }
 
-        var nameToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr);
-        var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr);
+        var nameToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr.Value);
+        var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
 
         PluginLog.Debug($"TranslateBattleTalkUsingImGuiAndSwapping text to translate {nameToTranslate}: {textToTranslate}");
 
@@ -346,8 +346,8 @@ namespace Echoglossian
           return;
         }
 
-        var nameToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr);
-        var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr);
+        var nameToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr.Value);
+        var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
 
         PluginLog.Debug($"TranslateBattleTalkUsingImGuiWithoutSwapping text to translate {nameToTranslate}: {textToTranslate}");
 

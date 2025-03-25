@@ -36,8 +36,8 @@ namespace Echoglossian
 
       try
       {
-        string questName = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[5].String);
-        string questMessage = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[12].String);
+        string questName = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[5].String.Value);
+        string questMessage = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[12].String.Value);
 
 #if DEBUG
         PluginLog.Debug($"Language: {ClientStateInterface.ClientLanguage.Humanize()}");

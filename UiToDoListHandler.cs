@@ -76,7 +76,7 @@ namespace Echoglossian
             continue;
           }
 
-          if (IsValidTimeFormat(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr)))
+          if (IsValidTimeFormat(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr.Value)))
           {
             // skip text if time format
 #if DEBUG
@@ -93,17 +93,17 @@ namespace Echoglossian
 
           if (nodeID > 60000 || (nodeID == 4 && childrenNodeID == 3) || (nodeID == 6 && childrenNodeID == 2))
           {
-            questNamesToTranslate.Add(new ToDoItem(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr), i, j, nodeID));
+            questNamesToTranslate.Add(new ToDoItem(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr.Value), i, j, nodeID));
           }
           else
           {
             if (nodeID == 4 || nodeID == 5)
             {
-              levelQuestObjectivesToTranslate.Add(new ToDoItem(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr), i, j, nodeID));
+              levelQuestObjectivesToTranslate.Add(new ToDoItem(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr.Value), i, j, nodeID));
             }
             else
             {
-              objectivesToTranslate.Add(new ToDoItem(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr), i, j, nodeID));
+              objectivesToTranslate.Add(new ToDoItem(MemoryHelper.ReadSeStringAsString(out _, (nint)originalStep.StringPtr.Value), i, j, nodeID));
             }
           }
         }

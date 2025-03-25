@@ -57,7 +57,7 @@ namespace Echoglossian
           continue;
         }
 
-        var originalText = MemoryHelper.ReadSeStringAsString(out _, (nint)summaryTextNode->NodeText.StringPtr);
+        var originalText = MemoryHelper.ReadSeStringAsString(out _, (nint)summaryTextNode->NodeText.StringPtr.Value);
         if (foundQuestPlate != null && foundQuestPlate.Summaries.TryGetValue(originalText, out var storedSummaryText))
         {
           summaries.Add(new(originalText, storedSummaryText, summaryTextNode, false));
@@ -246,15 +246,15 @@ namespace Echoglossian
           if (summaryResNode != null && summaryResNode->Type == NodeType.Text)
           {
             summaryNode = summaryResNode->GetAsAtkTextNode();
-            summaryText = MemoryHelper.ReadSeStringAsString(out _, (nint)summaryNode->NodeText.StringPtr);
+            summaryText = MemoryHelper.ReadSeStringAsString(out _, (nint)summaryNode->NodeText.StringPtr.Value);
           }
         }
 
-        var questName = MemoryHelper.ReadSeStringAsString(out _, (nint)questNameNode->NodeText.StringPtr);
+        var questName = MemoryHelper.ReadSeStringAsString(out _, (nint)questNameNode->NodeText.StringPtr.Value);
         var descriptionNode = description->GetAsAtkTextNode();
-        var questMessage = MemoryHelper.ReadSeStringAsString(out _, (nint)descriptionNode->NodeText.StringPtr);
+        var questMessage = MemoryHelper.ReadSeStringAsString(out _, (nint)descriptionNode->NodeText.StringPtr.Value);
         var objectiveNode = objectiveResNode->GetAsAtkTextNode();
-        var objectiveText = MemoryHelper.ReadSeStringAsString(out _, (nint)objectiveNode->NodeText.StringPtr);
+        var objectiveText = MemoryHelper.ReadSeStringAsString(out _, (nint)objectiveNode->NodeText.StringPtr.Value);
         QuestPlate questPlate = this.FormatQuestPlate(questName, questMessage);
         QuestPlate foundQuestPlate = this.FindQuestPlate(questPlate);
 
@@ -295,9 +295,9 @@ namespace Echoglossian
           return;
         }
 
-        var questName = MemoryHelper.ReadSeStringAsString(out _, (nint)questNameNode->NodeText.StringPtr);
+        var questName = MemoryHelper.ReadSeStringAsString(out _, (nint)questNameNode->NodeText.StringPtr.Value);
         var descriptionNode = description->GetAsAtkTextNode();
-        var questMessage = MemoryHelper.ReadSeStringAsString(out _, (nint)descriptionNode->NodeText.StringPtr);
+        var questMessage = MemoryHelper.ReadSeStringAsString(out _, (nint)descriptionNode->NodeText.StringPtr.Value);
         QuestPlate questPlate = this.FormatQuestPlate(questName, questMessage);
         QuestPlate foundQuestPlate = this.FindQuestPlate(questPlate);
 #if DEBUG
@@ -428,7 +428,7 @@ namespace Echoglossian
             continue;
           }
 
-          var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr);
+          var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr.Value);
           if (this.translatedQuestNames.ContainsKey(questNameText))
           {
             continue;

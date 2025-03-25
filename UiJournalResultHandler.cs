@@ -41,7 +41,7 @@ namespace Echoglossian
           return;
         }
 
-        var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[1].String);
+        var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[1].String.Value);
         if (questNameText == string.Empty)
         {
           return;

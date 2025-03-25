@@ -203,7 +203,7 @@ namespace Echoglossian
             return;
           }
 
-          var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[0].String);
+          var textToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)setupAtkValues[0].String.Value);
           if (textToTranslate == string.Empty)
           {
             return;
@@ -228,7 +228,7 @@ namespace Echoglossian
             return;
           }
 
-          var refreshTextToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)refreshAtkValues[0].String);
+          var refreshTextToTranslate = MemoryHelper.ReadSeStringAsString(out _, (nint)refreshAtkValues[0].String.Value);
           if (refreshTextToTranslate == string.Empty)
           {
             return;

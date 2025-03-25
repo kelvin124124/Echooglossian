@@ -138,7 +138,7 @@ namespace Echoglossian
                 {
                   if (atkvals[i].Type == ValueType.String && atkvals[i].String != null)
                   {
-                    var text = MemoryHelper.ReadSeStringAsString(out _, (nint)atkvals[i].String);
+                    var text = MemoryHelper.ReadSeStringAsString(out _, (nint)atkvals[i].String.Value);
                     PluginLog.Debug($"Text from {args.AddonName} in pos {i} in HandleSetupArgs: {text}");
                   }
                 }
@@ -160,7 +160,7 @@ namespace Echoglossian
                 {
                   if (btatkvals[i].Type == ValueType.String && btatkvals[i].String != null)
                   {
-                    var text = MemoryHelper.ReadSeStringAsString(out _, (nint)btatkvals[i].String);
+                    var text = MemoryHelper.ReadSeStringAsString(out _, (nint)btatkvals[i].String.Value);
                     PluginLog.Debug($"Text from {args.AddonName} in pos {i} in HandleSetupArgs: {text}");
                   }
                 }

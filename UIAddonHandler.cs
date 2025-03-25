@@ -304,7 +304,7 @@ namespace Echoglossian
         }
 
         PluginLog.Debug($"Addon {this.addonName} name node found in ExploreAddon.");
-        PluginLog.Debug($"Addon {this.addonName} name node text in ExploreAddon: {MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr)}");
+        PluginLog.Debug($"Addon {this.addonName} name node text in ExploreAddon: {MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr.Value)}");
       }
       catch (Exception ex)
       {
@@ -328,7 +328,7 @@ namespace Echoglossian
         }
 
         PluginLog.Debug($"Addon {this.addonName} message node found in ExploreAddon.");
-        PluginLog.Debug($"Addon {this.addonName} message node text in ExploreAddon: {MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr)}");
+        PluginLog.Debug($"Addon {this.addonName} message node text in ExploreAddon: {MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr.Value)}");
       }
       catch (Exception ex)
       {
@@ -337,7 +337,7 @@ namespace Echoglossian
 
       if (nameNodeAsTextNode != null)
       {
-        var nameText = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr));
+        var nameText = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr.Value));
 
         PluginLog.Debug($"Addon {this.addonName} name node text in ExploreAddon: {nameText}");
 
@@ -373,7 +373,7 @@ namespace Echoglossian
 
       if (messageNodeAsTextNode != null)
       {
-        var messageNodeText = MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr);
+        var messageNodeText = MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr.Value);
 
         PluginLog.Debug($"Addon {this.addonName} message node text in ExploreAddon: {messageNodeText}");
 
@@ -668,7 +668,7 @@ namespace Echoglossian
       // this.AdjustAddonNodesFlags();
       if (nameNodeAsTextNode != null)
       {
-        var nameTextFromNode = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr));
+        var nameTextFromNode = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr.Value));
 
         PluginLog.Debug($"Addon {this.addonName} name node text in SetTranslationToAddon: {nameTextFromNode}");
         try
@@ -738,7 +738,7 @@ namespace Echoglossian
       // Handle message node translation
       if (messageNodeAsTextNode != null)
       {
-        var messageTextFromNode = MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr);
+        var messageTextFromNode = MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr.Value);
 
         PluginLog.Debug($"Addon {this.addonName} message node text in SetTranslationToAddon: {messageTextFromNode}");
 
@@ -889,7 +889,7 @@ namespace Echoglossian
       // this.AdjustAddonNodesFlags();
       if (nameNodeAsTextNode != null)
       {
-        var nameTextFromNode = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr));
+        var nameTextFromNode = CleanString(MemoryHelper.ReadSeStringAsString(out _, (nint)nameNodeAsTextNode->NodeText.StringPtr.Value));
 
         PluginLog.Debug($"Addon {this.addonName} name node text in SetTranslationToAddon: {nameTextFromNode}");
         try
@@ -951,7 +951,7 @@ namespace Echoglossian
                   {
                     if (addonAtkValues[i].Type == ValueType.String && addonAtkValues[i].String != null)
                     {
-                      var text = MemoryHelper.ReadSeStringAsString(out _, (nint)addonAtkValues[i].String);
+                      var text = MemoryHelper.ReadSeStringAsString(out _, (nint)addonAtkValues[i].String.Value);
                       PluginLog.Debug($"Text from {addonRefreshArgs.AddonName} in pos {i} in HandleRefreshArgs: {text}");
                       if (i == 1)
                       {
@@ -979,7 +979,7 @@ namespace Echoglossian
       // Handle message node translation
       if (messageNodeAsTextNode != null)
       {
-        var messageTextFromNode = MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr);
+        var messageTextFromNode = MemoryHelper.ReadSeStringAsString(out _, (nint)messageNodeAsTextNode->NodeText.StringPtr.Value);
 
         PluginLog.Debug($"Addon {this.addonName} message node text in SetTranslationToAddon: {messageTextFromNode}");
 
@@ -1016,7 +1016,7 @@ namespace Echoglossian
                 {
                   if (addonAtkValues[i].Type == ValueType.String && addonAtkValues[i].String != null)
                   {
-                    var text = MemoryHelper.ReadSeStringAsString(out _, (nint)addonAtkValues[i].String);
+                    var text = MemoryHelper.ReadSeStringAsString(out _, (nint)addonAtkValues[i].String.Value);
                     PluginLog.Debug($"Text from {addonRefreshArgs.AddonName} in pos {i} in HandleRefreshArgs: {text}");
 
                     if (i == 0)
