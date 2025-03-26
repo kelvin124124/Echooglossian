@@ -4,12 +4,18 @@
     "net9.0-windows7.0": {
       "AWSSDK.Translate": {
         "type": "Direct",
-        "requested": "[3.7.400.119, )",
-        "resolved": "3.7.400.119",
-        "contentHash": "BqoWj1lR5ZoRgIyWGPlx0BGsH5d/LP1+u+1hbeClTgC6RoYu+NgTVxdsW+tvnfEJoKVXfUm5IbWV1jme8VlD+g==",
+        "requested": "[3.7.400.120, )",
+        "resolved": "3.7.400.120",
+        "contentHash": "r+8pDiDdplI5Z98QSQVKuz35GzkF5Nuc5QhAjQfFLVrZ3BP/exFzBHqpSXZuIs0+qaWuf9Klad9TCCRghGc52Q==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.402.25, 4.0.0)"
+          "AWSSDK.Core": "[3.7.402.26, 4.0.0)"
         }
+      },
+      "Dalamud.NET.Sdk": {
+        "type": "Direct",
+        "requested": "[12.0.2, )",
+        "resolved": "12.0.2",
+        "contentHash": "mk3PGjucPPljrZNZvB3x4P8Pshw8mbEFnlJFAm1iViPq/9o8BPkyd+mr84ZYnu0PliWKN5cBxKKDtRH3sBSKpg=="
       },
       "DalamudPackager": {
         "type": "Direct",
@@ -150,8 +156,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.7.402.25",
-        "contentHash": "NCbho/muk9knZ70dOlKBhIB0WLxKwg/TzElYj5jVBJUEFx/p/lmGhMvTEGof42Xtr1VjJ0FdZDPl4BarRaKHQA=="
+        "resolved": "3.7.402.26",
+        "contentHash": "pChqa8AqDplFfVvJoI1JbxkYuBRmp+UAjNRBnNsh18jEoW/mbazIucJjaKpAKFdSWgQMfinpiU2tWWvlnbq6iQ=="
       },
       "Humanizer.Core": {
         "type": "Transitive",
