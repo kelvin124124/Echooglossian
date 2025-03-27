@@ -18,13 +18,13 @@ namespace Echoglossian
 {
   public partial class Echoglossian
   {
-    public static TalkMessage FoundTalkMessage { get; set; }
+    public static TalkMessage? FoundTalkMessage { get; set; }
 
-    public ToastMessage FoundToastMessage { get; set; }
+    public ToastMessage? FoundToastMessage { get; set; }
 
-    public static BattleTalkMessage FoundBattleTalkMessage { get; set; }
+    public static BattleTalkMessage? FoundBattleTalkMessage { get; set; }
 
-    public static TalkSubtitleMessage FoundTalkSubtitleMessage { get; set; }
+    public static TalkSubtitleMessage? FoundTalkSubtitleMessage { get; set; }
 
     public async void CreateOrUseDb()
     {
@@ -58,7 +58,7 @@ namespace Echoglossian
       }
     }
 
-    public TalkMessage FindAndReturnTalkMessage(TalkMessage talkMessage)
+    public TalkMessage? FindAndReturnTalkMessage(TalkMessage talkMessage)
     {
       using EchoglossianDbContext context = new EchoglossianDbContext(Echoglossian.PluginInterface.GetPluginConfigDirectory() + Path.DirectorySeparatorChar);
 
@@ -71,13 +71,13 @@ namespace Echoglossian
             t.SenderName == talkMessage.SenderName &&
             t.OriginalTalkMessage == talkMessage.OriginalTalkMessage &&
             t.TranslationLang == talkMessage.TranslationLang);
-        if (pluginConfig.TranslateAlreadyTranslatedTexts)
+        if (pluginConfig?.TranslateAlreadyTranslatedTexts == true)
         {
           existingTalkMessage = existingTalkMessage.Where(t => t.TranslationEngine == talkMessage.TranslationEngine);
         }
 
-        TalkMessage localFoundTalkMessage = existingTalkMessage.FirstOrDefault();
-        if (existingTalkMessage.FirstOrDefault() == null ||
+        TalkMessage? localFoundTalkMessage = existingTalkMessage?.FirstOrDefault();
+        if (existingTalkMessage?.FirstOrDefault() == null ||
             localFoundTalkMessage?.OriginalTalkMessage != talkMessage.OriginalTalkMessage)
         {
           return null;
@@ -106,13 +106,13 @@ namespace Echoglossian
             t.SenderName == talkMessage.SenderName &&
             t.OriginalTalkMessage == talkMessage.OriginalTalkMessage &&
             t.TranslationLang == talkMessage.TranslationLang);
-        if (pluginConfig.TranslateAlreadyTranslatedTexts)
+        if (pluginConfig?.TranslateAlreadyTranslatedTexts == true)
         {
           existingTalkMessage = existingTalkMessage.Where(t => t.TranslationEngine == talkMessage.TranslationEngine);
         }
 
-        TalkMessage localFoundTalkMessage = existingTalkMessage.FirstOrDefault();
-        if (existingTalkMessage.FirstOrDefault() == null ||
+        TalkMessage? localFoundTalkMessage = existingTalkMessage?.FirstOrDefault();
+        if (existingTalkMessage?.FirstOrDefault() == null ||
             localFoundTalkMessage?.OriginalTalkMessage != talkMessage.OriginalTalkMessage)
         {
           FoundTalkMessage = talkMessage;
@@ -157,7 +157,7 @@ namespace Echoglossian
           existingToastMessage = existingToastMessage.Where(t => t.TranslationEngine == toastMessage.TranslationEngine);
         }
 
-        ToastMessage localFoundToastMessage = existingToastMessage.FirstOrDefault();
+        ToastMessage? localFoundToastMessage = existingToastMessage.FirstOrDefault();
 
         PluginLog.Debug($"localFoundToasMessage: {localFoundToastMessage}");
 
@@ -204,7 +204,7 @@ namespace Echoglossian
           existingToastMessage = existingToastMessage.Where(t => t.TranslationEngine == toastMessage.TranslationEngine);
         }
 
-        ToastMessage localFoundToastMessage = existingToastMessage.FirstOrDefault();
+        ToastMessage? localFoundToastMessage = existingToastMessage.FirstOrDefault();
 
         if (localFoundToastMessage == null ||
             localFoundToastMessage.OriginalToastMessage != toastMessage.OriginalToastMessage)
@@ -223,7 +223,7 @@ namespace Echoglossian
       }
     }
 
-    public BattleTalkMessage FindAndReturnBattleTalkMessage(BattleTalkMessage battleTalkMessage)
+    public BattleTalkMessage? FindAndReturnBattleTalkMessage(BattleTalkMessage battleTalkMessage)
     {
       using EchoglossianDbContext context = new EchoglossianDbContext(PluginInterface.GetPluginConfigDirectory() + Path.DirectorySeparatorChar);
 
@@ -237,12 +237,12 @@ namespace Echoglossian
             t.OriginalBattleTalkMessage == battleTalkMessage.OriginalBattleTalkMessage &&
             t.TranslationLang == battleTalkMessage.TranslationLang);
 
-        if (pluginConfig.TranslateAlreadyTranslatedTexts)
+        if (pluginConfig?.TranslateAlreadyTranslatedTexts == true)
         {
           existingBattleTalkMessage = existingBattleTalkMessage.Where(t => t.TranslationEngine == battleTalkMessage.TranslationEngine);
         }
 
-        BattleTalkMessage localFoundBattleTalkMessage = existingBattleTalkMessage.FirstOrDefault();
+        BattleTalkMessage? localFoundBattleTalkMessage = existingBattleTalkMessage.FirstOrDefault();
         if (existingBattleTalkMessage.FirstOrDefault() == null ||
             localFoundBattleTalkMessage?.OriginalBattleTalkMessage != battleTalkMessage.OriginalBattleTalkMessage)
         {
@@ -276,12 +276,12 @@ namespace Echoglossian
             t.OriginalBattleTalkMessage == battleTalkMessage.OriginalBattleTalkMessage &&
             t.TranslationLang == battleTalkMessage.TranslationLang);
 
-        if (pluginConfig.TranslateAlreadyTranslatedTexts)
+        if (pluginConfig?.TranslateAlreadyTranslatedTexts == true)
         {
           existingBattleTalkMessage = existingBattleTalkMessage.Where(t => t.TranslationEngine == battleTalkMessage.TranslationEngine);
         }
 
-        BattleTalkMessage localFoundBattleTalkMessage = existingBattleTalkMessage.FirstOrDefault();
+        BattleTalkMessage? localFoundBattleTalkMessage = existingBattleTalkMessage.FirstOrDefault();
         if (existingBattleTalkMessage.FirstOrDefault() == null ||
             localFoundBattleTalkMessage?.OriginalBattleTalkMessage != battleTalkMessage.OriginalBattleTalkMessage)
         {
@@ -300,7 +300,7 @@ namespace Echoglossian
       }
     }
 
-    public QuestPlate FindQuestPlate(QuestPlate questPlate)
+    public QuestPlate? FindQuestPlate(QuestPlate questPlate)
     {
       using EchoglossianDbContext context = new EchoglossianDbContext(this.configDir);
       try
@@ -311,12 +311,12 @@ namespace Echoglossian
             t.OriginalQuestMessage == questPlate.OriginalQuestMessage &&
             t.TranslationLang == questPlate.TranslationLang);
 
-        if (this.configuration.TranslateAlreadyTranslatedTexts)
+        if (this.configuration?.TranslateAlreadyTranslatedTexts == true)
         {
           existingQuestPlate = existingQuestPlate.Where(t => t.TranslationEngine == questPlate.TranslationEngine);
         }
 
-        QuestPlate localFoundQuestPlate = existingQuestPlate.FirstOrDefault();
+        QuestPlate? localFoundQuestPlate = existingQuestPlate.FirstOrDefault();
         if (localFoundQuestPlate == null || localFoundQuestPlate.OriginalQuestMessage != questPlate.OriginalQuestMessage)
         {
           return null;
@@ -331,7 +331,7 @@ namespace Echoglossian
       }
     }
 
-    public QuestPlate FindQuestPlateByName(QuestPlate questPlate)
+    public QuestPlate? FindQuestPlateByName(QuestPlate questPlate)
     {
       using EchoglossianDbContext context = new EchoglossianDbContext(this.configDir);
       try
@@ -341,12 +341,12 @@ namespace Echoglossian
             t.QuestName == questPlate.QuestName &&
             t.TranslationLang == questPlate.TranslationLang);
 
-        if (this.configuration.TranslateAlreadyTranslatedTexts)
+        if (this.configuration?.TranslateAlreadyTranslatedTexts == true)
         {
           existingQuestPlate = existingQuestPlate.Where(t => t.TranslationEngine == questPlate.TranslationEngine);
         }
 
-        QuestPlate localFoundQuestPlate = existingQuestPlate.FirstOrDefault();
+        QuestPlate? localFoundQuestPlate = existingQuestPlate.FirstOrDefault();
 
         if (localFoundQuestPlate == null || localFoundQuestPlate.QuestName != questPlate.QuestName)
         {
@@ -362,7 +362,7 @@ namespace Echoglossian
       }
     }
 
-    public TalkSubtitleMessage FindAndReturnTalkSubtitleMessage(TalkSubtitleMessage talkSubtitleMessage)
+    public TalkSubtitleMessage? FindAndReturnTalkSubtitleMessage(TalkSubtitleMessage talkSubtitleMessage)
     {
       using EchoglossianDbContext context = new EchoglossianDbContext(this.configDir);
       try
@@ -372,12 +372,12 @@ namespace Echoglossian
                      t.OriginalTalkSubtitleMessage == talkSubtitleMessage.OriginalTalkSubtitleMessage &&
                                 t.TranslationLang == talkSubtitleMessage.TranslationLang);
 
-        if (this.configuration.TranslateAlreadyTranslatedTexts)
+        if (this.configuration?.TranslateAlreadyTranslatedTexts == true)
         {
           existingTalkSubtitleMessage = existingTalkSubtitleMessage.Where(t => t.TranslationEngine == talkSubtitleMessage.TranslationEngine);
         }
 
-        TalkSubtitleMessage localFoundTalkSubtitleMessage = existingTalkSubtitleMessage.FirstOrDefault();
+        TalkSubtitleMessage? localFoundTalkSubtitleMessage = existingTalkSubtitleMessage.FirstOrDefault();
         if (localFoundTalkSubtitleMessage == null ||
                      localFoundTalkSubtitleMessage.OriginalTalkSubtitleMessage != talkSubtitleMessage.OriginalTalkSubtitleMessage)
         {
@@ -406,14 +406,14 @@ namespace Echoglossian
         IQueryable<TalkSubtitleMessage> existingTalkSubtitleMessage =
           context.TalkSubtitleMessage.Where(t =>
                               t.OriginalTalkSubtitleMessage == talkSubtitleMessage.OriginalTalkSubtitleMessage &&
-                                                             t.TranslationLang == talkSubtitleMessage.TranslationLang);
+                                                         t.TranslationLang == talkSubtitleMessage.TranslationLang);
 
-        if (pluginConfig.TranslateAlreadyTranslatedTexts)
+        if (pluginConfig?.TranslateAlreadyTranslatedTexts == true)
         {
           existingTalkSubtitleMessage = existingTalkSubtitleMessage.Where(t => t.TranslationEngine == talkSubtitleMessage.TranslationEngine);
         }
 
-        TalkSubtitleMessage localFoundTalkSubtitleMessage = existingTalkSubtitleMessage.FirstOrDefault();
+        TalkSubtitleMessage? localFoundTalkSubtitleMessage = existingTalkSubtitleMessage.FirstOrDefault();
         if (existingTalkSubtitleMessage.FirstOrDefault() == null ||
                               localFoundTalkSubtitleMessage?.OriginalTalkSubtitleMessage != talkSubtitleMessage.OriginalTalkSubtitleMessage)
         {
@@ -449,7 +449,7 @@ namespace Echoglossian
           return "No data to save.";
         }
 
-        if (pluginConfig.CopyTranslationToClipboard)
+        if (pluginConfig?.CopyTranslationToClipboard == true)
         {
           ImGui.SetClipboardText(talkMessage.ToString());
         }
@@ -484,7 +484,7 @@ namespace Echoglossian
 
         context.BattleTalkMessage.Attach(battleTalkMessage);
 
-        if (pluginConfig.CopyTranslationToClipboard)
+        if (pluginConfig?.CopyTranslationToClipboard == true)
         {
           ImGui.SetClipboardText(battleTalkMessage.ToString());
         }
@@ -517,7 +517,7 @@ namespace Echoglossian
 
         context.TalkSubtitleMessage.Attach(talkSubtitleMessage);
 
-        if (pluginConfig.CopyTranslationToClipboard)
+        if (pluginConfig?.CopyTranslationToClipboard == true)
         {
           ImGui.SetClipboardText(talkSubtitleMessage.ToString());
         }
@@ -750,7 +750,7 @@ namespace Echoglossian
 
     public static bool ShouldSaveToDB(string text)
     {
-      if (text.Contains("[Translation Error: HTTP 404") || text.Contains("[Translation Error: HTTP 429") || text.Contains("[Translation Error: HTTP 500"))
+      if (text.Contains("[Translation Error: HTTP 400") || text.Contains("[Translation Error: HTTP 401") || text.Contains("[Translation Error: HTTP 403") || text.Contains("[Translation Error: HTTP 404") || text.Contains("[Translation Error: HTTP 429") || text.Contains("[Translation Error: HTTP 500"))
       {
         return false;
       }

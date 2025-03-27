@@ -21,11 +21,11 @@ namespace Echoglossian
     private readonly IPluginLog pluginLog;
 
     private readonly bool isUsingAPIKey;
-    private readonly Translator client;
+    private readonly Translator? client;
 
-    private readonly HttpClient httpClient;
+    private readonly HttpClient? httpClient;
 
-    private readonly Random rndId;
+    private readonly Random? rndId;
 
     private const string FreeEndpoint = "https://www2.deepl.com/jsonrpc";
 
@@ -59,7 +59,7 @@ namespace Echoglossian
       this.httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
     }
 
-    async Task<string> ITranslator.TranslateAsync(string text, string sourceLanguage, string targetLanguage)
+    async Task<string?> ITranslator.TranslateAsync(string text, string sourceLanguage, string targetLanguage)
     {
       if (this.isUsingAPIKey)
       {
@@ -71,7 +71,7 @@ namespace Echoglossian
       }
     }
 
-    string ITranslator.Translate(string text, string sourceLanguage, string targetLanguage)
+    string? ITranslator.Translate(string text, string sourceLanguage, string targetLanguage)
     {
       if (this.isUsingAPIKey)
       {
@@ -83,18 +83,18 @@ namespace Echoglossian
       }
     }
 
-    private string Translate(string text, string sourceLanguage, string targetLanguage)
+    private string? Translate(string text, string sourceLanguage, string targetLanguage)
     {
       this.pluginLog.Debug("inside DeepLTranslator Translate method");
 
       try
       {
-        var translation = this.client.TranslateTextAsync(
+        var translation = this.client?.TranslateTextAsync(
           text,
           this.FormatSourceLanguage(sourceLanguage),
           this.FormatTargetLanguage(targetLanguage)).Result;
-        this.pluginLog.Debug($"FinalTranslatedText: {translation.Text}");
-        return translation.Text;
+        this.pluginLog.Debug($"FinalTranslatedText: {translation?.Text}");
+        return translation?.Text;
       }
       catch (Exception exception)
       {
@@ -103,12 +103,17 @@ namespace Echoglossian
       }
     }
 
-    private async Task<string> TranslateAsync(string text, string sourceLanguage, string targetLanguage)
+    private async Task<string?> TranslateAsync(string text, string sourceLanguage, string targetLanguage)
     {
       this.pluginLog.Debug("inside DeepLTranslator TranslateAsync method");
 
       try
       {
+        if (this.client == null)
+        {
+          throw new InvalidOperationException("DeepL client is not initialized.");
+        }
+
         var translation = await this.client.TranslateTextAsync(
           text,
           this.FormatSourceLanguage(sourceLanguage),
@@ -143,9 +148,9 @@ namespace Echoglossian
     /// <summary>
     /// Translates a string using the Free DeepL API.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="sourceLanguage"></param>
-    /// <param name="targetLanguage"></param>
+    /// <param name="text">The text to translate.</param>
+    /// <param name="sourceLanguage">The source language of the text.</param>
+    /// <param name="targetLanguage">The target language for the translation.</param>
     /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
     private async Task<string> FreeTranslateAsync(string text, string sourceLanguage, string targetLanguage)
     {
@@ -154,7 +159,7 @@ namespace Echoglossian
       try
       {
         long timestamp = this.GetTimestamp(this.GetICount(text));
-        var id = this.rndId.Next(11111111, 99999999);
+        var id = this.rndId?.Next(11111111, 99999999) ?? throw new InvalidOperationException("Random number generator not initialized.");
 
         var requestBody = new
         {
@@ -198,6 +203,11 @@ namespace Echoglossian
           requestBodyText = requestBodyText.Replace("\"method\":\"", "\"method\": \"");
         }
 
+        if (this.httpClient == null)
+        {
+          throw new InvalidOperationException("DeepL HttpClient is not initialized.");
+        }
+
         var response = await this.httpClient.PostAsync(FreeEndpoint, new StringContent(
              requestBodyText,
              Encoding.UTF8,
@@ -207,9 +217,17 @@ namespace Echoglossian
         {
           var jsonString = await response.Content.ReadAsStringAsync();
           var deepLResponse = JsonConvert.DeserializeObject<DeepLResponse>(jsonString);
-          var finalTranslatedText = deepLResponse.Result.Texts[0].Text;
-          this.pluginLog.Debug($"FinalTranslatedText: {finalTranslatedText}");
-          return finalTranslatedText;
+          if (deepLResponse?.Result?.Texts != null && deepLResponse.Result.Texts.Length > 0)
+          {
+            var finalTranslatedText = deepLResponse.Result.Texts[0].Text;
+            this.pluginLog.Debug($"FinalTranslatedText: {finalTranslatedText}");
+            return finalTranslatedText;
+          }
+          else
+          {
+            this.pluginLog.Warning("DeepLTranslator FreeTranslateAsync: No translation result found.");
+            return text;
+          }
         }
         else
         {

@@ -24,7 +24,7 @@ namespace Echoglossian
   {
     private readonly IPluginLog pluginLog;
     private readonly HttpClient httpClient;
-    private readonly Config config;
+    private readonly Config? config;
 
     private readonly Dictionary<int, (string Url, Dictionary<string, string> Headers, Dictionary<string, string> QueryParams)> translateEndpoints =
         new()
@@ -127,7 +127,12 @@ namespace Echoglossian
 
             this.pluginLog.Debug($"Endpoint: {endpoint}");
 
-            this.httpClient.DefaultRequestHeaders.Add("x-referer", headers["x-referer"]);
+            this.httpClient.DefaultRequestHeaders.Clear();
+
+            foreach (var header in headers)
+            {
+              this.httpClient.DefaultRequestHeaders.TryAddWithoutValidation(header.Key, header.Value);
+            }
 
             this.pluginLog.Debug($"Request Headers: {this.httpClient.DefaultRequestHeaders}");
 
@@ -145,7 +150,7 @@ namespace Echoglossian
               JObject json = JObject.Parse(translation);
 
               // Use LINQ to find the translation text
-              string? translatedText = json.SelectToken("translation.translateResponse.translateText")?.ToString();
+              string? translatedText = json.SelectToken("translateResponse.translateText")?.ToString();
 
               if (!string.IsNullOrEmpty(translatedText))
               {
@@ -164,7 +169,6 @@ namespace Echoglossian
               return string.Empty;
             }
 
-
             /* example json response
              * {
              *   "status": 200,
@@ -175,7 +179,6 @@ namespace Echoglossian
              *      "sourceText": "Assuming that Rishushu's associates at the Baert Trading Company are in possession of the same document, I suspect that the next attack on our supply caravan will strike right there─in the Central Shroud, due southwest from the White Wolf Gate."
              *    }
              *  } */
-
 
             break;
 

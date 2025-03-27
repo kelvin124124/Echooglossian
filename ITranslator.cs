@@ -9,8 +9,8 @@ namespace Echoglossian
 {
   public interface ITranslator
   {
-    string Translate(string text, string sourceLanguage, string targetLanguage);
+    string? Translate(string text, string sourceLanguage, string targetLanguage);
 
-    Task<string> TranslateAsync(string text, string sourceLanguage, string targetLanguage);
+    Task<string?> TranslateAsync(string text, string sourceLanguage, string targetLanguage);
   }
 }
