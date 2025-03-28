@@ -614,6 +614,7 @@ namespace Echoglossian
 					{
 						foundToastMessage = this.RemoveDiacritics(foundToastMessage, this.SpecialCharsSupportedByGameFont);
 					}
+
 					message = foundToastMessage;
 #if DEBUG
 					PluginLog.Error($"Text replacement - message found in DB: {message.TextValue} ");

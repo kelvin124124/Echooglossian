@@ -22,15 +22,15 @@ namespace Echoglossian
     // This is currently not in use yet!
     private bool disposedValue;
     private bool displayTranslation;
-    private readonly SemaphoreSlim translationSemaphore;
-    private string translation = string.Empty;
+    private readonly SemaphoreSlim? translationSemaphore;
+    private string? translation = string.Empty;
     private volatile int currentTranslationId;
 
     private Vector2 textDimensions = Vector2.Zero;
     private Vector2 textImguiSize = Vector2.Zero;
     private Vector2 textPosition = Vector2.Zero;
 
-    private Config configuration;
+    private Config? configuration;
     private ImFontPtr uiFont;
     private bool fontLoaded;
 
@@ -39,16 +39,16 @@ namespace Echoglossian
     /// </summary>
     /// <param name="name">Window Name.</param>
     /// <param name="flags">Window Flags.</param>
-    /// <param name="forceMainWindow"></param>
-    /// <param name="translation"></param>
-    /// <param name="displayTranslation"></param>
-    /// <param name="curentTranslationId"></param>
-    /// <param name="textDimensions"></param>
-    /// <param name="textImguiSize"></param>
-    /// <param name="textPosition"></param>
-    /// <param name="uiFont"></param>
-    /// <param name="fontLoaded"></param>
-    /// <param name="translationSemaphore"></param>
+    /// <param name="forceMainWindow">Indicates whether to force the window to be the main window.</param>
+    /// <param name="translation">Translation text to be displayed in the window.</param>
+    /// <param name="translationSemaphore">Semaphore to control access to the translation resource.</param>
+    /// <param name="displayTranslation">Indicates whether to display the translation text.</param>
+    /// <param name="curentTranslationId">Current translation ID.</param>
+    /// <param name="textDimensions">Dimensions of the text.</param>
+    /// <param name="textImguiSize">Size of the text in ImGui.</param>
+    /// <param name="textPosition">Position of the text.</param>
+    /// <param name="uiFont">Font used for the UI.</param>
+    /// <param name="fontLoaded">Indicates whether the font is loaded.</param>
     public SimpleWindow(
   string name,
   ImGuiWindowFlags flags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
@@ -62,7 +62,7 @@ namespace Echoglossian
   Vector2 textPosition = default,
   ImFontPtr uiFont = default,
   bool fontLoaded = default,
-  SemaphoreSlim translationSemaphore = default)
+  SemaphoreSlim? translationSemaphore = default)
   : base(name, flags, forceMainWindow)
     {
       this.WindowName = name;
@@ -102,7 +102,7 @@ namespace Echoglossian
       ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(this.configuration.OverlayTalkTextColor, 255));
       if (this.configuration.TranslateNpcNames)
       {
-        string name = string.Empty;//GetTranslatedNpcNameForWindow();
+        string name = string.Empty; // GetTranslatedNpcNameForWindow();
         if (!name.IsNullOrEmpty())
         {
           ImGui.Begin(
@@ -172,6 +172,7 @@ namespace Echoglossian
         {
           this.translationSemaphore.Dispose();
         }
+
         this.disposedValue = true;
       }
     }

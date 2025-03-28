@@ -6,19 +6,21 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace Echoglossian.EFCoreSqlite.Migrations
 {
   [DbContext(typeof(EchoglossianDbContext))]
-  [Migration("20210922032558_EchoglossianDB")]
-  partial class EchoglossianDB
+  [Migration("20240817203342_RemoveMaxLengthFromColumns")]
+  partial class RemoveMaxLengthFromColumns
   {
+    /// <inheritdoc />
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
 #pragma warning disable 612, 618
-      modelBuilder
-          .HasAnnotation("ProductVersion", "5.0.10");
+      modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
-      modelBuilder.Entity("Echoglossian.Echoglossian.EFCoreSqlite.Models.BattleTalkMessage", b =>
+      modelBuilder.Entity("EFCoreSqlite.Models.BattleTalkMessage", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -29,7 +31,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalBattleTalkMessage")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalBattleTalkMessageLang")
@@ -47,15 +48,12 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("SenderName")
                       .IsRequired()
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedBattleTalkMessage")
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedSenderName")
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -73,7 +71,7 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.ToTable("battletalkmessages");
           });
 
-      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.Journal.QuestPlate", b =>
+      modelBuilder.Entity("EFCoreSqlite.Models.Journal.QuestPlate", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -82,13 +80,15 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.Property<DateTime>("CreatedDate")
                       .HasColumnType("TEXT");
 
+            b.Property<string>("ObjectivesAsText")
+                      .HasColumnType("TEXT");
+
             b.Property<string>("OriginalLang")
                       .IsRequired()
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalQuestMessage")
                       .IsRequired()
-                      .HasMaxLength(2500)
                       .HasColumnType("TEXT");
 
             b.Property<string>("QuestId")
@@ -97,7 +97,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("QuestName")
                       .IsRequired()
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<byte[]>("RowVersion")
@@ -105,14 +104,15 @@ namespace Echoglossian.EFCoreSqlite.Migrations
                       .ValueGeneratedOnAddOrUpdate()
                       .HasColumnType("BLOB");
 
+            b.Property<string>("SummariesAsText")
+                      .HasColumnType("TEXT");
+
             b.Property<string>("TranslatedQuestMessage")
                       .IsRequired()
-                      .HasMaxLength(2500)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedQuestName")
                       .IsRequired()
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -130,7 +130,87 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.ToTable("questplates");
           });
 
-      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.TalkMessage", b =>
+      modelBuilder.Entity("EFCoreSqlite.Models.LocationName", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalLocationName")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalLocationNameLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedLocationName")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("locationnames");
+          });
+
+      modelBuilder.Entity("EFCoreSqlite.Models.NpcNames", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalNpcName")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalNpcNameLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedNpcName")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("npcnames");
+          });
+
+      modelBuilder.Entity("EFCoreSqlite.Models.TalkMessage", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -145,7 +225,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalTalkMessage")
                       .IsRequired()
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<string>("OriginalTalkMessageLang")
@@ -159,15 +238,12 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("SenderName")
                       .IsRequired()
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedSenderName")
-                      .HasMaxLength(100)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedTalkMessage")
-                      .HasMaxLength(400)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")
@@ -185,7 +261,47 @@ namespace Echoglossian.EFCoreSqlite.Migrations
             b.ToTable("talkmessages");
           });
 
-      modelBuilder.Entity("Echoglossian.EFCoreSqlite.Models.ToastMessage", b =>
+      modelBuilder.Entity("EFCoreSqlite.Models.TalkSubtitleMessage", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("INTEGER");
+
+            b.Property<DateTime>("CreatedDate")
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalTalkSubtitleMessage")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<string>("OriginalTalkSubtitleMessageLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<byte[]>("RowVersion")
+                      .IsConcurrencyToken()
+                      .ValueGeneratedOnAddOrUpdate()
+                      .HasColumnType("BLOB");
+
+            b.Property<string>("TranslatedTalkSubtitleMessage")
+                      .HasColumnType("TEXT");
+
+            b.Property<int>("TranslationEngine")
+                      .HasColumnType("INTEGER");
+
+            b.Property<string>("TranslationLang")
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+            b.Property<DateTime?>("UpdatedDate")
+                      .HasColumnType("TEXT");
+
+            b.HasKey("Id");
+
+            b.ToTable("talksubtitlemessages");
+          });
+
+      modelBuilder.Entity("EFCoreSqlite.Models.ToastMessage", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
@@ -200,7 +316,6 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("OriginalToastMessage")
                       .IsRequired()
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<byte[]>("RowVersion")
@@ -210,11 +325,9 @@ namespace Echoglossian.EFCoreSqlite.Migrations
 
             b.Property<string>("ToastType")
                       .IsRequired()
-                      .HasMaxLength(40)
                       .HasColumnType("TEXT");
 
             b.Property<string>("TranslatedToastMessage")
-                      .HasMaxLength(200)
                       .HasColumnType("TEXT");
 
             b.Property<int>("TranslationEngine")

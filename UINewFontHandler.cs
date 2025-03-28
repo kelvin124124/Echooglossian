@@ -13,16 +13,16 @@ namespace Echoglossian
   public class UINewFontHandler : IDisposable
   {
     private bool disposedValue;
-    private Config configuration;
+    private Config? configuration;
     private SafeFontConfig sfc;
     public IFontHandle GeneralFontHandle;
     public IFontHandle LanguageFontHandle;
 
-    public UINewFontHandler(Config configuration = default)
+    public UINewFontHandler(Config? configuration = default)
     {
       this.configuration = configuration;
 
-      var AllUnicodeRanges = UnicodeRanges.All;
+      var allUnicodeRanges = UnicodeRanges.All;
 
       Echoglossian.PluginLog.Debug($"SymbolsFontPath: ${Echoglossian.SymbolsFontFilePath}");
       Echoglossian.PluginLog.Debug($"FontFilePath: ${Echoglossian.FontFilePath}");
@@ -44,13 +44,13 @@ namespace Echoglossian
             .With(Echoglossian.ScriptCharList.AsSpan())
             .With(Echoglossian.PuaCharCodes.AsSpan())
             .With(Echoglossian.PuaChars.AsSpan())
-            .With(AllUnicodeRanges.FirstCodePoint, AllUnicodeRanges.FirstCodePoint + AllUnicodeRanges.Length - 1)
+            .With(allUnicodeRanges.FirstCodePoint, allUnicodeRanges.FirstCodePoint + allUnicodeRanges.Length - 1)
             .With(Echoglossian.LangComboItems.AsSpan());
 
           // more ranges here
           this.sfc = new SafeFontConfig
           {
-            SizePx = this.configuration.FontSize,
+            SizePx = (float)this.configuration?.FontSize,
             GlyphRanges = rangeBuilder.Build(),
           };
           this.sfc.MergeFont = tk.Font = tk.AddFontFromFile(Echoglossian.LangComboFontFilePath, this.sfc);
@@ -75,7 +75,7 @@ namespace Echoglossian
             .With(Echoglossian.ScriptCharList.AsSpan())
             .With(Echoglossian.PuaCharCodes.AsSpan())
             .With(Echoglossian.PuaChars.AsSpan())
-            .With(AllUnicodeRanges.FirstCodePoint, AllUnicodeRanges.FirstCodePoint + AllUnicodeRanges.Length - 1)
+            .With(allUnicodeRanges.FirstCodePoint, allUnicodeRanges.FirstCodePoint + allUnicodeRanges.Length - 1)
             .With(Echoglossian.SelectedLanguage.ExclusiveCharsToAdd.AsSpan());
 
           // more ranges here

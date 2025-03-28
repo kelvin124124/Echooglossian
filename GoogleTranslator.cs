@@ -67,7 +67,6 @@ namespace Echoglossian
       this.pluginLog = pluginLog;
       this.config = config;
       this.httpClient = new HttpClient();
-
     }
 
     string ITranslator.Translate(string text, string sourceLanguage, string targetLanguage)
@@ -81,9 +80,9 @@ namespace Echoglossian
         Dictionary<string, string> headers;
         Dictionary<string, string> queryParams;
 
-        this.pluginLog.Debug($"GoogleTranslateVersion: {this.config.GoogleTranslateVersion}");
+        this.pluginLog.Debug($"GoogleTranslateVersion: {this.config?.GoogleTranslateVersion}");
 
-        switch (this.config.GoogleTranslateVersion)
+        switch (this.config?.GoogleTranslateVersion)
         {
           case 1:
             (url, headers, queryParams) = this.translateEndpoints[1];
@@ -103,7 +102,7 @@ namespace Echoglossian
                   "pt-BR"
                 ],
                 "wt_lib"
-              ] 
+              ]
              */
 
             /* example json response
@@ -169,18 +168,16 @@ namespace Echoglossian
               return string.Empty;
             }
 
-            /* example json response
-             * {
-             *   "status": 200,
-             *   "translateResponse": {
-             *     "translateText": "Supondo que os associados de Rishushu na Baert Trading Company estejam de posse do mesmo documento, suspeito que o próximo ataque à nossa caravana de suprimentos ocorrerá ali mesmo - no Sudário Central, a sudoeste do Portão do Lobo Branco.",
-             *     "detectedSourceLanguage": "en",
-             *     "outputLanguage": "pt-BR",
-             *      "sourceText": "Assuming that Rishushu's associates at the Baert Trading Company are in possession of the same document, I suspect that the next attack on our supply caravan will strike right there─in the Central Shroud, due southwest from the White Wolf Gate."
-             *    }
-             *  } */
-
-            break;
+          /* example json response
+           * {
+           *   "status": 200,
+           *   "translateResponse": {
+           *     "translateText": "Supondo que os associados de Rishushu na Baert Trading Company estejam de posse do mesmo documento, suspeito que o próximo ataque à nossa caravana de suprimentos ocorrerá ali mesmo - no Sudário Central, a sudoeste do Portão do Lobo Branco.",
+           *     "detectedSourceLanguage": "en",
+           *     "outputLanguage": "pt-BR",
+           *      "sourceText": "Assuming that Rishushu's associates at the Baert Trading Company are in possession of the same document, I suspect that the next attack on our supply caravan will strike right there─in the Central Shroud, due southwest from the White Wolf Gate."
+           *    }
+           *  } */
 
           default:
             (url, headers, queryParams) = this.translateEndpoints[0];
@@ -205,7 +202,14 @@ namespace Echoglossian
       }
     }
 
-    async Task<string> ITranslator.TranslateAsync(string text, string sourceLanguage, string targetLanguage)
+    /// <summary>
+    /// Translates the specified text from the source language to the target language.
+    /// </summary>
+    /// <param name="text">The text to translate.</param>
+    /// <param name="sourceLanguage">The source language code.</param>
+    /// <param name="targetLanguage">The target language code.</param>
+    /// <returns>A task that represents the asynchronous translation operation. The task result contains the translated text.</returns>
+    async Task<string?> ITranslator.TranslateAsync(string text, string sourceLanguage, string targetLanguage)
     {
       this.pluginLog.Debug("inside GoogleTranslator translateAsync method");
 
@@ -216,7 +220,7 @@ namespace Echoglossian
         Dictionary<string, string> headers;
         Dictionary<string, string> queryParams;
 
-        switch (this.config.GoogleTranslateVersion)
+        switch (this.config?.GoogleTranslateVersion)
         {
           case 1:
             (url, headers, queryParams) = this.translateEndpoints[1];

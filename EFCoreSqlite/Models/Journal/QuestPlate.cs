@@ -17,69 +17,58 @@ namespace Echoglossian.EFCoreSqlite.Models.Journal
     [Key]
     public int Id { get; set; }
 
-    [Required]
+    public string? QuestId { get; set; }
 
-    public string QuestId { get; set; }
+    public string? QuestName { get; set; }
 
-    [Required]
+    public string? OriginalQuestMessage { get; set; }
 
-    public string QuestName { get; set; }
+    public string? OriginalLang { get; set; }
 
-    [Required]
-    public string OriginalQuestMessage { get; set; }
+    public string? TranslatedQuestName { get; set; }
 
-    [Required]
-    public string OriginalLang { get; set; }
+    public string? TranslatedQuestMessage { get; set; }
 
-    [Required]
-    public string TranslatedQuestName { get; set; }
+    public string? TranslationLang { get; set; }
 
-    [Required]
-    public string TranslatedQuestMessage { get; set; }
+    public int? TranslationEngine { get; set; }
 
-    [Required]
-    public string TranslationLang { get; set; }
-
-    [Required]
-    public int TranslationEngine { get; set; }
-
-    [Required]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
     public DateTime? UpdatedDate { get; set; }
 
     [NotMapped]
     public Dictionary<string, string> Objectives { get; set; }
 
-    public string ObjectivesAsText { get; set; }
+    public string? ObjectivesAsText { get; set; }
 
     [NotMapped]
     public Dictionary<string, string> Summaries { get; set; }
 
-    public string SummariesAsText { get; set; }
+    public string? SummariesAsText { get; set; }
 
     [Timestamp]
-    public byte[] RowVersion { get; set; }
+    public byte[]? RowVersion { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuestPlate"/> class.
     /// </summary>
-    /// <param name="questName"></param>
-    /// <param name="originalQuestMessage"></param>
-    /// <param name="originalLang"></param>
-    /// <param name="translatedQuestName"></param>
-    /// <param name="translatedQuestMessage"></param>
-    /// <param name="questId"></param>
-    /// <param name="translationLang"></param>
-    /// <param name="translationEngine"></param>
-    /// <param name="createdDate"></param>
-    /// <param name="updatedDate"></param>
+    /// <param name="questName">The name of the quest.</param>
+    /// <param name="originalQuestMessage">The original quest message.</param>
+    /// <param name="originalLang">The original language of the quest.</param>
+    /// <param name="translatedQuestName">The translated name of the quest.</param>
+    /// <param name="translatedQuestMessage">The translated quest message.</param>
+    /// <param name="questId">The ID of the quest.</param>
+    /// <param name="translationLang">The language of the translation.</param>
+    /// <param name="translationEngine">The engine used for translation.</param>
+    /// <param name="createdDate">The date the quest was created.</param>
+    /// <param name="updatedDate">The date the quest was last updated.</param>
     public QuestPlate(
-      string questName, string originalQuestMessage,
-      string originalLang,
-      string translatedQuestName, string translatedQuestMessage,
-      string questId, string translationLang, int translationEngine,
-      DateTime createdDate, DateTime? updatedDate)
+      string? questName, string? originalQuestMessage,
+      string? originalLang,
+      string? translatedQuestName, string? translatedQuestMessage,
+      string? questId, string? translationLang, int? translationEngine,
+      DateTime? createdDate, DateTime? updatedDate)
     {
       this.QuestId = questId;
       this.QuestName = questName;
@@ -112,18 +101,18 @@ namespace Echoglossian.EFCoreSqlite.Models.Journal
 
     public void UpdateFieldsFromText()
     {
-      if (this.ObjectivesAsText != null && this.ObjectivesAsText != string.Empty)
+      if (!string.IsNullOrEmpty(this.ObjectivesAsText))
       {
-        this.Objectives = JsonSerializer.Deserialize<Dictionary<string, string>>(this.ObjectivesAsText);
+        this.Objectives = JsonSerializer.Deserialize<Dictionary<string, string>>(this.ObjectivesAsText) ?? new Dictionary<string, string>();
       }
 
-      if (this.SummariesAsText != null && this.SummariesAsText != string.Empty)
+      if (!string.IsNullOrEmpty(this.SummariesAsText))
       {
-        this.Summaries = JsonSerializer.Deserialize<Dictionary<string, string>>(this.SummariesAsText);
+        this.Summaries = JsonSerializer.Deserialize<Dictionary<string, string>>(this.SummariesAsText) ?? new Dictionary<string, string>();
       }
     }
 
-    public override string ToString()
+    public override string? ToString()
     {
       return
         $"Id: {this.Id}, QuestName: {this.QuestName}, QuestID: {this.QuestId}, OriginalMsg: {this.OriginalQuestMessage}, OriginalLang: {this.OriginalLang}, TranslQuestName: {this.TranslatedQuestName}, TranslMsg: {this.TranslatedQuestMessage}, TransLang: {this.TranslationLang}, TranEngine: {this.TranslationEngine}, CreatedAt: {this.CreatedDate}, UpdatedAt: {this.UpdatedDate}, Objectives: {this.Objectives}, Summaries: {this.Summaries}";

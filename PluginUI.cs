@@ -563,7 +563,7 @@ public partial class Echoglossian
         chosenTransEngine = Array.IndexOf(langDict[languageInt].SupportedEngines, this.configuration.ChosenTransEngine);
         if (ImGui.Combo(Resources.TranslationEngineChoose, ref chosenTransEngine, engines, engines.Length))
         {
-          // this.configuration.ChosenTransEngine = chosenTransEngine; 
+          // this.configuration.ChosenTransEngine = chosenTransEngine;
           this.configuration.ChosenTransEngine = langDict[languageInt].SupportedEngines[chosenTransEngine];
           PluginLog.Debug("Chosen translation engine: " + this.configuration.ChosenTransEngine);
 

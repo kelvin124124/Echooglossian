@@ -86,20 +86,38 @@
             Frees the previously allocated buffer.
             </summary>
         </member>
+        <member name="M:Echoglossian.ChatGPTTranslator.Translate(System.String,System.String,System.String)">
+            <summary>
+            Translates the specified text from the source language to the target language.
+            </summary>
+            <param name="text">The text to translate.</param>
+            <param name="sourceLanguage">The source language of the text.</param>
+            <param name="targetLanguage">The target language for the translation.</param>
+            <returns>The translated text.</returns>
+        </member>
+        <member name="M:Echoglossian.ChatGPTTranslator.TranslateAsync(System.String,System.String,System.String)">
+            <summary>
+            Translates the specified text from the source language to the target language asynchronously.
+            </summary>
+            <param name="text">The text to translate.</param>
+            <param name="sourceLanguage">The source language of the text.</param>
+            <param name="targetLanguage">The target language for the translation.</param>
+            <returns>A task that represents the asynchronous translation operation. The task result contains the translated text.</returns>
+        </member>
         <member name="M:Echoglossian.DeepLTranslator.FreeTranslateAsync(System.String,System.String,System.String)">
             <summary>
             Translates a string using the Free DeepL API.
             </summary>
-            <param name="text"></param>
-            <param name="sourceLanguage"></param>
-            <param name="targetLanguage"></param>
+            <param name="text">The text to translate.</param>
+            <param name="sourceLanguage">The source language of the text.</param>
+            <param name="targetLanguage">The target language for the translation.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
         </member>
         <member name="M:Echoglossian.EFCoreSqlite.EchoglossianDbContext.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.EchoglossianDbContext"/> class.
             </summary>
-            <param name="configDir"></param>
+            <param name="configDir">The directory where the configuration files are located.</param>
         </member>
         <member name="T:Echoglossian.EFCoreSqlite.Migrations.EchoglossianDBupd">
             <inheritdoc />
@@ -149,6 +167,18 @@
         <member name="M:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:Echoglossian.EFCoreSqlite.Migrations.CreateGameWindowsTable">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.CreateGameWindowsTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.CreateGameWindowsTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.CreateGameWindowsTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="M:Echoglossian.EFCoreSqlite.Migrations.RemoveMaxLengthFromColumns2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
@@ -164,153 +194,174 @@
         <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNewDataEntities.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.ActionTooltip.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.String,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="T:Echoglossian.EFCoreSqlite.Migrations.AddNullabilityToDBEntitiesColumns">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNullabilityToDBEntitiesColumns.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNullabilityToDBEntitiesColumns.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Migrations.AddNullabilityToDBEntitiesColumns.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Echoglossian.EFCoreSqlite.Models.ActionTooltip.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.ActionTooltip"/> class.
             </summary>
-            <param name="originalActionTooltip"></param>
-            <param name="originalActionTooltipLang"></param>
-            <param name="translatedActionTooltip"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="gameVersion"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="originalActionTooltip">The original action tooltip text.</param>
+            <param name="originalActionTooltipLang">The language of the original action tooltip.</param>
+            <param name="translatedActionTooltip">The translated action tooltip text.</param>
+            <param name="translationLang">The language of the translated action tooltip.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="gameVersion">The game version.</param>
+            <param name="createdDate">The date the tooltip was created.</param>
+            <param name="updatedDate">The date the tooltip was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.BattleTalkMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.BattleTalkMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.BattleTalkMessage"/> class.
             </summary>
-            <param name="senderName"></param>
-            <param name="originalBattleTalkMessage"></param>
-            <param name="originalBattleTalkMessageLang"></param>
-            <param name="originalSenderNameLang"></param>
-            <param name="translatedSenderName"></param>
-            <param name="translatedBattleTalkMessage"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="senderName">The name of the sender.</param>
+            <param name="originalBattleTalkMessage">The original battle talk message.</param>
+            <param name="originalBattleTalkMessageLang">The language of the original battle talk message.</param>
+            <param name="originalSenderNameLang">The language of the original sender name.</param>
+            <param name="translatedSenderName">The translated sender name.</param>
+            <param name="translatedBattleTalkMessage">The translated battle talk message.</param>
+            <param name="translationLang">The language of the translation.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the message was created.</param>
+            <param name="updatedDate">The date the message was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.GameWindow.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.GameWindow.#ctor(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.GameWindow"/> class.
             </summary>
-            <param name="windowAddonName"></param>
-            <param name="originalWindowStrings"></param>
-            <param name="originalWindowStringsLang"></param>
-            <param name="translatedWindowStrings"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="gameVersion"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="windowAddonName">The name of the window addon.</param>
+            <param name="originalWindowStrings">The original window strings.</param>
+            <param name="originalWindowStringsLang">The language of the original window strings.</param>
+            <param name="translatedWindowStrings">The translated window strings.</param>
+            <param name="translationLang">The language of the translation.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="gameVersion">The version of the game.</param>
+            <param name="createdDate">The date the record was created.</param>
+            <param name="updatedDate">The date the record was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.ItemTooltip.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.String,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.ItemTooltip.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.ItemTooltip"/> class.
             </summary>
-            <param name="originalItemTooltip"></param>
-            <param name="originalItemTooltipLang"></param>
-            <param name="translatedItemTooltip"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="gameVersion"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="originalItemTooltip">The original item tooltip text.</param>
+            <param name="originalItemTooltipLang">The language of the original item tooltip.</param>
+            <param name="translatedItemTooltip">The translated item tooltip text.</param>
+            <param name="translationLang">The language of the translated item tooltip.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="gameVersion">The game version.</param>
+            <param name="createdDate">The date the item tooltip was created.</param>
+            <param name="updatedDate">The date the item tooltip was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.Journal.QuestPlate.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.Journal.QuestPlate.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.Journal.QuestPlate"/> class.
             </summary>
-            <param name="questName"></param>
-            <param name="originalQuestMessage"></param>
-            <param name="originalLang"></param>
-            <param name="translatedQuestName"></param>
-            <param name="translatedQuestMessage"></param>
-            <param name="questId"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="questName">The name of the quest.</param>
+            <param name="originalQuestMessage">The original quest message.</param>
+            <param name="originalLang">The original language of the quest.</param>
+            <param name="translatedQuestName">The translated name of the quest.</param>
+            <param name="translatedQuestMessage">The translated quest message.</param>
+            <param name="questId">The ID of the quest.</param>
+            <param name="translationLang">The language of the translation.</param>
+            <param name="translationEngine">The engine used for translation.</param>
+            <param name="createdDate">The date the quest was created.</param>
+            <param name="updatedDate">The date the quest was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.LocationName.#ctor(System.Int32,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.LocationName.#ctor(System.Int32,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.LocationName"/> class.
             </summary>
-            <param name="id"></param>
-            <param name="originalLocationName"></param>
-            <param name="originalLocationNameLang"></param>
-            <param name="translatedLocationName"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="id">The identifier of the location name.</param>
+            <param name="originalLocationName">The original name of the location.</param>
+            <param name="originalLocationNameLang">The language of the original location name.</param>
+            <param name="translatedLocationName">The translated name of the location.</param>
+            <param name="translationLang">The language of the translated location name.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the location name was created.</param>
+            <param name="updatedDate">The date the location name was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.NpcNames.#ctor(System.Int32,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.NpcNames.#ctor(System.Int32,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.NpcNames"/> class.
             </summary>
-            <param name="id"></param>
-            <param name="originalNpcName"></param>
-            <param name="originalNpcNameLang"></param>
-            <param name="translatedNpcName"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="id">The unique identifier for the NPC.</param>
+            <param name="originalNpcName">The original name of the NPC.</param>
+            <param name="originalNpcNameLang">The language of the original NPC name.</param>
+            <param name="translatedNpcName">The translated name of the NPC.</param>
+            <param name="translationLang">The language of the translated NPC name.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the NPC name was created.</param>
+            <param name="updatedDate">The date the NPC name was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.SelectString.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.SelectString.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.SelectString"/> class.
             </summary>
-            <param name="originalSelectString"></param>
-            <param name="originalSelectStringLang"></param>
-            <param name="translatedSelectString"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="originalSelectString">The original select string.</param>
+            <param name="originalSelectStringLang">The language of the original select string.</param>
+            <param name="translatedSelectString">The translated select string.</param>
+            <param name="translationLang">The language of the translated select string.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the record was created.</param>
+            <param name="updatedDate">The date the record was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.TalkMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.TalkMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.TalkMessage"/> class.
             </summary>
-            <param name="senderName"></param>
-            <param name="originalTalkMessage"></param>
-            <param name="originalTalkMessageLang"></param>
-            <param name="originalSenderNameLang"></param>
-            <param name="translatedSenderName"></param>
-            <param name="translatedTalkMessage"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="senderName">The name of the sender.</param>
+            <param name="originalTalkMessage">The original talk message.</param>
+            <param name="originalTalkMessageLang">The language of the original talk message.</param>
+            <param name="originalSenderNameLang">The language of the original sender's name.</param>
+            <param name="translatedSenderName">The translated sender's name.</param>
+            <param name="translatedTalkMessage">The translated talk message.</param>
+            <param name="translationLang">The language of the translation.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the message was created.</param>
+            <param name="updatedDate">The date the message was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.TalkSubtitleMessage.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.TalkSubtitleMessage.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.TalkSubtitleMessage"/> class.
             </summary>
-            <param name="originalTalkSubtitleMessage"></param>
-            <param name="originalTalkSubtitleMessageLang"></param>
-            <param name="translatedTalkSubtitleMessage"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="originalTalkSubtitleMessage">The original talk subtitle message.</param>
+            <param name="originalTalkSubtitleMessageLang">The language of the original talk subtitle message.</param>
+            <param name="translatedTalkSubtitleMessage">The translated talk subtitle message.</param>
+            <param name="translationLang">The language of the translated talk subtitle message.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the message was created.</param>
+            <param name="updatedDate">The date the message was last updated.</param>
         </member>
-        <member name="M:Echoglossian.EFCoreSqlite.Models.ToastMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32,System.DateTime,System.Nullable{System.DateTime})">
+        <member name="M:Echoglossian.EFCoreSqlite.Models.ToastMessage.#ctor(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             Initializes a new instance of the <see cref="T:Echoglossian.EFCoreSqlite.Models.ToastMessage"/> class.
             </summary>
-            <param name="toastType"></param>
-            <param name="originalToastMessage"></param>
-            <param name="originalLang"></param>
-            <param name="translatedToastMessage"></param>
-            <param name="translationLang"></param>
-            <param name="translationEngine"></param>
-            <param name="createdDate"></param>
-            <param name="updatedDate"></param>
+            <param name="toastType">Type of the toast message.</param>
+            <param name="originalToastMessage">The original toast message.</param>
+            <param name="originalLang">The original language of the toast message.</param>
+            <param name="translatedToastMessage">The translated toast message.</param>
+            <param name="translationLang">The language of the translated toast message.</param>
+            <param name="translationEngine">The translation engine used.</param>
+            <param name="createdDate">The date the toast message was created.</param>
+            <param name="updatedDate">The date the toast message was last updated.</param>
+        </member>
+        <member name="M:Echoglossian.GoogleTranslator.Echoglossian#ITranslator#TranslateAsync(System.String,System.String,System.String)">
+            <summary>
+            Translates the specified text from the source language to the target language.
+            </summary>
+            <param name="text">The text to translate.</param>
+            <param name="sourceLanguage">The source language code.</param>
+            <param name="targetLanguage">The target language code.</param>
+            <returns>A task that represents the asynchronous translation operation. The task result contains the translated text.</returns>
         </member>
         <member name="T:Echoglossian.Properties.Resources">
             <summary>
@@ -884,16 +935,16 @@
             </summary>
             <param name="name">Window Name.</param>
             <param name="flags">Window Flags.</param>
-            <param name="forceMainWindow"></param>
-            <param name="translation"></param>
-            <param name="displayTranslation"></param>
-            <param name="curentTranslationId"></param>
-            <param name="textDimensions"></param>
-            <param name="textImguiSize"></param>
-            <param name="textPosition"></param>
-            <param name="uiFont"></param>
-            <param name="fontLoaded"></param>
-            <param name="translationSemaphore"></param>
+            <param name="forceMainWindow">Indicates whether to force the window to be the main window.</param>
+            <param name="translation">Translation text to be displayed in the window.</param>
+            <param name="translationSemaphore">Semaphore to control access to the translation resource.</param>
+            <param name="displayTranslation">Indicates whether to display the translation text.</param>
+            <param name="curentTranslationId">Current translation ID.</param>
+            <param name="textDimensions">Dimensions of the text.</param>
+            <param name="textImguiSize">Size of the text in ImGui.</param>
+            <param name="textPosition">Position of the text.</param>
+            <param name="uiFont">Font used for the UI.</param>
+            <param name="fontLoaded">Indicates whether the font is loaded.</param>
         </member>
     </members>
 </doc>

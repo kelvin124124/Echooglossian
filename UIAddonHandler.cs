@@ -481,6 +481,7 @@ namespace Echoglossian
           {
             this.addonCharacteristicsInfo.TalkMessage.TranslatedSenderName = await this.translationService.TranslateAsync(this.addonCharacteristicsInfo.TalkMessage.SenderName, this.clientLanguage.Humanize(), this.langToTranslateTo);
           }
+
           this.SaveTranslationToDatabase(originalText, translation, addonType);
         }
         else if (addonType == "_BattleTalk")
@@ -490,8 +491,10 @@ namespace Echoglossian
           {
             this.addonCharacteristicsInfo.BattleTalkMessage.TranslatedSenderName = await this.translationService.TranslateAsync(this.addonCharacteristicsInfo.BattleTalkMessage.SenderName, this.clientLanguage.Humanize(), this.langToTranslateTo);
           }
+
           this.SaveTranslationToDatabase(originalText, translation, addonType);
         }
+
         this.translatedTexts.Add(translation);
 
         // this.SetTranslationToAddon();
@@ -530,7 +533,6 @@ namespace Echoglossian
           }
         }
       }
-
     }
 
     private async Task ProcessTranslations(CancellationToken token)
@@ -774,7 +776,6 @@ namespace Echoglossian
             nineGridNode->SetWidth((ushort)(parentNode->GetWidth() + 36));
             messageNodeAsTextNode->SetText(translatedMessage);
             messageNodeAsTextNode->ResizeNodeForCurrentText();
-
           }
           else
           {
