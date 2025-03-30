@@ -573,11 +573,11 @@ public partial class Echoglossian
         ImGui.BeginGroup();
         switch (this.configuration.ChosenTransEngine)
         {
-          case 0:
+          case 0: // Google
             ImGui.TextWrapped(Resources.SettingsForGTransText);
             ImGui.TextWrapped(Resources.TranslationEngineSettingsNotRequired);
             break;
-          case 1:
+          case 1: // Deepl
             ImGui.TextWrapped(Resources.SettingsForDeepLTransText);
             ImGui.Spacing();
 
@@ -610,7 +610,7 @@ public partial class Echoglossian
             }
 
             break;
-          case 2:
+          case 2: // ChatGPT
             ImGui.TextWrapped(Resources.SettingsForChatGptTransText);
             ImGui.Spacing();
             if (ImGui.Button(Resources.ChatGPTAPIKeyLink))
@@ -640,7 +640,7 @@ public partial class Echoglossian
 
             ImGui.Spacing();
 
-            if (ImGui.InputText("LLM Model", ref this.configuration.LlmModel, 400))
+            if (ImGui.InputText("LLM Model", ref this.configuration.OpenAILlmModel, 400))
             {
               this.translationService = new TranslationService(this.configuration, PluginLog, sanitizer);
             }

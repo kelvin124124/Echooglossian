@@ -451,4 +451,10 @@
   <data name="TranslationError" xml:space="preserve">
     <value>Translation Error:</value>
   </data>
+  <data name="DeepSeekTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
+    <value>[DeepSeek translation unavailable. Please check your API key.]</value>
+  </data>
+  <data name="APIKeyIsEmptyOrInvalidDeepSeekTranslationWillNotBeAvailable" xml:space="preserve">
+    <value>API Key is empty or invalid. DeepSeek translation will not be available.</value>
+  </data>
 </root>

@@ -24,6 +24,14 @@ namespace Echoglossian
     private float temperature;
     private Dictionary<string, string> translationCache = new Dictionary<string, string>();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ChatGPTTranslator"/> class.
+    /// </summary>
+    /// <param name="pluginLog"></param>
+    /// <param name="baseUrl"></param>
+    /// <param name="apiKey"></param>
+    /// <param name="model"></param>
+    /// <param name="temperature"></param>
     public ChatGPTTranslator(IPluginLog pluginLog, string baseUrl = "https://api.openai.com/v1", string apiKey = "", string model = "gpt-4o-mini", float temperature = 0.1f)
     {
       this.pluginLog = pluginLog;

@@ -141,7 +141,10 @@ namespace Echoglossian
       Amazon = 6, // Amazon Translate
       Azure = 7, // Microsoft Azure Translate
       GoogleCloud = 8, // Google Cloud Translate
-      All = Google | Deepl | Bing | Yandex | GTranslate | Amazon | Azure | ChatGPT | GoogleCloud,
+      DeepSeek = 9,
+      OpenLlama = 10,
+      LibreTranslate = 11,
+      All = Google | Deepl | Bing | Yandex | GTranslate | Amazon | Azure | ChatGPT | GoogleCloud | DeepSeek | OpenLlama | LibreTranslate,
     }
 
     /// <summary>

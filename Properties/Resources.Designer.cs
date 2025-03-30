@@ -70,6 +70,15 @@ namespace Echoglossian.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to API Key is empty or invalid. DeepSeek translation will not be available..
+        /// </summary>
+        public static string APIKeyIsEmptyOrInvalidDeepSeekTranslationWillNotBeAvailable {
+            get {
+                return ResourceManager.GetString("APIKeyIsEmptyOrInvalidDeepSeekTranslationWillNotBeAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking Plugin assets!.
         /// </summary>
         public static string AssetsCheckingPopupMsg {
@@ -347,6 +356,15 @@ namespace Echoglossian.Properties {
         public static string DeepLTranslatorAPIKeyLink {
             get {
                 return ResourceManager.GetString("DeepLTranslatorAPIKeyLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [DeepSeek translation unavailable. Please check your API key.].
+        /// </summary>
+        public static string DeepSeekTranslationUnavailablePleaseCheckYourAPIKey {
+            get {
+                return ResourceManager.GetString("DeepSeekTranslationUnavailablePleaseCheckYourAPIKey", resourceCulture);
             }
         }
         

@@ -19,6 +19,12 @@ namespace Echoglossian
 
     private readonly Sanitizer sanitizer;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TranslationService"/> class.
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="pluginLog"></param>
+    /// <param name="sanitizer"></param>
     public TranslationService(Config config, IPluginLog pluginLog, Sanitizer sanitizer)
     {
       this.sanitizer = sanitizer;
@@ -33,19 +39,28 @@ namespace Echoglossian
           this.translator = new DeepLTranslator(pluginLog, config.DeeplTranslatorUsingApiKey, config.DeeplTranslatorApiKey);
           break;
         case TransEngines.ChatGPT:
-          this.translator = new ChatGPTTranslator(pluginLog, config.ChatGPTBaseUrl, config.ChatGptApiKey, config.LlmModel, config.ChatGptTemperature);
+          this.translator = new ChatGPTTranslator(pluginLog, config.ChatGPTBaseUrl, config.ChatGptApiKey, config.OpenAILlmModel, config.ChatGptTemperature);
           break;
         case TransEngines.Bing:
           break;
         case TransEngines.Yandex:
+          this.translator = new YandexTranslator(pluginLog, config);
           break;
         case TransEngines.GTranslate:
+          this.translator = new GTranslateTranslator(pluginLog, config);
           break;
         case TransEngines.Amazon:
           break;
         case TransEngines.Azure:
           break;
         case TransEngines.GoogleCloud:
+          break;
+        case TransEngines.DeepSeek:
+          this.translator = new DeepSeekTranslator(pluginLog, config);
+          break;
+        case TransEngines.OpenLlama:
+          break;
+        case TransEngines.LibreTranslate:
           break;
         case TransEngines.All:
           break;
@@ -80,6 +95,13 @@ namespace Echoglossian
       return finalDialogueText;
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="sourceLanguage"></param>
+    /// <param name="targetLanguage"></param>
+    /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
     public async Task<string> TranslateAsync(string text, string sourceLanguage, string targetLanguage)
     {
       var (sanitizedText, shouldTranslate) = this.CheckTextToTranslate(text);
