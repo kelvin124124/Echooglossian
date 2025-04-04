@@ -1,4 +1,0 @@
-﻿<PropertyGroup>
-  <!-- You could also condition this based on $(PlatformTarget) -->
-  <AlToolPath>$(TargetFrameworkSDKToolsDirectory)</AlToolPath>
-</PropertyGroup>

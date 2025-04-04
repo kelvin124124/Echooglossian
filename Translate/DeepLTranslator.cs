@@ -181,7 +181,7 @@ namespace Echoglossian.Translate
             );
         }
 
-        internal static bool TryGetLanguageCode(string language, out string? languageCode)
+        private static bool TryGetLanguageCode(string language, out string? languageCode)
         {
             languageCode = language switch
             {

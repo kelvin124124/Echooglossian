@@ -12,6 +12,6 @@ namespace Echoglossian.Translate
         public ILanguage SourceLanguage { get; } =
             srcLangCode == string.Empty ? null! : Language.GetLanguage(srcLangCode);
         public ILanguage TargetLanguage { get; } =
-            targetLangCode == string.Empty ? null! : Language.GetLanguage(srcLangCode);
+            targetLangCode == string.Empty ? null! : Language.GetLanguage(targetLangCode);
     }
 }

@@ -1,164 +1,164 @@
-﻿// <copyright file="Config.cs" company="lokinmodar">
+// <copyright file="Config.cs" company="lokinmodar">
 // Copyright (c) lokinmodar. All rights reserved.
 // Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License license.
 // </copyright>
 
-using System;
-using System.Numerics;
-
 using Dalamud.Configuration;
+using System.Numerics;
 
 namespace Echoglossian
 {
-  public class Config : IPluginConfiguration
-  {
-    public string DefaultPluginCulture = "en";
+    public class Config : IPluginConfiguration
+    {
+        public bool isAssetPresent = false;
 
-    public int PluginCultureInt;
+        public string DefaultPluginCulture = "en";
 
-    public bool Translate = false;
+        public int PluginCultureInt;
 
-    public bool UnsupportedLanguage = false;
+        public bool Translate = false;
 
-    public bool OverlayOnlyLanguage = false;
+        public bool UnsupportedLanguage = false;
 
-    public bool PluginAssetsDownloaded = false;
+        public bool OverlayOnlyLanguage = false;
 
-    public int Lang = 28;
+        public bool PluginAssetsDownloaded = false;
 
-    public int FontSize = 24;
+        public int Lang = 28;
 
-    public bool ShowInCutscenes = true;
+        public int FontSize = 24;
 
-    public bool TranslateBattleTalk = false;
+        public bool ShowInCutscenes = true;
 
-    public bool TranslateTalk = false;
+        public bool TranslateBattleTalk = false;
 
-    public bool TranslateTalkSubtitle = false;
+        public bool TranslateTalk = false;
 
-    public bool TranslateToast = false;
+        public bool TranslateTalkSubtitle = false;
 
-    public bool TranslateNpcNames = false;
+        public bool TranslateToast = false;
 
-    public bool TranslateErrorToast = false;
+        public bool TranslateNpcNames = false;
 
-    public bool TranslateQuestToast = false;
+        public bool TranslateErrorToast = false;
 
-    public bool TranslateAreaToast = false;
+        public bool TranslateQuestToast = false;
 
-    public bool TranslateClassChangeToast = false;
+        public bool TranslateAreaToast = false;
 
-    public bool TranslateWideTextToast = false;
+        public bool TranslateClassChangeToast = false;
 
-    public bool TranslateYesNoScreen = false;
+        public bool TranslateWideTextToast = false;
 
-    public bool TranslateCutSceneSelectString = false;
+        public bool TranslateYesNoScreen = false;
 
-    public bool TranslateSelectString = false;
+        public bool TranslateCutSceneSelectString = false;
 
-    public bool TranslateSelectOk = false;
+        public bool TranslateSelectString = false;
 
-    public bool TranslateToDoList = false;
+        public bool TranslateSelectOk = false;
 
-    public bool TranslateScenarioTree = false;
+        public bool TranslateToDoList = false;
 
-    public bool TranslateTooltips = false;
+        public bool TranslateScenarioTree = false;
 
-    public bool TranslateJournal = false;
+        public bool TranslateTooltips = false;
 
-    public bool UseImGuiForTalk = false;
+        public bool TranslateJournal = false;
 
-    public bool UseImGuiForBattleTalk = false;
+        public bool UseImGuiForTalk = false;
 
-    public bool UseImGuiForToasts = false;
+        public bool UseImGuiForBattleTalk = false;
 
-    public bool UseImGuiForTalkSubtitle = false;
+        public bool UseImGuiForToasts = false;
 
-    public bool SwapTextsUsingImGui = false;
+        public bool UseImGuiForTalkSubtitle = false;
 
-    public int ChosenTransEngine = 0;
+        public bool SwapTextsUsingImGui = false;
 
-    public bool TranslateAlreadyTranslatedTexts = false;
+        public int ChosenTransEngine = 0;
 
-    public Vector2 ImGuiWindowPosCorrection = new(0.0f, 0.0f);
+        public bool TranslateAlreadyTranslatedTexts = false;
 
-    public Vector2 ImGuiToastWindowPosCorrection = new(0.0f, 0.0f);
+        public Vector2 ImGuiWindowPosCorrection = new(0.0f, 0.0f);
 
-    public Vector2 ImGuiBattleTalkWindowPosCorrection = new(0.0f, 0.0f);
+        public Vector2 ImGuiToastWindowPosCorrection = new(0.0f, 0.0f);
 
-    public Vector2 ImGuiTalkSubtitleWindowPosCorrection = new(0.0f, 0.0f);
+        public Vector2 ImGuiBattleTalkWindowPosCorrection = new(0.0f, 0.0f);
 
-    public float ImGuiTalkWindowWidthMult = 1.5f;
+        public Vector2 ImGuiTalkSubtitleWindowPosCorrection = new(0.0f, 0.0f);
 
-    public float ImGuiTalkWindowHeightMult = 1f;
+        public float ImGuiTalkWindowWidthMult = 1.5f;
 
-    public float ImGuiBattleTalkWindowWidthMult = 1.5f;
+        public float ImGuiTalkWindowHeightMult = 1f;
 
-    public float ImGuiBattleTalkWindowHeightMult = 1f;
+        public float ImGuiBattleTalkWindowWidthMult = 1.5f;
 
-    public float ImGuiTalkSubtitleWindowWidthMult = 1.5f;
+        public float ImGuiBattleTalkWindowHeightMult = 1f;
 
-    public float ImGuiTalkSubtitleWindowHeightMult = 1f;
+        public float ImGuiTalkSubtitleWindowWidthMult = 1.5f;
 
-    public float ImGuiToastWindowWidthMult = 1.5f;
+        public float ImGuiTalkSubtitleWindowHeightMult = 1f;
 
-    public Vector3 OverlayTalkTextColor = new(1.0f, 1.0f, 1.0f);
+        public float ImGuiToastWindowWidthMult = 1.5f;
 
-    public Vector3 OverlayBattleTalkTextColor = new(1.0f, 1.0f, 1.0f);
+        public Vector3 OverlayTalkTextColor = new(1.0f, 1.0f, 1.0f);
 
-    public Vector3 OverlayTalkSubtitleTextColor = new(1.0f, 1.0f, 1.0f);
+        public Vector3 OverlayBattleTalkTextColor = new(1.0f, 1.0f, 1.0f);
 
-    public Vector3 OverlayToastTextColor = new(1.0f, 1.0f, 1.0f);
+        public Vector3 OverlayTalkSubtitleTextColor = new(1.0f, 1.0f, 1.0f);
 
-    public bool CopyTranslationToClipboard = false;
+        public Vector3 OverlayToastTextColor = new(1.0f, 1.0f, 1.0f);
 
-    public bool RemoveDiacriticsWhenUsingReplacementQuest = false;
+        public bool CopyTranslationToClipboard = false;
 
-    public bool RemoveDiacriticsWhenUsingReplacementTalkBTalk = false;
+        public bool RemoveDiacriticsWhenUsingReplacementQuest = false;
 
-    public string DeeplTranslatorApiKey = string.Empty;
+        public bool RemoveDiacriticsWhenUsingReplacementTalkBTalk = false;
 
-    public bool DeeplTranslatorUsingApiKey = false;
+        public string DeeplTranslatorApiKey = string.Empty;
 
-    public string ChatGptApiKey = string.Empty;
+        public bool DeeplTranslatorUsingApiKey = false;
 
-    public string ChatGPTBaseUrl = "https://api.openai.com/v1";
+        public string ChatGptApiKey = string.Empty;
 
-    public string OpenAILlmModel = "gpt-4o-mini";
+        public string ChatGPTBaseUrl = "https://api.openai.com/v1";
 
-    public float ChatGptTemperature = 0.1f;
+        public string OpenAILlmModel = "gpt-4o-mini";
 
-    public string ChatGptEngine = "davinci";
+        public float ChatGptTemperature = 0.1f;
 
-    public string ChatGptPrompt = "";
+        public string ChatGptEngine = "davinci";
 
-    public float FontScale = 1;
+        public string ChatGptPrompt = "";
 
-    public float BattleTalkFontScale = 1;
+        public float FontScale = 1;
 
-    public int GoogleTranslateVersion = 2;
+        public float BattleTalkFontScale = 1;
 
-    public string PluginVersion { get; set; } = "2.0.0";
+        public int GoogleTranslateVersion = 2;
 
-    public string YandexFreeApiKey { get; internal set; } = string.Empty;
+        public string PluginVersion { get; set; } = "2.0.0";
 
-    public bool UsePaidYandexApi { get; internal set; } = false;
+        public string YandexFreeApiKey { get; internal set; } = string.Empty;
 
-    public bool UseYandexV2ForFreeApi { get; internal set; } = false;
+        public bool UsePaidYandexApi { get; internal set; } = false;
 
-    public string YandexFolderId { get; internal set; } = string.Empty;
+        public bool UseYandexV2ForFreeApi { get; internal set; } = false;
 
-    public string YandexPaidApiKey { get; internal set; } = string.Empty;
+        public string YandexFolderId { get; internal set; } = string.Empty;
 
-    public int YandexCharactersTranslated { get; internal set; } = 0;
+        public string YandexPaidApiKey { get; internal set; } = string.Empty;
 
-    [NonSerialized]
-    public long FontChangeTime = DateTime.Now.Ticks;
+        public int YandexCharactersTranslated { get; internal set; } = 0;
 
-    public int Version { get; set; } = 5;
-    public string DeepSeekBaseUrl { get; internal set; }
-    public string? DeepSeekTranslatorApiKey { get; internal set; }
-    public string? DeepSeekModel { get; internal set; }
-    public float DeepSeekTemperature { get; internal set; }
-  }
+        [NonSerialized]
+        public long FontChangeTime = DateTime.Now.Ticks;
+
+        public int Version { get; set; } = 5;
+        public string DeepSeekBaseUrl { get; internal set; }
+        public string? DeepSeekTranslatorApiKey { get; internal set; }
+        public string? DeepSeekModel { get; internal set; }
+        public float DeepSeekTemperature { get; internal set; }
+    }
 }

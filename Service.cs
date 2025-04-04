@@ -1,0 +1,29 @@
+using Dalamud.IoC;
+using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
+
+namespace Echoglossian
+{
+    internal class Service
+    {
+        [PluginService] public static IDalamudPluginInterface pluginInterface { get; set; } = null!;
+        [PluginService] public static IDataManager dataManager { get; set; } = null!;
+        [PluginService] public static ICommandManager commandManager { get; set; } = null!;
+        [PluginService] public static IFramework framework { get; set; } = null!;
+        [PluginService] public static IGameGui gameGui { get; set; } = null!;
+        [PluginService] public static IChatGui chatGui { get; set; } = null!;
+        [PluginService] public static IClientState clientState { get; set; } = null!;
+        [PluginService] public static IToastGui toastGui { get; set; } = null!;
+        [PluginService] public static IAddonEventManager addonEventManager { get; set; } = null!;
+        [PluginService] public static IAddonLifecycle addonLifecycle { get; set; } = null!;
+        [PluginService] public static IPluginLog pluginLog { get; set; } = null!;
+        [PluginService] public static INotificationManager notificationManager { get; set; } = null!;
+        [PluginService] public static ITextureProvider textureProvider { get; set; } = null!;
+
+
+        internal static Echoglossian plugin { get; set; } = null!;
+        internal static Config config { get; set; } = null!;
+        internal static AssetManager assetManager { get; set; } = null!;
+        internal static MainWindow mainWindow { get; set; } = null!;
+    }
+}
