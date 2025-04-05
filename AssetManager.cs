@@ -1,5 +1,6 @@
 using Dalamud.Interface.ImGuiNotification;
 using Echoglossian.Properties;
+using Echoglossian.Utils;
 
 namespace Echoglossian
 {
@@ -55,7 +56,7 @@ namespace Echoglossian
             await Task.WhenAll(downloadTasks);
 
             // Final check after downloads attempt
-            MissingAssetFiles = [.. requiredAssets.Where(asset => !File.Exists(Path.Combine(this.assetPath, asset.FileName)))];
+            MissingAssetFiles = [.. requiredAssets.Where(asset => !File.Exists(Path.Combine(assetPath, asset.FileName)))];
 
             if (MissingAssetFiles.Count == 0)
             {
@@ -101,7 +102,7 @@ namespace Echoglossian
             {
                 Content = message,
                 Title = Resources.Name,
-                Icon = NotificationUtilities.ToNotificationIcon(Dalamud.Interface.FontAwesomeIcon.Vault),
+                Icon = Dalamud.Interface.FontAwesomeIcon.Vault.ToNotificationIcon(),
                 Type = type,
             };
 

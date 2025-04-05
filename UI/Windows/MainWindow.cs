@@ -1,5 +1,6 @@
 using Dalamud.Interface.Windowing;
 using Echoglossian.Properties;
+using Echoglossian.Utils;
 using ImGuiNET;
 using System.Numerics;
 

@@ -3,7 +3,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Echoglossian.UI.Windows;
 
-namespace Echoglossian
+namespace Echoglossian.Utils
 {
     internal class Service
     {

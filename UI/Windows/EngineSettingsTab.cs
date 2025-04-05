@@ -1,4 +1,5 @@
 using Echoglossian.Properties;
+using Echoglossian.Utils;
 using ImGuiNET;
 using System.Diagnostics;
 

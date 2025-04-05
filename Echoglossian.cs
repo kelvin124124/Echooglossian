@@ -6,6 +6,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Echoglossian.Properties;
 using Echoglossian.UI.Windows;
+using Echoglossian.Utils;
 using System.Globalization;
 using System.Reflection;
 
