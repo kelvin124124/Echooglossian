@@ -1,6 +1,7 @@
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
+using Echoglossian.UI.Windows;
 
 namespace Echoglossian
 {

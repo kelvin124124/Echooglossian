@@ -116,7 +116,7 @@ public partial class MainWindow
 
     // Helper to check if the current language is one that might benefit from diacritic removal
     // Keep this private or move to a shared utility class if used elsewhere
-    private bool IsDiacriticRemovalLanguage(int langId)
+    private static bool IsDiacriticRemovalLanguage(int langId)
     {
         // Original list: 24, 25, 44, 60, 61, 80, 83, 87, 91, 104, 105, 109, 110
         return langId is 24 or 25 or 44 or 60 or 61 or 80 or 83 or 87 or 91 or 104 or 105 or 109 or 110;

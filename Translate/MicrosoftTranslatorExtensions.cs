@@ -1,3 +1,4 @@
+using Echoglossian.Utils;
 using GTranslate.Translators;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -10,6 +11,11 @@ namespace Echoglossian.Translate
         public static async Task<TranslationResult> TranslateWithKeyAsync(
             this MicrosoftTranslator translator, string text, string toLanguage)
         {
+            if (!ValidateAPIKey.IsValidAPIKey(nameof(MicrosoftTranslator), out string secretKey))
+            {
+                throw new Exception("Translate with key is enabled but key is not set.");
+            }
+
             string DefaultContentType = "application/json";
             string baseUrl = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0";
 
@@ -32,19 +38,19 @@ namespace Echoglossian.Translate
             var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             var jsonArray = JArray.Parse(jsonResponse);
-            var translatedText = jsonArray[0]?["translations"]?[0]?["text"]?.ToString();
+            var translated = jsonArray[0]?["translations"]?[0]?["text"]?.ToString();
             var detectedLanguage = jsonArray[0]?["detectedLanguage"]?["language"]?.ToString();
 
-            if (translatedText == text)
+            if (translated == text)
             {
                 throw new Exception("MicrosoftTranslator (with API key): Message was not translated.");
             }
 
             return new TranslationResult(
-                translation: translatedText,
+                translation: translated!,
                 source: text,
                 service: nameof(MicrosoftTranslator),
-                srcLangCode: detectedLanguage,
+                srcLangCode: detectedLanguage!,
                 targetLangCode: toLanguage
             );
         }

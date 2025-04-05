@@ -1,4 +1,5 @@
 using Dalamud.Utility;
+using Echoglossian.Utils;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http.Headers;
@@ -150,6 +151,11 @@ namespace Echoglossian.Translate
 
         public async Task<TranslationResult> TranslateWithKeyAsync(string text, string toLanguage)
         {
+            if (!ValidateAPIKey.IsValidAPIKey(nameof(DeepLTranslator), out string authKey))
+            {
+                throw new Exception("Translate with key is enabled but key is not set.");
+            }
+
             if (!TryGetLanguageCode(toLanguage, out var languageCode))
             {
                 throw new Exception("Target language not supported by DeepL.");
@@ -159,7 +165,7 @@ namespace Echoglossian.Translate
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api-free.deepl.com/v2/translate")
             {
                 Content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, DefaultContentType),
-                Headers = { { HttpRequestHeader.Authorization.ToString(), $"DeepL-Auth-Key {Service.configuration.DeepL_API_Key}" } }
+                Headers = { { HttpRequestHeader.Authorization.ToString(), $"DeepL-Auth-Key {authKey}" } }
             };
 
             var response = await TranslationHandler.HttpClient.SendAsync(requestMessage).ConfigureAwait(false);

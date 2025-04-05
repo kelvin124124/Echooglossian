@@ -1,3 +1,4 @@
+using Echoglossian.Utils;
 using GTranslate;
 using GTranslate.Translators;
 using Newtonsoft.Json.Linq;
@@ -12,6 +13,11 @@ namespace Echoglossian.Translate
         public static async Task<TranslationResult> TranslateWithKeyAsync(
             this GoogleTranslator translator, string text, string toLanguage)
         {
+            if (!ValidateAPIKey.IsValidAPIKey(nameof(GoogleTranslator), out string accessToken))
+            {
+                throw new Exception("Translate with key is enabled but key is not set.");
+            }
+
             string DefaultContentType = "application/json";
             string baseUrl = "https://translation.googleapis.com/language/translate/v2";
 
@@ -36,19 +42,19 @@ namespace Echoglossian.Translate
             var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             var jsonObject = JObject.Parse(jsonResponse);
-            var translatedText = jsonObject["data"]?["translations"]?[0]?["translatedText"]?.ToString();
-            var detectedSourceLanguage = jsonObject["data"]?["translations"]?[0]?["detectedSourceLanguage"]?.ToString();
+            var translated = jsonObject["data"]?["translations"]?[0]?["translatedText"]?.ToString();
+            var detectedLanguage = jsonObject["data"]?["translations"]?[0]?["detectedSourceLanguage"]?.ToString();
 
-            if (translatedText == text)
+            if (translated == text)
             {
                 throw new Exception("GTranslator (with API key): Message was not translated.");
             }
 
             return new TranslationResult(
-                translation: translatedText,
+                translation: translated!,
                 source: text,
                 service: nameof(GoogleTranslator),
-                srcLangCode: detectedSourceLanguage,
+                srcLangCode: detectedLanguage!,
                 targetLangCode: toLanguage
             );
         }

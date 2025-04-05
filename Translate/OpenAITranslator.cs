@@ -1,4 +1,5 @@
 using Dalamud.Utility;
+using Echoglossian.Utils;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Text;
@@ -12,21 +13,21 @@ namespace Echoglossian.Translate
         private const string DefaultContentType = "application/json";
 
         public static async Task<string> Translate(Dialogue dialogue, string targetLanguage
-            , string baseUrl = "https://api.openai.com/v1/chat/completions", string model = "gpt-4o-mini", string apiKey = null!)
+            , LLMPreset llm)
         {
-            if (apiKey == null)
+            if (!ValidateAPIKey.IsValidAPIKey(llm.Name, out string apiKey))
             {
-                Service.pluginLog.Warning("OpenAI API Key is invalid. Please check your configuration. Falling back to machine translation.");
+                Service.pluginLog.Warning("LLM API Key is invalid. Please check your configuration. Falling back to machine translation.");
                 return await MachineTranslator.Translate(dialogue, targetLanguage);
             }
 
-            var prompt = BuildPrompt(message.Context);
+            var prompt = BuildPrompt(dialogue.Context);
             var promptLength = prompt.Length;
-            var userMsg = $"Translate to: {Service.configuration.SelectedTargetLanguage}\n#### Original Text\n{dialogue.OriginalContent}";
+            var userMsg = $"Translate to: {Service.config.SelectedTargetLanguage}\n#### Original Text\n{dialogue.OriginalContent}";
             var requestData = new
             {
-                model,
-                temperature = 0.6,
+                llm.Model,
+                llm.Temperature,
                 max_tokens = Math.Max(promptLength, 200),
                 messages = new[]
                 {
@@ -35,7 +36,7 @@ namespace Echoglossian.Translate
                 }
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, baseUrl)
+            var request = new HttpRequestMessage(HttpMethod.Post, llm.LLM_API_Endpoint)
             {
                 Content = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, DefaultContentType),
                 Headers = { { HttpRequestHeader.Authorization.ToString(), $"Bearer {apiKey}" } }
@@ -75,7 +76,7 @@ namespace Echoglossian.Translate
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"You are a precise translator for FFXIV game content into {Service.configuration.SelectedTargetLanguage}.\n");
+            sb.AppendLine($"You are a precise translator for FFXIV game content into {Service.config.SelectedTargetLanguage}.\n");
 
             sb.AppendLine("TRANSLATION RULES:");
             sb.AppendLine("1. Be mindful of FFXIV-specific terms, but translate all content appropriately");
@@ -99,7 +100,7 @@ namespace Echoglossian.Translate
             sb.AppendLine("#### Translation");
             sb.AppendLine("{Only the translated text goes here}");
 
-            if (Service.configuration.UseContext && context != null)
+            if (Service.config.UseContext && context != null)
             {
                 sb.AppendLine("\nCONTEXT:");
                 sb.AppendLine("Use the following context information if relevant (provided in XML tags):");
@@ -116,8 +117,7 @@ namespace Echoglossian.Translate
     {
         public static async Task<string> Translate(Dialogue dialogue, string targetLanguage)
         {
-            return await OpenAITranslate.Translate(dialogue, targetLanguage,
-                Service.configuration.LLM_API_endpoint, Service.configuration.LLM_Model, Service.configuration.LLM_API_Key);
+            return await OpenAITranslate.Translate(dialogue, targetLanguage, Service.config.SelectedLLMPreset);
         }
     }
 }

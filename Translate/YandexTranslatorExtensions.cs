@@ -1,3 +1,4 @@
+using Echoglossian.Utils;
 using GTranslate.Translators;
 using Newtonsoft.Json.Linq;
 using System.Net;
@@ -11,6 +12,11 @@ namespace Echoglossian.Translate
         public static async Task<TranslationResult> TranslateWithKeyAsync(
             this YandexTranslator translator, string text, string toLanguage)
         {
+            if (!ValidateAPIKey.IsValidAPIKey(nameof(YandexTranslator), out string IAM_Token))
+            {
+                throw new Exception("Translate with key is enabled but key is not set.");
+            }
+
             string DefaultContentType = "application/json";
             string baseUrl = "https://translate.api.cloud.yandex.net/translate/v2/translate";
 
@@ -35,19 +41,19 @@ namespace Echoglossian.Translate
             var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             var jsonObject = JObject.Parse(jsonResponse);
-            var translatedText = jsonObject["translations"]?[0]?["text"]?.ToString();
+            var translated = jsonObject["translations"]?[0]?["text"]?.ToString();
             var detectedLanguage = jsonObject["translations"]?[0]?["detectedLanguageCode"]?.ToString();
 
-            if (translatedText == text)
+            if (translated == text)
             {
                 throw new Exception("YandexTranslator (with API key): Message was not translated.");
             }
 
             return new TranslationResult(
-                translation: translatedText,
+                translation: translated!,
                 source: text,
                 service: nameof(YandexTranslator),
-                srcLangCode: detectedLanguage,
+                srcLangCode: detectedLanguage!,
                 targetLangCode: toLanguage
             );
         }

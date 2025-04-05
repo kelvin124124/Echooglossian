@@ -29,10 +29,10 @@ public partial class MainWindow
             float availableHeight = ImGui.GetContentRegionAvail().Y;
             float logoHeight = 300f;
             float cursorY = ImGui.GetCursorPosY();
-            float logoY = Math.Max(cursorY, cursorY + (availableHeight - logoHeight) * 0.5f);
+            float logoY = Math.Max(cursorY, cursorY + ((availableHeight - logoHeight) * 0.5f));
             ImGui.SetCursorPosY(logoY);
 
-            if (this.logo?.ImGuiHandle != System.IntPtr.Zero)
+            if (this.logo?.ImGuiHandle != nint.Zero)
             {
                 float logoWidth = 300f;
                 float columnWidth = ImGui.GetColumnWidth();

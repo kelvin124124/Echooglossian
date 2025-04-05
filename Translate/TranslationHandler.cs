@@ -2,10 +2,11 @@ namespace Echoglossian.Translate
 {
     internal class TranslationHandler
     {
-        private Dictionary<string, string> translationCache = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> translationCache = [];
 
-        internal static HttpClient HttpClient = new HttpClient();
-
-
+        internal static HttpClient HttpClient = new()
+        {
+            Timeout = TimeSpan.FromSeconds(20)
+        };
     }
 }

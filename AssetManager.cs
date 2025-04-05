@@ -1,8 +1,3 @@
-// <copyright file="AssetsManager.cs" company="lokinmodar">
-// Copyright (c) lokinmodar. All rights reserved.
-// Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License license.
-// </copyright>
-
 using Dalamud.Interface.ImGuiNotification;
 using Echoglossian.Properties;
 
@@ -10,17 +5,11 @@ namespace Echoglossian
 {
     public class AssetManager
     {
-        public AssetManager()
-        {
-            if (Service.config.isAssetPresent)
-                return;
-
-            CheckAndDownloadPluginAssets().ConfigureAwait(false);
-        }
+        public AssetManager() => CheckAndDownloadPluginAssets().ConfigureAwait(false);
 
         private record AssetInfo(string FileName, Uri DownloadUri);
 
-        private readonly List<AssetInfo> RequiredAssets =
+        private readonly List<AssetInfo> requiredAssets =
         [
             new("NotoSansCJKhk-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChineseHK/NotoSansCJKhk-Regular.otf")),
             new("NotoSansCJKjp-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Regular.otf")),
@@ -29,15 +18,15 @@ namespace Echoglossian
             new("NotoSansCJKtc-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChinese/NotoSansCJKtc-Regular.otf")),
         ];
 
-        string[] AssetFiles = ["NotoSansCJKhk-Regular.otf", "NotoSansCJKjp-Regular.otf", "NotoSansCJKkr-Regular.otf",
+        private readonly string[] assetFiles = ["NotoSansCJKhk-Regular.otf", "NotoSansCJKjp-Regular.otf", "NotoSansCJKkr-Regular.otf",
             "NotoSansCJKsc-Regular.otf", "NotoSansCJKtc-Regular.otf"];
 
-        string[] ComplementaryFontFiles = ["NotoSansJP-VF-3.ttf", "NotoSansJP-VF-4.ttf", "NotoSansJP-VF-5.ttf",
+        private readonly string[] complementaryFontFiles = ["NotoSansJP-VF-3.ttf", "NotoSansJP-VF-4.ttf", "NotoSansJP-VF-5.ttf",
             "NotoSansJP-VF-6.ttf", "NotoSansJP-VF-7.ttf"];
 
-        private string assetPath = Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "Font");
+        private readonly string assetPath = Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "Font");
 
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new();
 
         private async Task CheckAndDownloadPluginAssets()
         {
@@ -45,9 +34,9 @@ namespace Echoglossian
 
             Directory.CreateDirectory(assetPath);
 
-            List<AssetInfo> MissingAssetFiles = [.. RequiredAssets.Where(asset => !File.Exists(Path.Combine(assetPath, asset.FileName)))];
+            List<AssetInfo> MissingAssetFiles = [.. requiredAssets.Where(asset => !File.Exists(Path.Combine(assetPath, asset.FileName)))];
 
-            if (!MissingAssetFiles.Any())
+            if (MissingAssetFiles.Count == 0)
             {
                 Service.pluginLog.Debug("All assets present.");
 
@@ -66,9 +55,9 @@ namespace Echoglossian
             await Task.WhenAll(downloadTasks);
 
             // Final check after downloads attempt
-            MissingAssetFiles = [.. RequiredAssets.Where(asset => !File.Exists(Path.Combine(this.assetPath, asset.FileName)))];
+            MissingAssetFiles = [.. requiredAssets.Where(asset => !File.Exists(Path.Combine(this.assetPath, asset.FileName)))];
 
-            if (!MissingAssetFiles.Any())
+            if (MissingAssetFiles.Count == 0)
             {
                 Service.config.isAssetPresent = true;
                 ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);
@@ -106,7 +95,7 @@ namespace Echoglossian
             Service.pluginLog.Debug($"Successfully downloaded: {asset.FileName}");
         }
 
-        private void ShowNotification(string message, NotificationType type)
+        private static void ShowNotification(string message, NotificationType type)
         {
             var notification = new Notification
             {
