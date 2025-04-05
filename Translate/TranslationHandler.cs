@@ -1,8 +1,11 @@
+using Echoglossian.Database;
+using Echoglossian.Utils;
+
 namespace Echoglossian.Translate
 {
     internal class TranslationHandler
     {
-        private readonly Dictionary<string, string> translationCache = [];
+        private readonly TranslationCache translationCache = new(Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "faster"));
 
         internal static HttpClient HttpClient = new()
         {

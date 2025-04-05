@@ -12,18 +12,20 @@ namespace Echoglossian.Translate
     {
         private const string DefaultContentType = "application/json";
 
-        public static async Task<string> Translate(Dialogue dialogue, string targetLanguage
-            , LLMPreset llm)
+        public static async Task<string> Translate(Dialogue dialogue, LLMPreset llm)
         {
+            string content = dialogue.Content;
+            string targetLanguage = dialogue.TargetLanguage.EnglishName;
+
             if (!ValidateAPIKey.IsValidAPIKey(llm.Name, out string apiKey))
             {
                 Service.pluginLog.Warning("LLM API Key is invalid. Please check your configuration. Falling back to machine translation.");
-                return await MachineTranslator.Translate(dialogue, targetLanguage);
+                return await MachineTranslator.Translate(dialogue);
             }
 
-            var prompt = BuildPrompt(dialogue.Context);
+            var prompt = BuildPrompt(targetLanguage, Service.config.UseContext ? GetContext() : null);
             var promptLength = prompt.Length;
-            var userMsg = $"Translate to: {Service.config.SelectedTargetLanguage}\n#### Original Text\n{dialogue.OriginalContent}";
+            var userMsg = $"Translate to: {targetLanguage}\n#### Original Text\n{content}";
             var requestData = new
             {
                 llm.Model,
@@ -54,10 +56,10 @@ namespace Echoglossian.Translate
                     throw new Exception("Translation not found in the expected structure.");
                 }
 
-                if (translated == dialogue.OriginalContent)
+                if (translated == content)
                 {
                     Service.pluginLog.Warning("Message was not translated. Falling back to machine translate.");
-                    return await MachineTranslator.Translate(dialogue, targetLanguage);
+                    return await MachineTranslator.Translate(dialogue);
                 }
 
                 var translationMatch = Regex.Match(translated, @"#### Translation\s*\n(.+)$", RegexOptions.Singleline);
@@ -68,15 +70,15 @@ namespace Echoglossian.Translate
             catch (Exception ex)
             {
                 Service.pluginLog.Warning($"OpenAI Translate failed to translate. Falling back to machine translation.\n{ex.Message}");
-                return await MachineTranslator.Translate(dialogue, targetLanguage);
+                return await MachineTranslator.Translate(dialogue);
             }
         }
 
-        public static string BuildPrompt(string? context)
+        public static string BuildPrompt(string toLanguage, string? context)
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"You are a precise translator for FFXIV game content into {Service.config.SelectedTargetLanguage}.\n");
+            sb.AppendLine($"You are a precise translator for FFXIV game content into {toLanguage}.\n");
 
             sb.AppendLine("TRANSLATION RULES:");
             sb.AppendLine("1. Be mindful of FFXIV-specific terms, but translate all content appropriately");
@@ -100,7 +102,7 @@ namespace Echoglossian.Translate
             sb.AppendLine("#### Translation");
             sb.AppendLine("{Only the translated text goes here}");
 
-            if (Service.config.UseContext && context != null)
+            if (context != null)
             {
                 sb.AppendLine("\nCONTEXT:");
                 sb.AppendLine("Use the following context information if relevant (provided in XML tags):");
@@ -111,13 +113,18 @@ namespace Echoglossian.Translate
 
             return sb.ToString();
         }
+
+        private static string GetContext()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     internal static class OpenAICompatible
     {
-        public static async Task<string> Translate(Dialogue dialogue, string targetLanguage)
+        public static async Task<string> Translate(Dialogue dialogue)
         {
-            return await OpenAITranslate.Translate(dialogue, targetLanguage, Service.config.SelectedLLMPreset);
+            return await OpenAITranslate.Translate(dialogue, Service.config.SelectedLLMPreset);
         }
     }
 }

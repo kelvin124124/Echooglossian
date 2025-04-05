@@ -54,14 +54,14 @@ public partial class MainWindow
                 break;
             case 1: // DeepL
                 ImGui.TextWrapped(Resources.SettingsForDeepLTransText);
-                
+
                 if (ImGui.Checkbox(Resources.DeepLTransAPIKey, ref Service.config.DeeplTranslatorUsingApiKey)) { engineChanged = true; saveConfig = true; }
                 if (Service.config.DeeplTranslatorUsingApiKey)
                 {
                     ImGui.Indent();
                     if (ImGui.Button(Resources.DeepLTranslatorAPIKeyLink)) Process.Start(new ProcessStartInfo { FileName = "https://www.deepl.com/pro-api", UseShellExecute = true });
                     ImGui.SameLine(); ImGui.Text("(opens browser)");
-                    
+
                     ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X * 0.7f);
                     if (ImGui.InputText(Resources.DeeplTranslatorApiKey, ref Service.config.DeeplTranslatorApiKey, 100, ImGuiInputTextFlags.Password)) { engineChanged = true; saveConfig = true; }
                     ImGui.Unindent();
@@ -69,22 +69,22 @@ public partial class MainWindow
                 break;
             case 2: // ChatGPT
                 ImGui.TextWrapped(Resources.SettingsForChatGptTransText);
-                
+
                 if (ImGui.Button(Resources.ChatGPTAPIKeyLink)) Process.Start(new ProcessStartInfo { FileName = "https://platform.openai.com/settings/profile?tab=api-keys", UseShellExecute = true });
                 ImGui.SameLine(); ImGui.Text("(opens browser)");
-                
+
 
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X * 0.7f);
                 if (ImGui.InputText(Resources.ChatGptApiKey, ref Service.config.ChatGptApiKey, 400, ImGuiInputTextFlags.Password)) { engineChanged = true; saveConfig = true; }
-                
+
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X * 0.7f);
                 if (ImGui.InputText("API Base URL", ref Service.config.ChatGPTBaseUrl, 400)) { engineChanged = true; saveConfig = true; }
                 if (ImGui.IsItemHovered()) ImGui.SetTooltip("Default: https://api.openai.com/v1\nUse this for compatible local models or proxies.");
-                
+
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X * 0.7f);
                 if (ImGui.InputText("LLM Model Name", ref Service.config.OpenAILlmModel, 400)) { engineChanged = true; saveConfig = true; }
                 if (ImGui.IsItemHovered()) ImGui.SetTooltip("e.g., gpt-4, gpt-3.5-turbo, or custom model name.");
-                
+
                 ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X * 0.5f);
                 if (ImGui.SliderFloat("Temperature", ref Service.config.ChatGptTemperature, 0.0f, 1.0f, "%.1f")) { saveConfig = true; }
                 if (ImGui.IsItemHovered()) ImGui.SetTooltip("Lower = deterministic, higher = creative/random.");

@@ -46,5 +46,10 @@ namespace Echoglossian.Translate
 
             return text;
         }
+
+        public static async Task<string> Translate(Dialogue dialogue)
+        {
+            return await Translate(dialogue.Content, dialogue.TargetLanguage.EnglishName).ConfigureAwait(false);
+        }
     }
 }

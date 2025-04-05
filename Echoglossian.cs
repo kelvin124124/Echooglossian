@@ -1,4 +1,3 @@
-using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Command;
 using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Windowing;
@@ -7,7 +6,6 @@ using Dalamud.Plugin.Services;
 using Echoglossian.Properties;
 using Echoglossian.UI.Windows;
 using Echoglossian.Utils;
-using System.Globalization;
 using System.Reflection;
 
 namespace Echoglossian

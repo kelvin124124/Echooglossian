@@ -10,11 +10,11 @@ public class Config : IPluginConfiguration
     public int Version { get; set; } = 0;
     public string PluginVersion { get; set; } = "0";
     public bool isAssetPresent { get; set; } = false;
-    
-    public bool ShowInCutscenes { get; set; } = true;
-    public CultureInfo DefaultPluginCulture { get; set; } = CultureInfo.CurrentCulture;
 
-    public CultureInfo SelectedTargetLanguage { get; set; }
+    public bool ShowInCutscenes { get; set; } = true;
+    public CultureInfo DefaultPluginCulture { get; set; } = new CultureInfo("English");
+
+    public CultureInfo SelectedTargetLanguage { get; set; } = new CultureInfo("English");
     public Dictionary<string, string> API_Keys { get; set; } = [];
 
     public List<LLMPreset> LLMPresets { get; set; } = [];
