@@ -58,13 +58,13 @@ public partial class MainWindow : Window
 
         ImGui.Separator();
 
-        // Moudule configuration tab
-        // Left panel: moudule list [Talk, BattleTalk, Toast, Journal, TalkSubstitle, Chat] with image showcase
-        if (ImGui.CollapsingHeader(Resources.MoudulesConfiguration, ImGuiTreeNodeFlags.None))
+        // Module configuration tab
+        // Left panel: Module list [Talk, BattleTalk, Toast, Journal, TalkSubstitle, Chat] with image showcase
+        if (ImGui.CollapsingHeader(Resources.ModulesConfiguration, ImGuiTreeNodeFlags.None))
         {
             short CurrentTab = 0;
-            string[] tabs = [Resources.TalkMouduleName, Resources.BattleTalkMouduleName, Resources.ToastMouduleName,
-                Resources.JournalMouduleName, Resources.TalkSubstitleMouduleName, Resources.ChatMouduleName];
+            string[] tabs = [Resources.TalkModuleName, Resources.BattleTalkModuleName, Resources.ToastModuleName,
+                Resources.JournalModuleName, Resources.TalkSubstitleModuleName, Resources.ChatModuleName];
 
             ImGui.Columns(2, "ConfigColumns###Echo", false);
             ImGui.SetColumnWidth(0, 200);
@@ -82,7 +82,7 @@ public partial class MainWindow : Window
 
             ImGui.NextColumn();
 
-            // Right panel: moudule configuration
+            // Right panel: Module configuration
             if (ImGui.BeginChild("ConfigBox", new Vector2(0, 300), true))
             {
                 switch (CurrentTab)
