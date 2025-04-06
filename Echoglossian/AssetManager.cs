@@ -38,7 +38,8 @@ namespace Echoglossian
 
         public async Task VerifyPluginAssets()
         {
-            Service.pluginLog.Debug("Downloading plugin assets.");
+            Service.pluginLog.Debug("Verifying plugin assets.");
+            ShowNotification("Verifying plugin assets...", NotificationType.Info);
 
             Directory.CreateDirectory(assetPath);
 

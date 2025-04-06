@@ -2,7 +2,7 @@ using Dalamud.Configuration;
 using Echoglossian.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using static Echoglossian.Utils.LanguageDictionary;
 
 namespace Echoglossian
 {
@@ -13,10 +13,12 @@ namespace Echoglossian
         public string PluginVersion { get; set; } = "0";
         public bool isAssetPresent { get; set; } = false;
 
-        public bool ShowInCutscenes { get; set; } = true;
-        public CultureInfo SelectedPluginLanguage { get; set; } = new CultureInfo("English");
+        public bool PluginEnabled { get; set; } = true;
 
-        public CultureInfo SelectedTargetLanguage { get; set; } = new CultureInfo("English");
+        public bool ShowInCutscenes { get; set; } = true;
+        public LanguageInfo SelectedPluginLanguage { get; set; } = GetLanguage("en");
+
+        public LanguageInfo SelectedTargetLanguage { get; set; } = GetLanguage("en");
         public Dictionary<string, string> API_Keys { get; set; } = [];
 
         public List<LLMPreset> LLMPresets { get; set; } = [];

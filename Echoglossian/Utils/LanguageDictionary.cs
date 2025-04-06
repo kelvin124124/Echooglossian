@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Echoglossian.Utils
 {
-    internal static class LanguageDictionary
+    public static class LanguageDictionary
     {
         private static readonly (string Code, string Name, string Font)[] LangArr =
         [
@@ -20,7 +22,15 @@ namespace Echoglossian.Utils
             public string Font { get; init; }
 
             public string ExclusiveChars => LoadCharacterSet(Code);
+
+            public static explicit operator CultureInfo(LanguageInfo v)
+            {
+                return new CultureInfo(v.Code);
+            }
         }
+
+        public static LanguageInfo[] GetLanguages() =>
+            [.. LangArr.Select(x => new LanguageInfo { Code = x.Code, Name = x.Name, Font = x.Font })];
 
         public static LanguageInfo GetLanguage(string code)
         {
