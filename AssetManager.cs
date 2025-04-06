@@ -1,12 +1,13 @@
 using Dalamud.Interface.ImGuiNotification;
 using Echoglossian.Properties;
 using Echoglossian.Utils;
+using System.Security.Cryptography;
 
 namespace Echoglossian
 {
     public class AssetManager
     {
-        public AssetManager() => CheckAndDownloadPluginAssets().ConfigureAwait(false);
+        public AssetManager() => VerifyPluginAssets().ConfigureAwait(false);
 
         private record AssetInfo(string FileName, Uri DownloadUri);
 
@@ -29,9 +30,9 @@ namespace Echoglossian
 
         private static readonly HttpClient HttpClient = new();
 
-        private async Task CheckAndDownloadPluginAssets()
+        public async Task VerifyPluginAssets()
         {
-            Service.pluginLog.Debug("Checking Plugin assets!");
+            Service.pluginLog.Debug("Downloading plugin assets.");
 
             Directory.CreateDirectory(assetPath);
 
@@ -47,6 +48,7 @@ namespace Echoglossian
             }
 
             Service.config.isAssetPresent = false;
+            Service.config.Save();
 
             Service.pluginLog.Warning($"Missing {MissingAssetFiles.Count} asset(s): {string.Join(", ", MissingAssetFiles.Select(f => f.FileName))}");
             ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
@@ -61,6 +63,8 @@ namespace Echoglossian
             if (MissingAssetFiles.Count == 0)
             {
                 Service.config.isAssetPresent = true;
+                Service.config.Save();
+
                 ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);
             }
             else
@@ -68,6 +72,34 @@ namespace Echoglossian
                 // Log remaining missing files if any failed
                 Service.pluginLog.Error($"Failed to download all assets. Still missing: {string.Join(", ", MissingAssetFiles.Select(f => f.FileName))}");
             }
+        }
+
+        private bool AreAssetsIntact()
+        {
+            using var md5 = MD5.Create();
+            foreach (var file in assetFiles)
+            {
+                var filePath = Path.Combine(assetPath, file);
+                if (!File.Exists(filePath))
+                {
+                    return false;
+                }
+
+                try
+                {
+                    using var stream = File.OpenRead(filePath);
+
+                    var hash = md5.ComputeHash(stream);
+                    if (!hash.SequenceEqual(expectedHashes[file])) return false;
+                }
+                catch (Exception ex)
+                {
+                    Service.pluginLog.Error($"Failed to verify {file}: {ex.Message}");
+                    ShowNotification($"{file} is inaccessible.", NotificationType.Error);
+                    return false;
+                }
+            }
+            return true;
         }
 
         private async Task DownloadAssetAsync(AssetInfo asset)

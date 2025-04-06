@@ -12,7 +12,7 @@ public class Config : IPluginConfiguration
     public bool isAssetPresent { get; set; } = false;
 
     public bool ShowInCutscenes { get; set; } = true;
-    public CultureInfo DefaultPluginCulture { get; set; } = new CultureInfo("English");
+    public CultureInfo SelectedPluginLanguage { get; set; } = new CultureInfo("English");
 
     public CultureInfo SelectedTargetLanguage { get; set; } = new CultureInfo("English");
     public Dictionary<string, string> API_Keys { get; set; } = [];

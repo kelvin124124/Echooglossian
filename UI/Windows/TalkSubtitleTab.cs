@@ -6,7 +6,7 @@ namespace Echoglossian.UI.Windows;
 
 public partial class MainWindow
 {
-    private bool DrawTalkSubtitleTab()
+    private partial bool DrawTalkSubtitleTab()
     {
         bool saveConfig = false;
         if (!Service.config.Translate) { ImGui.TextDisabled(Resources.EnableTranslationOptionToShow); return false; }

@@ -11,14 +11,16 @@ public partial class MainWindow : Window
     private bool saveConfig = false;
 
     public MainWindow(Echoglossian plugin) : base(
-    $"Echoglossian - Plugin Version: {Service.config.PluginVersion}",
-    ImGuiWindowFlags.AlwaysAutoResize)
+        $"Echoglossian - Plugin Version: {Service.config.PluginVersion}",
+        ImGuiWindowFlags.AlwaysAutoResize)
     {
         SizeConstraints = new WindowSizeConstraints
         {
             MinimumSize = new Vector2(900, 700),
             MaximumSize = new Vector2(1920, 1080)
         };
+
+        Resources.Culture = Service.config.SelectedPluginLanguage;
     }
 
     public override void Draw()
@@ -33,7 +35,7 @@ public partial class MainWindow : Window
             if (ImGui.BeginTabItem(Resources.JournalTabName)) { saveConfig |= DrawJournalTab(); ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem(Resources.TalkSubtitileTabName)) { saveConfig |= DrawTalkSubtitleTab(); ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem(Resources.TranslationEngineTabName)) { saveConfig |= DrawEngineSettingsTab(); ImGui.EndTabItem(); }
-            if (ImGui.BeginTabItem(Resources.AssetTabName)) { saveConfig |= DrawAssetsTab(); ImGui.EndTabItem(); }
+            if (ImGui.BeginTabItem(Resources.AssetTabName)) { DrawAssetsTab(); ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem(Resources.MiscTabName)) { saveConfig |= DrawMiscTab(); ImGui.EndTabItem(); }
             if (ImGui.BeginTabItem(Resources.AboutTabName)) { DrawAboutTab(); ImGui.EndTabItem(); }
             ImGui.EndTabBar();
@@ -47,7 +49,7 @@ public partial class MainWindow : Window
     private partial bool DrawJournalTab();
     private partial bool DrawTalkSubtitleTab();
     private partial bool DrawEngineSettingsTab();
-    private partial bool DrawAssetsTab();
+    private partial void DrawAssetsTab();
     private partial bool DrawMiscTab();
     private partial void DrawAboutTab();
 }

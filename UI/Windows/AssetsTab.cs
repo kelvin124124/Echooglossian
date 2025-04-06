@@ -6,31 +6,23 @@ namespace Echoglossian.UI.Windows;
 
 public partial class MainWindow
 {
-    private partial bool DrawAssetsTab()
+    // should not apply locaization, in case asset is missing
+    private partial void DrawAssetsTab()
     {
-        bool saveConfig = false;
-        var pluginAssetsStatus = Service.config.isAssetPresent;
+        bool pluginAssetsStatus = Service.config.isAssetPresent;
 
-        ImGui.TextWrapped(Resources.CurrentPluginAssetsStatus + ": " + (pluginAssetsStatus ? "Downloaded" : "Missing"));
+        ImGui.TextUnformatted("Asset status" + ": " + (pluginAssetsStatus ? "✓ Downloaded" : "X Missing"));
 
-        if (!pluginAssetsStatus) ImGui.TextWrapped(Resources.PluginAssetsNotDownloadedText);
-        else ImGui.TextWrapped("Assets appear downloaded. Re-download if needed.");
+        if (!pluginAssetsStatus) ImGui.TextUnformatted("Some asset files are missing, press the button below to re-download them.");
+        else ImGui.NewLine();
 
         ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
         ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
         ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
-        if (ImGui.Button(pluginAssetsStatus ? "Re-download Assets" : Resources.DownloadPluginAssetsButtonText))
+        if (ImGui.Button("Verify Assets"))
         {
-            try
-            {
-                this.DownloadAssets(0); this.DownloadAssets(1); this.DownloadAssets(2);
-                this.DownloadAssets(3); this.DownloadAssets(4);
-                this.PluginAssetsChecker();
-                saveConfig = true;
-            }
-            catch (Exception ex) { Service.pluginLog.Error($"Error during asset download: {ex}"); }
+            Task.Run(() => Service.assetManager.VerifyPluginAssets());
         }
         ImGui.PopStyleColor(3);
-        return saveConfig;
     }
 }

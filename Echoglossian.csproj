@@ -254,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Data\Resources\pix.png" />
     <EmbeddedResource Include="Data\Resources\minfilia.ico" />
+    <Resource Include="Data\Font\Font.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
 
     <XliffResource Include="MultilingualResources\Echoglossian.da.xlf" />
     <XliffResource Include="MultilingualResources\Echoglossian.de.xlf" />

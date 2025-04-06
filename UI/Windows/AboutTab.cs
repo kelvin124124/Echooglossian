@@ -1,4 +1,5 @@
 using Echoglossian.Properties;
+using Echoglossian.Utils;
 using ImGuiNET;
 using System.Numerics;
 
@@ -32,15 +33,18 @@ public partial class MainWindow
             float logoY = Math.Max(cursorY, cursorY + ((availableHeight - logoHeight) * 0.5f));
             ImGui.SetCursorPosY(logoY);
 
-            if (this.logo?.ImGuiHandle != nint.Zero)
+            var logoPath = Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "Data", "images", "logo.png");
+            var logoImage = Service.textureProvider.GetFromFile(logoPath).GetWrapOrDefault();
+
+            if (logoImage?.ImGuiHandle != nint.Zero)
             {
                 float logoWidth = 300f;
                 float columnWidth = ImGui.GetColumnWidth();
-                float logoX = ImGui.GetCursorPosX() + (columnWidth - logoWidth) * 0.5f;
+                float logoX = ImGui.GetCursorPosX() + ((columnWidth - logoWidth) * 0.5f);
                 ImGui.SetCursorPosX(logoX);
-                ImGui.Image(this.logo.ImGuiHandle, new Vector2(logoWidth, logoHeight));
+                ImGui.Image(logoImage!.ImGuiHandle, new Vector2(logoWidth, logoHeight));
             }
-            else { ImGui.Text("Logo not loaded"); }
+            else { ImGui.TextUnformatted("Logo not loaded"); }
             ImGui.EndTable();
         }
     }
