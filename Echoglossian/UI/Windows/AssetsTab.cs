@@ -1,6 +1,6 @@
-using Echoglossian.Properties;
 using Echoglossian.Utils;
 using ImGuiNET;
+using System.Threading.Tasks;
 
 namespace Echoglossian.UI.Windows;
 

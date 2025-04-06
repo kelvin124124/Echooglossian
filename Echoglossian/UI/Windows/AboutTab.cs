@@ -1,6 +1,8 @@
 using Echoglossian.Properties;
 using Echoglossian.Utils;
 using ImGuiNET;
+using System;
+using System.IO;
 using System.Numerics;
 
 namespace Echoglossian.UI.Windows;

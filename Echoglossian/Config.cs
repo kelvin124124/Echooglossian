@@ -1,5 +1,6 @@
 using Dalamud.Configuration;
 using Echoglossian.Utils;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Echoglossian;

@@ -1,9 +1,12 @@
 using Echoglossian.Utils;
 using GTranslate.Translators;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Echoglossian.Translate
 {

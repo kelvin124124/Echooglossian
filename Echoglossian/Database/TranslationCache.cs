@@ -1,5 +1,6 @@
 using Echoglossian.Translate;
 using FASTER.core;
+using System;
 
 namespace Echoglossian.Database
 {

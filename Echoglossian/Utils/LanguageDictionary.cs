@@ -1,14 +1,17 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Echoglossian.Utils
 {
     internal static class LanguageDictionary
     {
         private static readonly (string Code, string Name, string Font)[] LangArr =
-        {
+        [
             ("af", "Afrikaans", "NotoSans-Medium.ttf"),
             ("sq", "Shqip; Albanian", "NotoSans-Medium.ttf"),
             ("ar", "العَرَبِيَّة Al'Arabiyyeẗ; Arabic", "NotoSansArabic-Medium.ttf"),
             // ... other languages
-        };
+        ];
 
         public readonly record struct LanguageInfo
         {

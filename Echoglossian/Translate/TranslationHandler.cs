@@ -1,5 +1,8 @@
 using Echoglossian.Database;
 using Echoglossian.Utils;
+using System;
+using System.IO;
+using System.Net.Http;
 
 namespace Echoglossian.Translate
 {
