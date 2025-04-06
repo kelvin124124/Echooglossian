@@ -1,308 +1,43 @@
-﻿<Project Sdk="Dalamud.NET.SDK/12.0.2">
-  <PropertyGroup Label="MultilingualAppToolkit">
-    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
-    <MultilingualFallbackLanguage>en</MultilingualFallbackLanguage>
-    <TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
-    <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <AssemblyName>Echoglossian</AssemblyName>
-    <Platforms>x64</Platforms>
-    <Authors>lokinmodar</Authors>
-    <NeutralLanguage>en</NeutralLanguage>
-    <VersionMajor>3</VersionMajor>
-    <VersionMinor>21</VersionMinor>
-    <VersionPatch Condition="'$(VersionPatch)' == ''">$([System.DateTime]::UtcNow.ToString("yyMM"))</VersionPatch>
-    <VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("0"))</VersionRevision>
-    <Version>$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionRevision)</Version>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <NoWarn>IDE0003</NoWarn>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Company>lokinmodar</Company>
-    <Description>Final Fantasy XIV game text translator</Description>
-    <Copyright>lokinmodar - 2021-2024</Copyright>
-    <PackageProjectUrl>https://github.com/lokinmodar/Echoglossian/</PackageProjectUrl>
-    <Nullable>enable</Nullable>
-    <ApplicationIcon>minfilia.ico</ApplicationIcon>
-    <PackageLicenseExpression>Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License</PackageLicenseExpression>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageIconUrl>https://github.com/lokinmodar/Echoglossian/blob/APIv4/images/logo.png?raw=true</PackageIconUrl>
-    <RepositoryUrl>https://github.com/lokinmodar/Echoglossian</RepositoryUrl>
-    <PackageTags>ffxiv, translation, dll, plugin, XIVLauncher</PackageTags>
-    <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />
-  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" Label="MultilingualAppToolkit">
-    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
-  </Target>
-  <PropertyGroup>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Dalamud.NET.SDK/12.0.2">
+    <PropertyGroup>
+        <Authors>lokinmodar</Authors>
+        <Version>3.21.0</Version>
+        <Description>In-game chat translator.</Description>
+        <PackageProjectUrl>https://github.com/lokinmodar/Echoglossian/</PackageProjectUrl>
+        <PackageLicenseExpression>Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License</PackageLicenseExpression>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Dalamud.NET.Sdk" Version="12.0.2" />
+        <PackageReference Include="GTranslate" Version="2.3.1" />
+        <PackageReference Include="Microsoft.FASTER.Core" Version="2.6.5" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Compile Update="Localization\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
 
-
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-
-
-    <AppDesignerFolder>Localization</AppDesignerFolder>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Data\Font\NotoSans-Medium-Custom2.otf" />
-    <None Remove="Data\Font\NotoSans-Medium.ttf" />
-    <None Remove="Data\Font\NotoSans-Regular.ttf" />
-    <None Remove="Data\Font\NotoSans-SemiBold.ttf" />
-    <None Remove="Data\Font\NotoSansArabic-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansArmenian-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansBengali-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansCJKhk-Regular.otf" />
-    <None Remove="Data\Font\NotoSansCJKjp-Regular.otf" />
-    <None Remove="Data\Font\NotoSansCJKkr-Regular.otf" />
-    <None Remove="Data\Font\NotoSansCJKsc-Regular.otf" />
-    <None Remove="Data\Font\NotoSansCJKtc-Regular.otf" />
-    <None Remove="Data\Font\NotoSansDevanagari-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansGeorgian-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansGlagolitic-Regular.ttf" />
-    <None Remove="Data\Font\NotoSansGujarati-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansGurmukhi-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansHebrew-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansJavanese-Regular.ttf" />
-    <None Remove="Data\Font\NotoSansKannada-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansKhmer-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansLao-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansMalayalam-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansMongolian-Regular.ttf" />
-    <None Remove="Data\Font\NotoSansMyanmar-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansOriya-Regular.ttf" />
-    <None Remove="Data\Font\NotoSansSinhala-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansTagalog-Regular.ttf" />
-    <None Remove="Data\Font\NotoSansTamil-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansTelugu-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansThai-Medium.ttf" />
-    <None Remove="Data\Font\NotoSansJP-VF-3.ttf" />
-    <None Remove="Data\Font\NotoSansJP-VF-4.ttf" />
-    <None Remove="Data\Font\NotoSansJP-VF-5.ttf" />
-    <None Remove="Data\Font\NotoSansJP-VF-6.ttf" />
-    <None Remove="Data\Font\NotoSansJP-VF-7.ttf" />
-    <None Remove="Data\Font\symbols.ttf" />
-    <None Remove="Data\images\icon.png" />
-    <None Remove="Data\images\logo.png" />
-    <None Remove="minfilia.ico" />
-    <None Remove="MultilingualResources\Echoglossian.ca.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.cs.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.da.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.de.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.el.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.es.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.eu.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.fi.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.fil.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.fr.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.ga.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.gl.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.gu.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.hi.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.hu.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.it.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.ja.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.ko.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.ms.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.pa-Guru.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.pl.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.pt-BR.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.pt.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.ru.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.sd-Deva.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.ta.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.vi.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.zh-Hans.xlf" />
-    <None Remove="MultilingualResources\Echoglossian.zh-Hant.xlf" />
-    <None Remove="PluginUI - Copy___" />
-    <None Remove="Data\Resources\pix.png" />
-    <None Remove="stylecop.json" />
-    <None Remove="Wiki82.profile.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Font\NotoSans-Medium-Custom2.otf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSans-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSans-SemiBold.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansArabic-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansArmenian-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansBengali-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansCJKhk-Regular.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansCJKjp-Regular.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansCJKkr-Regular.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansCJKsc-Regular.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansCJKtc-Regular.otf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansDevanagari-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansGeorgian-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansGlagolitic-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansGujarati-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansGurmukhi-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansHebrew-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansJavanese-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansKannada-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansKhmer-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansLao-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansMalayalam-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansMongolian-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansMyanmar-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansOriya-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansSinhala-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansTagalog-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansTamil-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansTelugu-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansThai-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\symbols.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansJP-VF-3.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansJP-VF-4.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansJP-VF-5.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansJP-VF-6.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Font\NotoSansJP-VF-7.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\images\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Dalamud.NET.Sdk" Version="12.0.2" />
-    <PackageReference Include="GTranslate" Version="2.3.1" />
-    <PackageReference Include="Microsoft.FASTER.Core" Version="2.6.5" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Font\NotoSans-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\images\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Resources\pix.png" />
-    <EmbeddedResource Include="Data\Resources\minfilia.ico" />
-    <Resource Include="Data\Font\Font.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-
-    <XliffResource Include="MultilingualResources\Echoglossian.da.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.de.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.el.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.es.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.eu.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.fr.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.it.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.pt-BR.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.pt.xlf" />
-    <XliffResource Include="MultilingualResources\Echoglossian.ru.xlf" />
-  </ItemGroup>
-  <ItemGroup>
-
-    <Compile Update="Localization\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-
-    <Compile Update="Utils\CharacterSets.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CharacterSets.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Localization\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Utils\CharacterSets.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CharacterSets.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
+        <Compile Update="Utils\CharacterSets.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CharacterSets.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Update="Localization\Resources.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+      
+        <EmbeddedResource Update="Utils\CharacterSets.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>CharacterSets.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 </Project>

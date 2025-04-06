@@ -20,6 +20,7 @@ namespace Echoglossian.Translate
         public static async Task<string> Translate(string text, string targetLanguage)
         {
             // Fallback sequence
+            // TODO: make it customizable
             foreach (var translator in new dynamic[]
             {
                 DeepLTranslator,
