@@ -1,5 +1,7 @@
 using Echoglossian.Utils;
 using GTranslate.Translators;
+using System;
+using System.Threading.Tasks;
 
 namespace Echoglossian.Translate
 {

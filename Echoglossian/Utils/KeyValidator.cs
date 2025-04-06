@@ -2,7 +2,7 @@ using Dalamud.Utility;
 
 namespace Echoglossian.Utils
 {
-    internal static class ValidateAPIKey
+    internal static class KeyValidator
     {
         public static bool IsValidAPIKey(string service, out string validatedKey)
         {

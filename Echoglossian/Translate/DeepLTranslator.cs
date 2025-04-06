@@ -156,7 +156,7 @@ namespace Echoglossian.Translate
 
         public async Task<TranslationResult> TranslateWithKeyAsync(string text, string toLanguage)
         {
-            if (!ValidateAPIKey.IsValidAPIKey(nameof(DeepLTranslator), out string authKey))
+            if (!KeyValidator.IsValidAPIKey(nameof(DeepLTranslator), out string authKey))
             {
                 throw new Exception("Translate with key is enabled but key is not set.");
             }

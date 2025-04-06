@@ -20,7 +20,7 @@ namespace Echoglossian.Translate
             string content = dialogue.Content;
             string targetLanguage = dialogue.TargetLanguage.EnglishName;
 
-            if (!ValidateAPIKey.IsValidAPIKey(llm.Name, out string apiKey))
+            if (!KeyValidator.IsValidAPIKey(llm.Name, out string apiKey))
             {
                 Service.pluginLog.Warning("LLM API Key is invalid. Please check your configuration. Falling back to machine translation.");
                 return await MachineTranslator.Translate(dialogue);
