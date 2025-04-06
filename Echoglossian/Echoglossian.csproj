@@ -3,7 +3,7 @@
     <PropertyGroup>
         <Authors>lokinmodar</Authors>
         <Version>3.21.0</Version>
-        <Description>In-game chat translator.</Description>
+        <Description>A realtime game text translator.</Description>
         <PackageProjectUrl>https://github.com/lokinmodar/Echoglossian/</PackageProjectUrl>
         <PackageLicenseExpression>Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License</PackageLicenseExpression>
         <IsPackable>false</IsPackable>
