@@ -16,10 +16,11 @@
     </ItemGroup>
     
     <ItemGroup>
+
         <Compile Update="Localization\Resources.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Resources.resx</DependentUpon>
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
 
         <Compile Update="Utils\CharacterSets.Designer.cs">
@@ -30,9 +31,11 @@
     </ItemGroup>
     
     <ItemGroup>
+      
         <EmbeddedResource Update="Localization\Resources.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </EmbeddedResource>
       
         <EmbeddedResource Update="Utils\CharacterSets.resx">

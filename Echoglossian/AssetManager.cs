@@ -1,5 +1,5 @@
 using Dalamud.Interface.ImGuiNotification;
-using Echoglossian.Properties;
+using Echoglossian.Localization;
 using Echoglossian.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,22 +15,16 @@ namespace Echoglossian
     {
         public AssetManager() => VerifyPluginAssets().ConfigureAwait(false);
 
-        private record AssetInfo(string FileName, Uri DownloadUri);
+        private record AssetInfo(string FileName, string checkSum, Uri DownloadUri);
 
         private readonly List<AssetInfo> requiredAssets =
         [
-            new("NotoSansCJKhk-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChineseHK/NotoSansCJKhk-Regular.otf")),
-            new("NotoSansCJKjp-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Regular.otf")),
-            new("NotoSansCJKkr-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Regular.otf")),
-            new("NotoSansCJKsc-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf")),
-            new("NotoSansCJKtc-Regular.otf", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChinese/NotoSansCJKtc-Regular.otf")),
+            new("NotoSansCJKhk-Regular.otf", "8b6616c27c14504089bce94f6393b556", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChineseHK/NotoSansCJKhk-Regular.otf")),
+            new("NotoSansCJKjp-Regular.otf", "6d57a40c6695bd46457315e2a9dc757a", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Regular.otf")),
+            new("NotoSansCJKkr-Regular.otf", "be4ea586e2517793c1b6eb84f4f86c12", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Regular.otf")),
+            new("NotoSansCJKsc-Regular.otf", "6d30d01b9b25bd766898ecba71d5cd3d", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf")),
+            new("NotoSansCJKtc-Regular.otf", "6d2d993ad59dd5c622786f1e79a97bbc", new Uri("https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/TraditionalChinese/NotoSansCJKtc-Regular.otf")),
         ];
-
-        private readonly string[] assetFiles = ["NotoSansCJKhk-Regular.otf", "NotoSansCJKjp-Regular.otf", "NotoSansCJKkr-Regular.otf",
-            "NotoSansCJKsc-Regular.otf", "NotoSansCJKtc-Regular.otf"];
-
-        private readonly string[] complementaryFontFiles = ["NotoSansJP-VF-3.ttf", "NotoSansJP-VF-4.ttf", "NotoSansJP-VF-5.ttf",
-            "NotoSansJP-VF-6.ttf", "NotoSansJP-VF-7.ttf"];
 
         private readonly string assetPath = Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "Font");
 
@@ -43,31 +37,28 @@ namespace Echoglossian
 
             Directory.CreateDirectory(assetPath);
 
-            List<AssetInfo> MissingAssetFiles = [.. requiredAssets.Where(asset => !File.Exists(Path.Combine(assetPath, asset.FileName)))];
+            var missingAssets = GetMissingAssets();
 
-            if (MissingAssetFiles.Count == 0)
+            if (missingAssets.Count == 0)
             {
-                Service.pluginLog.Debug("All assets present.");
-
-                Service.config.isAssetPresent = true;
+                Service.pluginLog.Debug("Plugin assets are intact.");
                 ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);
                 return;
             }
 
+            // files are missing or corrupted
             Service.config.isAssetPresent = false;
             Service.config.Save();
 
-            Service.pluginLog.Warning($"Missing {MissingAssetFiles.Count} asset(s): {string.Join(", ", MissingAssetFiles.Select(f => f.FileName))}");
+            Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}");
             ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
 
             // Download missing files concurrently
-            var downloadTasks = MissingAssetFiles.Select(DownloadAssetAsync).ToList();
+            var downloadTasks = missingAssets.Select(DownloadAssetAsync).ToList();
             await Task.WhenAll(downloadTasks);
 
-            // Final check after downloads attempt
-            MissingAssetFiles = [.. requiredAssets.Where(asset => !File.Exists(Path.Combine(assetPath, asset.FileName)))];
-
-            if (MissingAssetFiles.Count == 0)
+            missingAssets = GetMissingAssets();
+            if (missingAssets.Count == 0)
             {
                 Service.config.isAssetPresent = true;
                 Service.config.Save();
@@ -76,37 +67,36 @@ namespace Echoglossian
             }
             else
             {
-                // Log remaining missing files if any failed
-                Service.pluginLog.Error($"Failed to download all assets. Still missing: {string.Join(", ", MissingAssetFiles.Select(f => f.FileName))}");
+                Service.pluginLog.Error($"Failed to download all assets. Still missing: {string.Join(", ", missingAssets.Select(f => f.FileName))}");
             }
         }
 
-        private bool AreAssetsIntact()
+        private List<AssetInfo> GetMissingAssets()
         {
             using var md5 = MD5.Create();
-            foreach (var file in assetFiles)
+            return requiredAssets.Where(asset =>
             {
-                var filePath = Path.Combine(assetPath, file);
+                var filePath = Path.Combine(assetPath, asset.FileName);
                 if (!File.Exists(filePath))
-                {
-                    return false;
-                }
+                    return true;
 
                 try
                 {
                     using var stream = File.OpenRead(filePath);
-
-                    var hash = md5.ComputeHash(stream);
-                    if (!hash.SequenceEqual(expectedHashes[file])) return false;
+                    var hash = string.Concat(md5.ComputeHash(stream).Select(b => b.ToString("x2")));
+                    if (hash != asset.checkSum)
+                    {
+                        Service.pluginLog.Warning($"Checksum mismatch for {asset.FileName}.");
+                        ShowNotification($"{asset.FileName} is corrupted.", NotificationType.Error);
+                        return true;
+                    }
+                    return false;
                 }
                 catch (Exception ex)
                 {
-                    Service.pluginLog.Error($"Failed to verify {file}: {ex.Message}");
-                    ShowNotification($"{file} is inaccessible.", NotificationType.Error);
-                    return false;
+                    throw new Exception($"Error reading {asset.FileName}: {ex.Message}", ex);
                 }
-            }
-            return true;
+            }).ToList();
         }
 
         private async Task DownloadAssetAsync(AssetInfo asset)
@@ -126,7 +116,7 @@ namespace Echoglossian
             catch (Exception ex)
             {
                 Service.pluginLog.Error($"Unexpected Error downloading {asset.FileName}: {ex.Message}");
-                ShowNotification($"{Resources.AssetsDownloadError1stPart} {asset.FileName}{Resources.AssetsDownloadError2ndPart} (Unexpected Error)", NotificationType.Error);
+                ShowNotification($"Unexpected error when downloading plugin assets.", NotificationType.Error);
 
                 if (File.Exists(filePath))
                     File.Delete(filePath);
@@ -140,7 +130,7 @@ namespace Echoglossian
             var notification = new Notification
             {
                 Content = message,
-                Title = Resources.Name,
+                Title = Resources.PluginName,
                 Icon = Dalamud.Interface.FontAwesomeIcon.Vault.ToNotificationIcon(),
                 Type = type,
             };

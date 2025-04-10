@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,344 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssetsCheckingPopupMsg" xml:space="preserve">
-    <value>Checking Plugin assets!</value>
-  </data>
-  <data name="AssetsDownloadComplete" xml:space="preserve">
-    <value>Downloading of plugin assets complete!</value>
-  </data>
-  <data name="AssetsDownloadError1stPart" xml:space="preserve">
-    <value>Error downloading plugin assets:</value>
-  </data>
-  <data name="AssetsDownloadError2ndPart" xml:space="preserve">
-    <value>. Please retry later. If the issue persists, please contact the plugin developer.</value>
-  </data>
   <data name="AssetsPresentPopupMsg" xml:space="preserve">
-    <value>All plugin assets present!</value>
+    <value>All assets present and complete.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="choice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\choice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="BattleTalkModuleName" xml:space="preserve">
+    <value>BattleTalk</value>
   </data>
-  <data name="CloseButtonLabel" xml:space="preserve">
-    <value>Close</value>
+  <data name="ChatModuleName" xml:space="preserve">
+    <value>Chat</value>
   </data>
-  <data name="ConfigTab0Name" xml:space="preserve">
-    <value>Whats, Whens and Hows</value>
+  <data name="Chat_DomaStr" xml:space="preserve">
+    <value>It's okay!</value>
   </data>
-  <data name="ConfigTab1Name" xml:space="preserve">
-    <value>Talk settings</value>
+  <data name="Chat_GGstr" xml:space="preserve">
+    <value>Good game!</value>
   </data>
-  <data name="ConfigTab2Name" xml:space="preserve">
-    <value>Battle Talk settings</value>
-  </data>
-  <data name="ConfigTab3Name" xml:space="preserve">
-    <value>Toast settings</value>
-  </data>
-  <data name="ConfigTab4Name" xml:space="preserve">
-    <value>Journal settings</value>
-  </data>
-  <data name="ConfigTab5Name" xml:space="preserve">
-    <value>TalkSubtitle settings</value>
-  </data>
-  <data name="ConfigTab6Name" xml:space="preserve">
-    <value>Other settings</value>
-  </data>
-  <data name="ConfigTab7Name" xml:space="preserve">
-    <value>Translation Engine settings</value>
-  </data>
-  <data name="ConfigTabAbout" xml:space="preserve">
-    <value>About Echoglossian</value>
-  </data>
-  <data name="ConfigWindowTitle" xml:space="preserve">
-    <value>Echoglossian Configuration</value>
-    <comment>Config Window title bar</comment>
-  </data>
-  <data name="ContribText" xml:space="preserve">
-    <value>Please support us either by contributing to the project development, submitting issues or helping us with a coffee.</value>
-  </data>
-  <data name="cutscenechoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\cutscenechoice.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DisclaimerText1" xml:space="preserve">
-    <value>This plugin is aimed at solving one of the biggest issues for audiences that do not speak either English, German, French or Japanese: Understanding dialogues and other elements of the Game UI.</value>
-  </data>
-  <data name="DisclaimerText2" xml:space="preserve">
-    <value>For now we only do auto-translations through Google Translate API, but in the future we intend to support other ML translation systems. We even have ideas targetting crowdsourced translations, curated by the community.</value>
-  </data>
-  <data name="DisclaimerTitle" xml:space="preserve">
-    <value>About Echoglossian:</value>
+  <data name="Chat_WelcomeStr" xml:space="preserve">
+    <value>Let's do it!</value>
   </data>
   <data name="DownloadingAssetsPopupMsg" xml:space="preserve">
-    <value>Downloading extra plugin assets in background. Please wait for the download to finish before opening settings!</value>
+    <value>Downloading plugin assets...</value>
   </data>
-  <data name="EchoglossianPathModal" xml:space="preserve">
-    <value>Attention!</value>
+  <data name="JournalModuleName" xml:space="preserve">
+    <value>Journal</value>
   </data>
-  <data name="EnableTranslation" xml:space="preserve">
-    <value>Activate game text realtime translation</value>
+  <data name="ModulesConfiguration" xml:space="preserve">
+    <value>Modules</value>
   </data>
-  <data name="FontColorSelectLabel" xml:space="preserve">
-    <value>Overlay font color:</value>
+  <data name="PluginMainToggle" xml:space="preserve">
+    <value>Enable Plugin</value>
   </data>
-  <data name="HelpMessage" xml:space="preserve">
-    <value>Opens Echoglossian config window</value>
-    <comment>Shown in plugin install window</comment>
-  </data>
-  <data name="HoverTooltipIndicator" xml:space="preserve">
-    <value>(?)</value>
-  </data>
-  <data name="ImguiAdjustmentsLabel" xml:space="preserve">
-    <value>Adjust the options related to the translation overlay:</value>
-  </data>
-  <data name="LangIdentError" xml:space="preserve">
-    <value>The language could not be identified with an acceptable degree of certainty</value>
-  </data>
-  <data name="LanguageNotSupportedText" xml:space="preserve">
-    <value>The selected language is not supported by the currently available translation backend</value>
-  </data>
-  <data name="LanguageOnlySupportedUsingOverlay" xml:space="preserve">
-    <value>The selected language is only supported using the plugin overlays due to limitations of the native game Font</value>
-  </data>
-  <data name="LanguageSelectionTooltip" xml:space="preserve">
-    <value>Which language to translate the in-game dialogue boxes to.</value>
-  </data>
-  <data name="LanguageSelectLabelText" xml:space="preserve">
-    <value>Language to translate to</value>
-  </data>
-  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="minfilia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\minfilia.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Name" xml:space="preserve">
+  <data name="PluginName" xml:space="preserve">
     <value>Echoglossian</value>
   </data>
-  <data name="NEListText" xml:space="preserve">
-    <value>The non-exhaustive list of issues and TODOs is available in the link below:</value>
+  <data name="TalkModuleName" xml:space="preserve">
+    <value>Talk</value>
   </data>
-  <data name="OverlayAdjustmentOrientations" xml:space="preserve">
-    <value>Please adjust position if your overlay is not centered relative to the game's UI text box.</value>
+  <data name="TalkSubstitleModuleName" xml:space="preserve">
+    <value>TalkSubstitle</value>
   </data>
-  <data name="OverlayColorSelectName" xml:space="preserve">
-    <value>OverlayColorSelect</value>
+  <data name="TargetLanguage" xml:space="preserve">
+    <value>Translate to</value>
   </data>
-  <data name="OverlayFontColorOrientations" xml:space="preserve">
-    <value>Click to choose the overlay font color</value>
+  <data name="ToastModuleName" xml:space="preserve">
+    <value>Toast</value>
   </data>
-  <data name="OverlayFontScaleLabel" xml:space="preserve">
-    <value>Adjust the Overlay font scale</value>
-  </data>
-  <data name="OverlayFontSizeLabel" xml:space="preserve">
-    <value>Overlay Font Size</value>
-  </data>
-  <data name="OverlayFontSizeOrientations" xml:space="preserve">
-    <value>Select the font size for the text overlay</value>
-  </data>
-  <data name="OverlayHeightScrollLabel" xml:space="preserve">
-    <value>Translation Overlay Height multiplier</value>
-  </data>
-  <data name="OverlayName" xml:space="preserve">
-    <value>Battle talk (Enenies dialogue lines) translation</value>
-    <comment>Translation overlay window name</comment>
-  </data>
-  <data name="OverlayPositionAdjustmentLabel" xml:space="preserve">
-    <value>Position adjustment</value>
-  </data>
-  <data name="OverlayToggleLabel" xml:space="preserve">
-    <value>Display translated text overlay above game UI text box instead of replacing its text with the translation</value>
-  </data>
-  <data name="OverlayWidthMultiplierOrientations" xml:space="preserve">
-    <value>Adjust translation overlay width</value>
-  </data>
-  <data name="OverlayWidthScrollLabel" xml:space="preserve">
-    <value>Translation Overlay Width multiplier</value>
-  </data>
-  <data name="PathInputInstructions" xml:space="preserve">
-    <value>Absolute path to Echoglossian folder (inside XIVLauncher -&gt; pluginConfigs folder)</value>
-  </data>
-  <data name="PathTypeInstructions" xml:space="preserve">
-    <value>Please type the path and save so the plugin can work properly!</value>
-  </data>
-  <data name="PatronButtonLabel" xml:space="preserve">
-    <value>Buy lokinmodar a Coffee</value>
-  </data>
-  <data name="pix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pix.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="PixQrWindowLabel" xml:space="preserve">
-    <value>PIX qrcode</value>
-  </data>
-  <data name="PixText" xml:space="preserve">
-    <value>Scan the QR code to send me a PIX - only valid in Brazil</value>
-  </data>
-  <data name="PluginInterfaceLanguage" xml:space="preserve">
-    <value>Choose the language for the plugin configuration window</value>
-  </data>
-  <data name="PluginInterfaceLanguageSelectorText" xml:space="preserve">
-    <value>Config Window LanguageInfo:</value>
-  </data>
-  <data name="prttws" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\prttws.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="QRCodeInstructionsText" xml:space="preserve">
-    <value>Scan the QR code to send me a PIX - only valid in Brazil</value>
-  </data>
-  <data name="ResetConfigsButton" xml:space="preserve">
-    <value>Reset Settings</value>
-  </data>
-  <data name="SaveCloseButtonLabel" xml:space="preserve">
-    <value>Save and Close Config Window</value>
-  </data>
-  <data name="SendPixButton" xml:space="preserve">
-    <value>Send me a PIX donation!</value>
-  </data>
-  <data name="SettingsForGTransText" xml:space="preserve">
-    <value>Settings for Google Translate:</value>
-  </data>
-  <data name="SettingsReset" xml:space="preserve">
-    <value>Echoglossian settings reset to default successfully!</value>
-  </data>
-  <data name="SwapTranslationTextToggle" xml:space="preserve">
-    <value>Show Original dialogue text in Overlay and Translated in the Game UI dialogue box</value>
-  </data>
-  <data name="ToastOverlayWidthMultiplierOrientations" xml:space="preserve">
-    <value>Adjust toast translation overlay width</value>
-  </data>
-  <data name="ToastOverlayWidthScrollLabel" xml:space="preserve">
-    <value>Toast Overlay Width multiplier</value>
-  </data>
-  <data name="TodoUrl" xml:space="preserve">
-    <value>TODOs List on Github</value>
-  </data>
-  <data name="TranslateAreaToastToggleText" xml:space="preserve">
-    <value>Translate in-game Area name Toast Messages</value>
-  </data>
-  <data name="TransLateBattletalkToggle" xml:space="preserve">
-    <value>Translate battle talk</value>
-  </data>
-  <data name="TranslateClassChangeToastToggleText" xml:space="preserve">
-    <value>Translate in-game Class/Job change Toast Messages</value>
-  </data>
-  <data name="TranslateErrorToastToggleText" xml:space="preserve">
-    <value>Translate in-game Error Toast Messages</value>
-  </data>
-  <data name="TranslateNpcNamesToggle" xml:space="preserve">
-    <value>Translate NPCs names in dialogue boxes</value>
-  </data>
-  <data name="TranslateQuestToastToggleText" xml:space="preserve">
-    <value>Translate in-game Quest Toast Messages</value>
-  </data>
-  <data name="TranslateScreenInfoToastToggleText" xml:space="preserve">
-    <value>Translate other in-game miscellaneous Toast Messages</value>
-  </data>
-  <data name="TranslateTalkToggleLabel" xml:space="preserve">
-    <value>Translate in-game dialogues</value>
-  </data>
-  <data name="TranslateToastToggleText" xml:space="preserve">
-    <value>Translate in-game Toast Messages</value>
-  </data>
-  <data name="TranslationDisabled" xml:space="preserve">
-    <value>Translations are Disabled!</value>
-  </data>
-  <data name="TranslationEnabled" xml:space="preserve">
-    <value>Translations are Enabled!</value>
-  </data>
-  <data name="TranslationEngineSettingsNotRequired" xml:space="preserve">
-    <value>This translation engine does not require any special settings.</value>
-  </data>
-  <data name="TranslationsEnabled" xml:space="preserve">
-    <value>Translations are Enabled!</value>
-  </data>
-  <data name="UseImGuiForToastsToggle" xml:space="preserve">
-    <value>Use overlay to show Toasts translations (WIP)</value>
-  </data>
-  <data name="WaitingForTranslation" xml:space="preserve">
-    <value>Awaiting translation...</value>
-  </data>
-  <data name="WhatToTranslateText" xml:space="preserve">
-    <value>Select what kind of text you want to be translated in the corresponding tab below!</value>
-  </data>
-  <data name="WhichToastsToTranslate" xml:space="preserve">
-    <value>Select which kind of in-game message toasts to translate</value>
-  </data>
-  <data name="ConfigTab8Name" xml:space="preserve">
-    <value>Troubleshooting</value>
-  </data>
-  <data name="PluginAssetsDownloadedText" xml:space="preserve">
-    <value>Plugin assets downloaded!</value>
-  </data>
-  <data name="PluginAssetsNotDownloadedText" xml:space="preserve">
-    <value>If you see garbled text or invalid characters in the translation window\nit is an indicative that some plugin asset fonts may be missing or corrupted.\n\n Clicking the button below triggers an asset check and re-downloads them.</value>
-  </data>
-  <data name="DownloadPluginAssetsButtonText" xml:space="preserve">
-    <value>Force re-download plugin assets</value>
-  </data>
-  <data name="CurrentPluginAssetsStatus" xml:space="preserve">
-    <value>Are the plugin assets downloaded?</value>
-  </data>
-  <data name="ConfigTab9Name" xml:space="preserve">
-    <value>Misc. Settings</value>
-  </data>
-  <data name="ConfigTab9Text" xml:space="preserve">
-    <value>Miscellaneous Plugin Options and Settings</value>
-  </data>
-  <data name="ConfigTab9CheckboxClipboardText" xml:space="preserve">
-    <value>Automatically copy the last translation to the Plugin Clipboard</value>
-  </data>
-  <data name="ConfigTab9CheckboxClipboardTooltipText" xml:space="preserve">
-    <value>This setting copies the last translation and source text to the clipboard (Works with Talk and BattleTalk)</value>
-  </data>
-  <data name="TranslateJournalToggle" xml:space="preserve">
-    <value>Translate quest name, description and objectives (WIP)</value>
-  </data>
-  <data name="DeeplTranslatorApiKey" xml:space="preserve">
-    <value>Add your DeepL API Key</value>
-  </data>
-  <data name="DeepLTranslatorAPIKeyLink" xml:space="preserve">
-    <value>Click here to create a DeepL API Key</value>
-  </data>
-  <data name="SettingsForDeepLTransText" xml:space="preserve">
-    <value>Optional settings for DeepL:</value>
-  </data>
-  <data name="TranslationEngineChoose" xml:space="preserve">
-    <value>Choose the translation engine</value>
-  </data>
-  <data name="DeepLTransAPIKey" xml:space="preserve">
-    <value>Use API Key (recommended)</value>
-  </data>
-  <data name="TranslateTextsAgain" xml:space="preserve">
-    <value>Translate again stored translated texts with the selected translation engine</value>
-  </data>
-  <data name="TranslateTalkSubtitleToggleLabel" xml:space="preserve">
-    <value>Translate Cutscene Subtitles</value>
-  </data>
-  <data name="ChatGptApiKey" xml:space="preserve">
-    <value>ChatGPT API Key</value>
-  </data>
-  <data name="SettingsForChatGptTransText" xml:space="preserve">
-    <value>Settings for ChatGPT</value>
-  </data>
-  <data name="ChatGPTAPIKeyLink" xml:space="preserve">
-    <value>Click here to create a OpenAi API Key</value>
-  </data>
-  <data name="RemoveDiacriticsToggle" xml:space="preserve">
-    <value>Parse the translated text replacing diacritics with their common letter equivalents</value>
-  </data>
-  <data name="APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable" xml:space="preserve">
-    <value>API Key is empty or invalid. ChatGPT translation will not be available.</value>
-  </data>
-  <data name="ChatGPTTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
-    <value>[ChatGPT translation unavailable. Please check your API key.]</value>
-  </data>
-  <data name="TranslationError" xml:space="preserve">
-    <value>Translation Error:</value>
-  </data>
-  <data name="DeepSeekTranslationUnavailablePleaseCheckYourAPIKey" xml:space="preserve">
-    <value>[DeepSeek translation unavailable. Please check your API key.]</value>
-  </data>
-  <data name="APIKeyIsEmptyOrInvalidDeepSeekTranslationWillNotBeAvailable" xml:space="preserve">
-    <value>API Key is empty or invalid. DeepSeek translation will not be available.</value>
+  <data name="TranslationEngineConfiguration" xml:space="preserve">
+    <value>Translation Engine</value>
   </data>
 </root>

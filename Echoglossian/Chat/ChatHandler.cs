@@ -2,82 +2,74 @@ using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
-using Echoglossian.Translate;
+using Echoglossian.Localization;
 using Echoglossian.Utils;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Echoglossian.Chat
 {
     internal partial class ChatHandler
     {
+        private static readonly StringBuilder sb = new();
         private readonly Dictionary<string, int> lastMessageTime = [];
 
-        public ChatHandler()
-        {
-            Service.chatGui.ChatMessage += OnChatMessage;
-        }
+        public ChatHandler() => Service.chatGui.ChatMessage += OnChatMessage;
 
         private void OnChatMessage(XivChatType type, int _, ref SeString sender, ref SeString message, ref bool isHandled)
         {
-            if (isHandled) return;
-            HandleChatMessage(type, sender, message);
+            if (!isHandled)
+                HandleChatMessage(type, sender, message);
         }
 
         private async void HandleChatMessage(XivChatType type, SeString sender, SeString message)
         {
-            if (!Service.config.ChatTranslationEbanled || sender.TextValue.Contains("[E]") || !Service.config.SelectedChatTypes.Contains(type))
+            if (!Service.config.ChatModuleEbanled || sender.TextValue.Contains("[E]") || !Service.config.SelectedChatTypes.Contains(type))
                 return;
 
+            // Get sender name
             var playerPayload = sender.Payloads.OfType<PlayerPayload>().FirstOrDefault();
-            string playerName = Sanitize(playerPayload?.PlayerName ?? sender.ToString()).Trim();
-            string localPlayerName = Sanitize(Service.clientState.LocalPlayer?.Name.ToString() ?? string.Empty).Trim();
+            string playerName = Service.sanitizer.Sanitize(playerPayload?.PlayerName ?? sender.ToString());
+            string localPlayerName = Service.sanitizer.Sanitize(Service.clientState.LocalPlayer?.Name.ToString() ?? string.Empty);
+
             if (type == XivChatType.TellOutgoing)
                 playerName = localPlayerName;
-
             if (playerName.Contains(localPlayerName))
-            {
                 return;
-            }
 
-            var chatMessage = new Message(playerName, MessageSource.Chat, message, type);
+            // Create and validate message
+            var chatMessage = new Message(
+                sender: playerName,
+                type: type,
+                content: Service.sanitizer.Sanitize(message.TextValue)
+            );
             chatMessage.Context = GetChatMessageContext();
 
-            if (IsFilteredMessage(playerName, chatMessage.CleanedContent) || IsJPFilteredMessage(chatMessage))
-            {
-                Service.mainWindow.PrintToOutput($"{playerName}: {message.TextValue}");
+            if (IsFilteredMessage(chatMessage) || IsJPFilteredMessage(chatMessage))
                 return;
-            }
 
-            bool needsTranslation = Service.configuration.SelectedLanguageSelectionMode switch
+            // Translate if needed
+            if (await IsCustomSourceLanguage(chatMessage))
             {
-                Configuration.LanguageSelectionMode.Default => ChatRegex.NonEnglishRegex().IsMatch(chatMessage.CleanedContent),
-                Configuration.LanguageSelectionMode.CustomLanguages => await IsCustomSourceLanguage(chatMessage),
-                Configuration.LanguageSelectionMode.AllLanguages => true,
-                _ => false
-            };
-
-            if (needsTranslation)
-            {
-                await TranslationHandler.TranslateMessage(chatMessage);
-                OutputMessage(chatMessage, type);
+                string translation = await Service.translationHandler.TranslateChat(chatMessage);
+                OutputMessage(chatMessage, translation);
             }
             else
             {
-                Service.mainWindow.PrintToOutput($"{chatMessage.Sender}: {chatMessage.CleanedContent}");
+                Service.pluginLog.Info("Message language is not selected source language. Skipped.");
             }
         }
 
         public unsafe string GetChatMessageContext()
         {
-            var x = GetActiveChatLogPanel();
-
+            var chatPanelIndex = GetActiveChatLogPanel();
             try
             {
-                var chatLogPanelPtr = Service.gameGui.GetAddonByName($"ChatLogPanel_{x}");
+                var chatLogPanelPtr = Service.gameGui.GetAddonByName($"ChatLogPanel_{chatPanelIndex}");
                 if (chatLogPanelPtr != 0)
                 {
                     var chatLogPanel = (AddonChatLogPanel*)chatLogPanelPtr;
@@ -99,7 +91,6 @@ namespace Echoglossian.Chat
             {
                 Service.pluginLog.Error(ex, "Failed to read chat panel.");
             }
-
             return string.Empty;
         }
 
@@ -109,44 +100,31 @@ namespace Echoglossian.Chat
             return addon == null ? 0 : addon->TabIndex;
         }
 
-        private async Task<bool> IsCustomSourceLanguage(Message chatMessage)
-        {
-            var language = await TranslationHandler.DetermineLanguage(chatMessage.CleanedContent);
-            return Service.configuration.SelectedSourceLanguages.Contains(language);
-        }
+        private async Task<bool> IsCustomSourceLanguage(Message chatMessage) =>
+            Service.config.SelectedSourceLanguages.Contains(
+                await Service.translationHandler.DetermineLanguage(chatMessage.Content)
+            );
 
-        internal static void OutputMessage(Message chatMessage, XivChatType type = XivChatType.Say)
+        internal static void OutputMessage(Message chatMessage, string translation)
         {
-            if (chatMessage.OriginalContent.TextValue == chatMessage.TranslatedContent
-                && chatMessage.Source != MessageSource.MainWindow) // no need to output if translation is the same
+            if (translation == chatMessage.Content)  // no need to output if translation is the same
             {
-                Service.pluginLog.Info("Translation is the same as original. Skipping output.");
+                Service.pluginLog.Info("Translation is the same as original. Skipped.");
                 return;
             }
 
-            string outputStr = Service.configuration.ChatIntegration_HideOriginal
-                ? chatMessage.TranslatedContent!
-                : $"{chatMessage.OriginalContent.TextValue} || {chatMessage.TranslatedContent}";
+            sb.Clear().Append(chatMessage.Content).Append(" || ").Append(translation);
 
-            Service.mainWindow.PrintToOutput($"{chatMessage.Sender}: {outputStr}");
-
-            if (Service.configuration.ChatIntegration)
+            Service.chatGui.Print(new XivChatEntry
             {
-                Plugin.OutputChatLine(type, chatMessage.Sender, outputStr);
-            }
+                Type = chatMessage.Type,
+                Name = new SeString(new PlayerPayload("[E] " + chatMessage.Sender, 0)),
+                Message = sb.ToString(),
+            });
         }
 
-        private bool IsFilteredMessage(string sender, string message)
-        {
-            if (message.Trim().Length < 2 || IsMacroMessage(sender))
-            {
-                Service.pluginLog.Debug("Message filtered: " + (message.Trim().Length < 2
-                    ? "Single character or empty message."
-                    : "Macro messages."));
-                return true;
-            }
-            return false;
-        }
+        private bool IsFilteredMessage(Message chatMessage) =>
+            chatMessage.Content.Trim().Length < 2 || IsMacroMessage(chatMessage.Sender);
 
         private bool IsMacroMessage(string playerName)
         {
@@ -154,52 +132,39 @@ namespace Echoglossian.Chat
 
             if (lastMessageTime.Count > 20)
             {
-                var keysToRemove = lastMessageTime
-                    .Where(kv => now - kv.Value > 10000) // 10s
-                    .Select(kv => kv.Key)
-                    .ToList();
-
-                foreach (var key in keysToRemove)
+                foreach (var key in lastMessageTime.Where(kv => now - kv.Value > 10000).Select(kv => kv.Key).ToList())
                     lastMessageTime.Remove(key);
             }
 
-            if (lastMessageTime.TryGetValue(playerName, out int lastMsgTime) && now - lastMsgTime < 650) // 0.65s
+            if (lastMessageTime.TryGetValue(playerName, out int lastMsgTime) && now - lastMsgTime < 650)
             {
                 lastMessageTime[playerName] = now;
                 return true;
             }
+
             lastMessageTime[playerName] = now;
             return false;
         }
 
         private static bool IsJPFilteredMessage(Message chatMessage)
         {
-            if (ChatRegex.JPWelcomeRegex().IsMatch(chatMessage.CleanedContent))
+            if (ChatRegex.JPWelcomeRegex().IsMatch(chatMessage.Content))
             {
-                chatMessage.TranslatedContent = Resources.WelcomeStr;
-
-                OutputMessage(chatMessage, chatMessage.Type);
+                OutputMessage(chatMessage, Resources.Chat_WelcomeStr);
                 return true;
             }
-            if (ChatRegex.JPByeRegex().IsMatch(chatMessage.CleanedContent))
+            if (ChatRegex.JPByeRegex().IsMatch(chatMessage.Content))
             {
-                chatMessage.TranslatedContent = Resources.GGstr;
-
-                OutputMessage(chatMessage, chatMessage.Type);
+                OutputMessage(chatMessage, Resources.Chat_GGstr);
                 return true;
             }
-            if (ChatRegex.JPDomaRegex().IsMatch(chatMessage.CleanedContent))
+            if (ChatRegex.JPDomaRegex().IsMatch(chatMessage.Content))
             {
-                chatMessage.TranslatedContent = Resources.DomaStr;
-
-                OutputMessage(chatMessage, chatMessage.Type);
+                OutputMessage(chatMessage, Resources.Chat_DomaStr);
                 return true;
             }
-
             return false;
         }
-
-        public static string Sanitize(string input) => ChatRegex.SpecialCharacterRegex().Replace(input, "*");
 
         public void Dispose() => Service.chatGui.ChatMessage -= OnChatMessage;
     }

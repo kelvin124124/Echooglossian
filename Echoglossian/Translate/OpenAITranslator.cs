@@ -18,7 +18,7 @@ namespace Echoglossian.Translate
         public static async Task<string> Translate(Dialogue dialogue, LLMPreset llm)
         {
             string content = dialogue.Content;
-            string targetLanguage = dialogue.TargetLanguage.EnglishName;
+            string targetLanguage = dialogue.TargetLanguage.Code;
 
             if (!KeyValidator.IsValidAPIKey(llm.Name, out string apiKey))
             {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Echoglossian.Properties {
+namespace Echoglossian.Localization {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Echoglossian.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Echoglossian.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Echoglossian.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Echoglossian.Localization.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Echoglossian.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,1016 +61,146 @@ namespace Echoglossian.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to API Key is empty or invalid. ChatGPT translation will not be available..
+        ///   Looks up a localized string similar to All assets present and complete..
         /// </summary>
-        public static string APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable {
-            get {
-                return ResourceManager.GetString("APIKeyIsEmptyOrInvalidChatGPTTranslationWillNotBeAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to API Key is empty or invalid. DeepSeek translation will not be available..
-        /// </summary>
-        public static string APIKeyIsEmptyOrInvalidDeepSeekTranslationWillNotBeAvailable {
-            get {
-                return ResourceManager.GetString("APIKeyIsEmptyOrInvalidDeepSeekTranslationWillNotBeAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Checking Plugin assets!.
-        /// </summary>
-        public static string AssetsCheckingPopupMsg {
-            get {
-                return ResourceManager.GetString("AssetsCheckingPopupMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Downloading of plugin assets complete!.
-        /// </summary>
-        public static string AssetsDownloadComplete {
-            get {
-                return ResourceManager.GetString("AssetsDownloadComplete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error downloading plugin assets:.
-        /// </summary>
-        public static string AssetsDownloadError1stPart {
-            get {
-                return ResourceManager.GetString("AssetsDownloadError1stPart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to . Please retry later. If the issue persists, please contact the plugin developer..
-        /// </summary>
-        public static string AssetsDownloadError2ndPart {
-            get {
-                return ResourceManager.GetString("AssetsDownloadError2ndPart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All plugin assets present!.
-        /// </summary>
-        public static string AssetsPresentPopupMsg {
+        internal static string AssetsPresentPopupMsg {
             get {
                 return ResourceManager.GetString("AssetsPresentPopupMsg", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ChatGPT API Key.
+        ///   Looks up a localized string similar to BattleTalk.
         /// </summary>
-        public static string ChatGptApiKey {
+        internal static string BattleTalkModuleName {
             get {
-                return ResourceManager.GetString("ChatGptApiKey", resourceCulture);
+                return ResourceManager.GetString("BattleTalkModuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to create a OpenAi API Key.
+        ///   Looks up a localized string similar to It&apos;s okay!.
         /// </summary>
-        public static string ChatGPTAPIKeyLink {
+        internal static string Chat_DomaStr {
             get {
-                return ResourceManager.GetString("ChatGPTAPIKeyLink", resourceCulture);
+                return ResourceManager.GetString("Chat_DomaStr", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [ChatGPT translation unavailable. Please check your API key.].
+        ///   Looks up a localized string similar to Good game!.
         /// </summary>
-        public static string ChatGPTTranslationUnavailablePleaseCheckYourAPIKey {
+        internal static string Chat_GGstr {
             get {
-                return ResourceManager.GetString("ChatGPTTranslationUnavailablePleaseCheckYourAPIKey", resourceCulture);
+                return ResourceManager.GetString("Chat_GGstr", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to Let&apos;s do it!.
         /// </summary>
-        public static byte[] choice {
+        internal static string Chat_WelcomeStr {
             get {
-                object obj = ResourceManager.GetObject("choice", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("Chat_WelcomeStr", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close.
+        ///   Looks up a localized string similar to Chat.
         /// </summary>
-        public static string CloseButtonLabel {
+        internal static string ChatModuleName {
             get {
-                return ResourceManager.GetString("CloseButtonLabel", resourceCulture);
+                return ResourceManager.GetString("ChatModuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Whats, Whens and Hows.
+        ///   Looks up a localized string similar to Downloading plugin assets....
         /// </summary>
-        public static string ConfigTab0Name {
-            get {
-                return ResourceManager.GetString("ConfigTab0Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Talk settings.
-        /// </summary>
-        public static string ConfigTab1Name {
-            get {
-                return ResourceManager.GetString("ConfigTab1Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Battle Talk settings.
-        /// </summary>
-        public static string ConfigTab2Name {
-            get {
-                return ResourceManager.GetString("ConfigTab2Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toast settings.
-        /// </summary>
-        public static string ConfigTab3Name {
-            get {
-                return ResourceManager.GetString("ConfigTab3Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Journal settings.
-        /// </summary>
-        public static string ConfigTab4Name {
-            get {
-                return ResourceManager.GetString("ConfigTab4Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TalkSubtitle settings.
-        /// </summary>
-        public static string ConfigTab5Name {
-            get {
-                return ResourceManager.GetString("ConfigTab5Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other settings.
-        /// </summary>
-        public static string ConfigTab6Name {
-            get {
-                return ResourceManager.GetString("ConfigTab6Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translation Engine settings.
-        /// </summary>
-        public static string ConfigTab7Name {
-            get {
-                return ResourceManager.GetString("ConfigTab7Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Troubleshooting.
-        /// </summary>
-        public static string ConfigTab8Name {
-            get {
-                return ResourceManager.GetString("ConfigTab8Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatically copy the last translation to the Plugin Clipboard.
-        /// </summary>
-        public static string ConfigTab9CheckboxClipboardText {
-            get {
-                return ResourceManager.GetString("ConfigTab9CheckboxClipboardText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This setting copies the last translation and source text to the clipboard (Works with Talk and BattleTalk).
-        /// </summary>
-        public static string ConfigTab9CheckboxClipboardTooltipText {
-            get {
-                return ResourceManager.GetString("ConfigTab9CheckboxClipboardTooltipText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Misc. Settings.
-        /// </summary>
-        public static string ConfigTab9Name {
-            get {
-                return ResourceManager.GetString("ConfigTab9Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Miscellaneous Plugin Options and Settings.
-        /// </summary>
-        public static string ConfigTab9Text {
-            get {
-                return ResourceManager.GetString("ConfigTab9Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to About Echoglossian.
-        /// </summary>
-        public static string ConfigTabAbout {
-            get {
-                return ResourceManager.GetString("ConfigTabAbout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Echoglossian Configuration.
-        /// </summary>
-        public static string ConfigWindowTitle {
-            get {
-                return ResourceManager.GetString("ConfigWindowTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please support us either by contributing to the project development, submitting issues or helping us with a coffee..
-        /// </summary>
-        public static string ContribText {
-            get {
-                return ResourceManager.GetString("ContribText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are the plugin assets downloaded?.
-        /// </summary>
-        public static string CurrentPluginAssetsStatus {
-            get {
-                return ResourceManager.GetString("CurrentPluginAssetsStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] cutscenechoice {
-            get {
-                object obj = ResourceManager.GetObject("cutscenechoice", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use API Key (recommended).
-        /// </summary>
-        public static string DeepLTransAPIKey {
-            get {
-                return ResourceManager.GetString("DeepLTransAPIKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add your DeepL API Key.
-        /// </summary>
-        public static string DeeplTranslatorApiKey {
-            get {
-                return ResourceManager.GetString("DeeplTranslatorApiKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Click here to create a DeepL API Key.
-        /// </summary>
-        public static string DeepLTranslatorAPIKeyLink {
-            get {
-                return ResourceManager.GetString("DeepLTranslatorAPIKeyLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [DeepSeek translation unavailable. Please check your API key.].
-        /// </summary>
-        public static string DeepSeekTranslationUnavailablePleaseCheckYourAPIKey {
-            get {
-                return ResourceManager.GetString("DeepSeekTranslationUnavailablePleaseCheckYourAPIKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This plugin is aimed at solving one of the biggest issues for audiences that do not speak either English, German, French or Japanese: Understanding dialogues and other elements of the Game UI..
-        /// </summary>
-        public static string DisclaimerText1 {
-            get {
-                return ResourceManager.GetString("DisclaimerText1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to For now we only do auto-translations through Google Translate API, but in the future we intend to support other ML translation systems. We even have ideas targetting crowdsourced translations, curated by the community..
-        /// </summary>
-        public static string DisclaimerText2 {
-            get {
-                return ResourceManager.GetString("DisclaimerText2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to About Echoglossian:.
-        /// </summary>
-        public static string DisclaimerTitle {
-            get {
-                return ResourceManager.GetString("DisclaimerTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Downloading extra plugin assets in background. Please wait for the download to finish before opening settings!.
-        /// </summary>
-        public static string DownloadingAssetsPopupMsg {
+        internal static string DownloadingAssetsPopupMsg {
             get {
                 return ResourceManager.GetString("DownloadingAssetsPopupMsg", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Force re-download plugin assets.
+        ///   Looks up a localized string similar to Journal.
         /// </summary>
-        public static string DownloadPluginAssetsButtonText {
+        internal static string JournalModuleName {
             get {
-                return ResourceManager.GetString("DownloadPluginAssetsButtonText", resourceCulture);
+                return ResourceManager.GetString("JournalModuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attention!.
+        ///   Looks up a localized string similar to Modules.
         /// </summary>
-        public static string EchoglossianPathModal {
+        internal static string ModulesConfiguration {
             get {
-                return ResourceManager.GetString("EchoglossianPathModal", resourceCulture);
+                return ResourceManager.GetString("ModulesConfiguration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate game text realtime translation.
+        ///   Looks up a localized string similar to Enable Plugin.
         /// </summary>
-        public static string EnableTranslation {
+        internal static string PluginMainToggle {
             get {
-                return ResourceManager.GetString("EnableTranslation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overlay font color:.
-        /// </summary>
-        public static string FontColorSelectLabel {
-            get {
-                return ResourceManager.GetString("FontColorSelectLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opens Echoglossian config window.
-        /// </summary>
-        public static string HelpMessage {
-            get {
-                return ResourceManager.GetString("HelpMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to (?).
-        /// </summary>
-        public static string HoverTooltipIndicator {
-            get {
-                return ResourceManager.GetString("HoverTooltipIndicator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adjust the options related to the translation overlay:.
-        /// </summary>
-        public static string ImguiAdjustmentsLabel {
-            get {
-                return ResourceManager.GetString("ImguiAdjustmentsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The language could not be identified with an acceptable degree of certainty.
-        /// </summary>
-        public static string LangIdentError {
-            get {
-                return ResourceManager.GetString("LangIdentError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The selected language is not supported by the currently available translation backend.
-        /// </summary>
-        public static string LanguageNotSupportedText {
-            get {
-                return ResourceManager.GetString("LanguageNotSupportedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The selected language is only supported using the plugin overlays due to limitations of the native game Font.
-        /// </summary>
-        public static string LanguageOnlySupportedUsingOverlay {
-            get {
-                return ResourceManager.GetString("LanguageOnlySupportedUsingOverlay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Which language to translate the in-game dialogue boxes to..
-        /// </summary>
-        public static string LanguageSelectionTooltip {
-            get {
-                return ResourceManager.GetString("LanguageSelectionTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language to translate to.
-        /// </summary>
-        public static string LanguageSelectLabelText {
-            get {
-                return ResourceManager.GetString("LanguageSelectLabelText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] logo {
-            get {
-                object obj = ResourceManager.GetObject("logo", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] minfilia {
-            get {
-                object obj = ResourceManager.GetObject("minfilia", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("PluginMainToggle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Echoglossian.
         /// </summary>
-        public static string Name {
+        internal static string PluginName {
             get {
-                return ResourceManager.GetString("Name", resourceCulture);
+                return ResourceManager.GetString("PluginName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The non-exhaustive list of issues and TODOs is available in the link below:.
+        ///   Looks up a localized string similar to Talk.
         /// </summary>
-        public static string NEListText {
+        internal static string TalkModuleName {
             get {
-                return ResourceManager.GetString("NEListText", resourceCulture);
+                return ResourceManager.GetString("TalkModuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please adjust position if your overlay is not centered relative to the game&apos;s UI text box..
+        ///   Looks up a localized string similar to TalkSubstitle.
         /// </summary>
-        public static string OverlayAdjustmentOrientations {
+        internal static string TalkSubstitleModuleName {
             get {
-                return ResourceManager.GetString("OverlayAdjustmentOrientations", resourceCulture);
+                return ResourceManager.GetString("TalkSubstitleModuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OverlayColorSelect.
+        ///   Looks up a localized string similar to Translate to.
         /// </summary>
-        public static string OverlayColorSelectName {
+        internal static string TargetLanguage {
             get {
-                return ResourceManager.GetString("OverlayColorSelectName", resourceCulture);
+                return ResourceManager.GetString("TargetLanguage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click to choose the overlay font color.
+        ///   Looks up a localized string similar to Toast.
         /// </summary>
-        public static string OverlayFontColorOrientations {
+        internal static string ToastModuleName {
             get {
-                return ResourceManager.GetString("OverlayFontColorOrientations", resourceCulture);
+                return ResourceManager.GetString("ToastModuleName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjust the Overlay font scale.
+        ///   Looks up a localized string similar to Translation Engine.
         /// </summary>
-        public static string OverlayFontScaleLabel {
+        internal static string TranslationEngineConfiguration {
             get {
-                return ResourceManager.GetString("OverlayFontScaleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overlay Font Size.
-        /// </summary>
-        public static string OverlayFontSizeLabel {
-            get {
-                return ResourceManager.GetString("OverlayFontSizeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the font size for the text overlay.
-        /// </summary>
-        public static string OverlayFontSizeOrientations {
-            get {
-                return ResourceManager.GetString("OverlayFontSizeOrientations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translation Overlay Height multiplier.
-        /// </summary>
-        public static string OverlayHeightScrollLabel {
-            get {
-                return ResourceManager.GetString("OverlayHeightScrollLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Battle talk (Enenies dialogue lines) translation.
-        /// </summary>
-        public static string OverlayName {
-            get {
-                return ResourceManager.GetString("OverlayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Position adjustment.
-        /// </summary>
-        public static string OverlayPositionAdjustmentLabel {
-            get {
-                return ResourceManager.GetString("OverlayPositionAdjustmentLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Display translated text overlay above game UI text box instead of replacing its text with the translation.
-        /// </summary>
-        public static string OverlayToggleLabel {
-            get {
-                return ResourceManager.GetString("OverlayToggleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adjust translation overlay width.
-        /// </summary>
-        public static string OverlayWidthMultiplierOrientations {
-            get {
-                return ResourceManager.GetString("OverlayWidthMultiplierOrientations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translation Overlay Width multiplier.
-        /// </summary>
-        public static string OverlayWidthScrollLabel {
-            get {
-                return ResourceManager.GetString("OverlayWidthScrollLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Absolute path to Echoglossian folder (inside XIVLauncher -&gt; pluginConfigs folder).
-        /// </summary>
-        public static string PathInputInstructions {
-            get {
-                return ResourceManager.GetString("PathInputInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please type the path and save so the plugin can work properly!.
-        /// </summary>
-        public static string PathTypeInstructions {
-            get {
-                return ResourceManager.GetString("PathTypeInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buy lokinmodar a Coffee.
-        /// </summary>
-        public static string PatronButtonLabel {
-            get {
-                return ResourceManager.GetString("PatronButtonLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] pix {
-            get {
-                object obj = ResourceManager.GetObject("pix", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PIX qrcode.
-        /// </summary>
-        public static string PixQrWindowLabel {
-            get {
-                return ResourceManager.GetString("PixQrWindowLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scan the QR code to send me a PIX - only valid in Brazil.
-        /// </summary>
-        public static string PixText {
-            get {
-                return ResourceManager.GetString("PixText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugin assets downloaded!.
-        /// </summary>
-        public static string PluginAssetsDownloadedText {
-            get {
-                return ResourceManager.GetString("PluginAssetsDownloadedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you see garbled text or invalid characters in the translation window\nit is an indicative that some plugin asset fonts may be missing or corrupted.\n\n Clicking the button below triggers an asset check and re-downloads them..
-        /// </summary>
-        public static string PluginAssetsNotDownloadedText {
-            get {
-                return ResourceManager.GetString("PluginAssetsNotDownloadedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose the language for the plugin configuration window.
-        /// </summary>
-        public static string PluginInterfaceLanguage {
-            get {
-                return ResourceManager.GetString("PluginInterfaceLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Config Window LanguageInfo:.
-        /// </summary>
-        public static string PluginInterfaceLanguageSelectorText {
-            get {
-                return ResourceManager.GetString("PluginInterfaceLanguageSelectorText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] prttws {
-            get {
-                object obj = ResourceManager.GetObject("prttws", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scan the QR code to send me a PIX - only valid in Brazil.
-        /// </summary>
-        public static string QRCodeInstructionsText {
-            get {
-                return ResourceManager.GetString("QRCodeInstructionsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parse the translated text replacing diacritics with their common letter equivalents.
-        /// </summary>
-        public static string RemoveDiacriticsToggle {
-            get {
-                return ResourceManager.GetString("RemoveDiacriticsToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset Settings.
-        /// </summary>
-        public static string ResetConfigsButton {
-            get {
-                return ResourceManager.GetString("ResetConfigsButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save and Close Config Window.
-        /// </summary>
-        public static string SaveCloseButtonLabel {
-            get {
-                return ResourceManager.GetString("SaveCloseButtonLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send me a PIX donation!.
-        /// </summary>
-        public static string SendPixButton {
-            get {
-                return ResourceManager.GetString("SendPixButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings for ChatGPT.
-        /// </summary>
-        public static string SettingsForChatGptTransText {
-            get {
-                return ResourceManager.GetString("SettingsForChatGptTransText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Optional settings for DeepL:.
-        /// </summary>
-        public static string SettingsForDeepLTransText {
-            get {
-                return ResourceManager.GetString("SettingsForDeepLTransText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings for Google Translate:.
-        /// </summary>
-        public static string SettingsForGTransText {
-            get {
-                return ResourceManager.GetString("SettingsForGTransText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Echoglossian settings reset to default successfully!.
-        /// </summary>
-        public static string SettingsReset {
-            get {
-                return ResourceManager.GetString("SettingsReset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Original dialogue text in Overlay and Translated in the Game UI dialogue box.
-        /// </summary>
-        public static string SwapTranslationTextToggle {
-            get {
-                return ResourceManager.GetString("SwapTranslationTextToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adjust toast translation overlay width.
-        /// </summary>
-        public static string ToastOverlayWidthMultiplierOrientations {
-            get {
-                return ResourceManager.GetString("ToastOverlayWidthMultiplierOrientations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toast Overlay Width multiplier.
-        /// </summary>
-        public static string ToastOverlayWidthScrollLabel {
-            get {
-                return ResourceManager.GetString("ToastOverlayWidthScrollLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TODOs List on Github.
-        /// </summary>
-        public static string TodoUrl {
-            get {
-                return ResourceManager.GetString("TodoUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate in-game Area name Toast Messages.
-        /// </summary>
-        public static string TranslateAreaToastToggleText {
-            get {
-                return ResourceManager.GetString("TranslateAreaToastToggleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate battle talk.
-        /// </summary>
-        public static string TransLateBattletalkToggle {
-            get {
-                return ResourceManager.GetString("TransLateBattletalkToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate in-game Class/Job change Toast Messages.
-        /// </summary>
-        public static string TranslateClassChangeToastToggleText {
-            get {
-                return ResourceManager.GetString("TranslateClassChangeToastToggleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate in-game Error Toast Messages.
-        /// </summary>
-        public static string TranslateErrorToastToggleText {
-            get {
-                return ResourceManager.GetString("TranslateErrorToastToggleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate quest name, description and objectives (WIP).
-        /// </summary>
-        public static string TranslateJournalToggle {
-            get {
-                return ResourceManager.GetString("TranslateJournalToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate NPCs names in dialogue boxes.
-        /// </summary>
-        public static string TranslateNpcNamesToggle {
-            get {
-                return ResourceManager.GetString("TranslateNpcNamesToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate in-game Quest Toast Messages.
-        /// </summary>
-        public static string TranslateQuestToastToggleText {
-            get {
-                return ResourceManager.GetString("TranslateQuestToastToggleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate other in-game miscellaneous Toast Messages.
-        /// </summary>
-        public static string TranslateScreenInfoToastToggleText {
-            get {
-                return ResourceManager.GetString("TranslateScreenInfoToastToggleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate Cutscene Subtitles.
-        /// </summary>
-        public static string TranslateTalkSubtitleToggleLabel {
-            get {
-                return ResourceManager.GetString("TranslateTalkSubtitleToggleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate in-game dialogues.
-        /// </summary>
-        public static string TranslateTalkToggleLabel {
-            get {
-                return ResourceManager.GetString("TranslateTalkToggleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate again stored translated texts with the selected translation engine.
-        /// </summary>
-        public static string TranslateTextsAgain {
-            get {
-                return ResourceManager.GetString("TranslateTextsAgain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translate in-game Toast Messages.
-        /// </summary>
-        public static string TranslateToastToggleText {
-            get {
-                return ResourceManager.GetString("TranslateToastToggleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translations are Disabled!.
-        /// </summary>
-        public static string TranslationDisabled {
-            get {
-                return ResourceManager.GetString("TranslationDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translations are Enabled!.
-        /// </summary>
-        public static string TranslationEnabled {
-            get {
-                return ResourceManager.GetString("TranslationEnabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose the translation engine.
-        /// </summary>
-        public static string TranslationEngineChoose {
-            get {
-                return ResourceManager.GetString("TranslationEngineChoose", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This translation engine does not require any special settings..
-        /// </summary>
-        public static string TranslationEngineSettingsNotRequired {
-            get {
-                return ResourceManager.GetString("TranslationEngineSettingsNotRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translation Error:.
-        /// </summary>
-        public static string TranslationError {
-            get {
-                return ResourceManager.GetString("TranslationError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Translations are Enabled!.
-        /// </summary>
-        public static string TranslationsEnabled {
-            get {
-                return ResourceManager.GetString("TranslationsEnabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use overlay to show Toasts translations (WIP).
-        /// </summary>
-        public static string UseImGuiForToastsToggle {
-            get {
-                return ResourceManager.GetString("UseImGuiForToastsToggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Awaiting translation....
-        /// </summary>
-        public static string WaitingForTranslation {
-            get {
-                return ResourceManager.GetString("WaitingForTranslation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select what kind of text you want to be translated in the corresponding tab below!.
-        /// </summary>
-        public static string WhatToTranslateText {
-            get {
-                return ResourceManager.GetString("WhatToTranslateText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select which kind of in-game message toasts to translate.
-        /// </summary>
-        public static string WhichToastsToTranslate {
-            get {
-                return ResourceManager.GetString("WhichToastsToTranslate", resourceCulture);
+                return ResourceManager.GetString("TranslationEngineConfiguration", resourceCulture);
             }
         }
     }

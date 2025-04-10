@@ -52,7 +52,7 @@ namespace Echoglossian.Translate
 
         public static async Task<string> Translate(Dialogue dialogue)
         {
-            return await Translate(dialogue.Content, dialogue.TargetLanguage.EnglishName).ConfigureAwait(false);
+            return await Translate(dialogue.Content, dialogue.TargetLanguage.Code).ConfigureAwait(false);
         }
     }
 }

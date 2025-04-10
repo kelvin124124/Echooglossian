@@ -1,6 +1,8 @@
+using Dalamud.Game.Text.Sanitizer;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
+using Echoglossian.Translate;
 using Echoglossian.UI.Windows;
 
 namespace Echoglossian.Utils
@@ -10,9 +12,11 @@ namespace Echoglossian.Utils
         [PluginService] public static IDalamudPluginInterface pluginInterface { get; set; } = null!;
         [PluginService] public static IDataManager dataManager { get; set; } = null!;
         [PluginService] public static ICommandManager commandManager { get; set; } = null!;
+        [PluginService] public static IContextMenu contextMenu { get; set; } = null!;
         [PluginService] public static IFramework framework { get; set; } = null!;
         [PluginService] public static IGameGui gameGui { get; set; } = null!;
         [PluginService] public static IChatGui chatGui { get; set; } = null!;
+        [PluginService] public static ICondition condition { get; set; } = null!;
         [PluginService] public static IClientState clientState { get; set; } = null!;
         [PluginService] public static IToastGui toastGui { get; set; } = null!;
         [PluginService] public static IAddonEventManager addonEventManager { get; set; } = null!;
@@ -26,5 +30,8 @@ namespace Echoglossian.Utils
         internal static Config config { get; set; } = null!;
         internal static AssetManager assetManager { get; set; } = null!;
         internal static MainWindow mainWindow { get; set; } = null!;
+
+        internal static TranslationHandler translationHandler { get; set; } = null!;
+        internal static Sanitizer sanitizer { get; set; } = null!;
     }
 }

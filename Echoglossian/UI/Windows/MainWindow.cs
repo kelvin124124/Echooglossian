@@ -1,5 +1,5 @@
 using Dalamud.Interface.Windowing;
-using Echoglossian.Properties;
+using Echoglossian.Localization;
 using Echoglossian.Utils;
 using ImGuiNET;
 using System.Globalization;
@@ -123,7 +123,7 @@ public partial class MainWindow : Window
         ImGui.PopStyleColor(1);
 
         // Engine configuration tab
-        if (ImGui.CollapsingHeader(Resources.TranslationEngineConfiguration, ImGuiTreeNodeFlags.None)) 
+        if (ImGui.CollapsingHeader(Resources.TranslationEngineConfiguration, ImGuiTreeNodeFlags.None))
         {
 
         }
