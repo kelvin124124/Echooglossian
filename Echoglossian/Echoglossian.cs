@@ -44,7 +44,6 @@ namespace Echoglossian
 
             SetupDatabase();
 
-
             Service.config.PluginVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString()!;
             if (Service.config.Version < 5)
             {
@@ -54,7 +53,7 @@ namespace Echoglossian
 
         private static void MigrateConfig()
         {
-            return;
+            throw new NotImplementedException();
         }
 
         private void SetupDatabase()

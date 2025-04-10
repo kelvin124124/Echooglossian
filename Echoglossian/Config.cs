@@ -24,6 +24,7 @@ namespace Echoglossian
         public bool JournalModuleEnabled { get; set; } = true;
         public bool TalkSubtitleModuleEnabled { get; set; } = true;
         public bool ChatModuleEbanled { get; set; } = true;
+        public bool PFModuleEnabled { get; set; } = true;
         #endregion
 
         #region GENERAL
@@ -57,6 +58,9 @@ namespace Echoglossian
 
         public List<XivChatType> SelectedChatTypes { get; set; } = [];
         public List<LanguageInfo> SelectedSourceLanguages { get; set; } = [];
+        #endregion
+
+        #region PF_MODULE
         #endregion
 
         public void Save()
