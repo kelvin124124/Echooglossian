@@ -43,6 +43,7 @@ namespace Echoglossian
             });
 
             Service.assetManager = new AssetManager();
+            Service.fontManager = new FontManager();
             Service.translationCache = new TranslationCache();
             Service.translationHandler = new TranslationHandler();
             Service.overlayManager = new OverlayManager();
@@ -92,6 +93,7 @@ namespace Echoglossian
             Service.translationCache?.Dispose();
 
             Service.assetManager?.Dispose();
+            Service.fontManager?.Dispose();
         }
     }
 }

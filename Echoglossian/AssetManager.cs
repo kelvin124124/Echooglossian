@@ -4,6 +4,7 @@ using Echoglossian.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -56,6 +57,41 @@ namespace Echoglossian
 
             Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}");
             ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
+
+            if (File.Exists(Path.Combine(assetPath, "Font.zip")))
+            {
+                // decompress font zip
+                try
+                {
+                    using (var archive = new ZipArchive(File.OpenRead(Path.Combine(assetPath, "Font.zip")), ZipArchiveMode.Read))
+                    {
+                        foreach (var entry in archive.Entries)
+                        {
+                            var destinationPath = Path.Combine(assetPath, entry.FullName);
+                            entry.ExtractToFile(destinationPath, true);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Service.pluginLog.Error($"Error decompressing Font.zip: {ex.Message}");
+                }
+                finally
+                {
+                    missingAssets = GetMissingAssets();
+                    if (missingAssets.Count == 0)
+                    {
+                        Service.pluginLog.Debug("Plugin assets are intact.");
+                        ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);
+
+                        Service.config.isAssetPresent = true;
+                        Service.config.Save();
+                    }
+                }
+            }
+
+            if (Service.config.isAssetPresent) 
+                return;
 
             // Download missing files concurrently
             var downloadTasks = missingAssets.Select(DownloadAssetAsync).ToList();
