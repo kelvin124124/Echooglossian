@@ -15,9 +15,8 @@ namespace Echoglossian
     public class AssetManager : IDisposable
     {
         public AssetManager() 
-        { 
-            if (!Service.config.isAssetPresent) 
-                VerifyPluginAssets().ConfigureAwait(false); 
+        {
+            // Asset verification is called in FontManager
         }
 
         private record AssetInfo(string FileName, string checkSum, Uri DownloadUri);
@@ -55,8 +54,7 @@ namespace Echoglossian
             Service.config.isAssetPresent = false;
             Service.config.Save();
 
-            Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}");
-            ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
+            Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}"); 
 
             if (File.Exists(Path.Combine(assetPath, "Font.zip")))
             {
@@ -86,12 +84,16 @@ namespace Echoglossian
 
                         Service.config.isAssetPresent = true;
                         Service.config.Save();
+
+                        Service.fontManager?.RebuildFonts();
                     }
                 }
             }
 
             if (Service.config.isAssetPresent) 
                 return;
+
+            ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
 
             // Download missing files concurrently
             var downloadTasks = missingAssets.Select(DownloadAssetAsync).ToList();
@@ -104,6 +106,8 @@ namespace Echoglossian
                 Service.config.Save();
 
                 ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);
+
+                Service.fontManager?.RebuildFonts();
             }
             else
             {

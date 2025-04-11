@@ -61,7 +61,7 @@ namespace Echoglossian.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All assets present and complete..
+        ///   Looks up a localized string similar to All assets present and intact..
         /// </summary>
         internal static string AssetsPresentPopupMsg {
             get {

@@ -50,6 +50,15 @@ namespace Echoglossian
 
         public void InitializeFonts()
         {
+            // wait for asset initialization
+            if (!Service.config.isAssetPresent)
+            {
+                Service.pluginLog.Debug("Waiting for assets");
+                Service.assetManager.VerifyPluginAssets().Wait();
+            }
+
+            Service.pluginLog.Debug("Initializing fonts");
+
             // reset language specific fonts
             fontFilePath = Path.Combine(fontPath, Service.config.SelectedTargetLanguage.Font);
             scriptCharList = Service.config.SelectedTargetLanguage.ExclusiveChars;

@@ -42,6 +42,9 @@ namespace Echoglossian
                 HelpMessage = "Open Echoglossian main window."
             });
 
+            // DEBUG
+            Service.config.isAssetPresent = false;
+
             Service.assetManager = new AssetManager();
             Service.fontManager = new FontManager();
             Service.translationCache = new TranslationCache();

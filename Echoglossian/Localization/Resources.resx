@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AssetsPresentPopupMsg" xml:space="preserve">
-    <value>All assets present and complete.</value>
+    <value>All assets present and intact.</value>
   </data>
   <data name="BattleTalkModuleName" xml:space="preserve">
     <value>BattleTalk</value>
