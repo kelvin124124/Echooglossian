@@ -39,6 +39,9 @@ namespace Echoglossian
         #endregion
 
         #region TALK_MODULE
+        public bool TALK_UseImGui { get; set; } = true;
+        public bool TALK_EnableImGuiTextSwap { get; set; } = true;
+        public bool TALK_TranslateNpcNames { get; set; } = true;
         #endregion
 
         #region BATTLETALK_MODULE
@@ -54,13 +57,14 @@ namespace Echoglossian
         #endregion
 
         #region CHAT_MODULE
-        public bool UseContext { get; set; } = false;
+        public bool CHAT_UseContext { get; set; } = false;
 
-        public List<XivChatType> SelectedChatTypes { get; set; } = [];
-        public List<LanguageInfo> SelectedSourceLanguages { get; set; } = [];
+        public List<XivChatType> CHAT_SelectedChatTypes { get; set; } = [];
+        public List<LanguageInfo> CHAT_SelectedSourceLanguages { get; set; } = [];
         #endregion
 
         #region PF_MODULE
+        public bool PF_UseContext { get; set; } = true;
         #endregion
 
         public void Save()

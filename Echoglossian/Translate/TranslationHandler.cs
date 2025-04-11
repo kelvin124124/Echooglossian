@@ -36,6 +36,11 @@ namespace Echoglossian.Translate
             throw new NotImplementedException();
         }
 
+        public async Task<string> TranslateString(string content, LanguageInfo toLanguage)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<LanguageInfo> DetermineLanguage(string content)
         {
             throw new NotImplementedException();

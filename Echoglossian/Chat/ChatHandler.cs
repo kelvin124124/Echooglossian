@@ -15,7 +15,7 @@ namespace Echoglossian.Chat
 {
     internal partial class ChatHandler
     {
-        private static readonly StringBuilder sb = new();
+        private static readonly StringBuilder SB = new();
         private readonly Dictionary<string, int> lastMessageTime = [];
 
         public ChatHandler() => Service.chatGui.ChatMessage += OnChatMessage;
@@ -28,7 +28,7 @@ namespace Echoglossian.Chat
 
         private async void HandleChatMessage(XivChatType type, SeString sender, SeString message)
         {
-            if (!Service.config.ChatModuleEbanled || sender.TextValue.Contains("[E]") || !Service.config.SelectedChatTypes.Contains(type))
+            if (!Service.config.ChatModuleEbanled || sender.TextValue.Contains("[E]") || !Service.config.CHAT_SelectedChatTypes.Contains(type))
                 return;
 
             // Get sender name
@@ -101,7 +101,7 @@ namespace Echoglossian.Chat
         }
 
         private async Task<bool> IsCustomSourceLanguage(Message chatMessage) =>
-            Service.config.SelectedSourceLanguages.Contains(
+            Service.config.CHAT_SelectedSourceLanguages.Contains(
                 await Service.translationHandler.DetermineLanguage(chatMessage.Content)
             );
 
@@ -113,13 +113,13 @@ namespace Echoglossian.Chat
                 return;
             }
 
-            sb.Clear().Append(chatMessage.Content).Append(" || ").Append(translation);
+            SB.Clear().Append(chatMessage.Content).Append(" || ").Append(translation);
 
             Service.chatGui.Print(new XivChatEntry
             {
                 Type = chatMessage.Type,
                 Name = new SeString(new PlayerPayload("[E] " + chatMessage.Sender, 0)),
-                Message = sb.ToString(),
+                Message = SB.ToString(),
             });
         }
 

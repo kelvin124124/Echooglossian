@@ -32,14 +32,24 @@ namespace Echoglossian.Database
 
         public bool TryGet(Dialogue dialogue, out string value)
         {
-            var status = session.Read(dialogue.ToString(), out value);
-            return status.Found;
+            return TryGetString(dialogue.ToString(), out value);
         }
 
         // proposed cache key: "{UI_source}\{srcLang}\{targetLang}\{originalContent}"
         public void Upsert(Dialogue dialogue, string value)
         {
-            session.Upsert(dialogue.ToString(), value);
+            UpsertString(dialogue.ToString(), value);
+        }
+
+        public bool TryGetString(string key, out string value)
+        {
+            var status = session.Read(key, out value);
+            return status.Found;
+        }
+
+        public void UpsertString(string key, string value)
+        {
+            session.Upsert(key, value);
         }
 
         public void Dispose()

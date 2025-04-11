@@ -2,6 +2,7 @@ using Dalamud.Game.Text.Sanitizer;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
+using Echoglossian.Database;
 using Echoglossian.Translate;
 using Echoglossian.UI.Windows;
 
@@ -32,6 +33,7 @@ namespace Echoglossian.Utils
         internal static MainWindow mainWindow { get; set; } = null!;
 
         internal static TranslationHandler translationHandler { get; set; } = null!;
+        internal static TranslationCache translationCache { get; set; } = null!;
         internal static Sanitizer sanitizer { get; set; } = null!;
     }
 }

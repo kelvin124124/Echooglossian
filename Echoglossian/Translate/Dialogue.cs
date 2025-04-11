@@ -6,9 +6,8 @@ namespace Echoglossian.Translate
     internal class Dialogue(string source, LanguageInfo? sourceLanguage, LanguageInfo? targetLanguage, string content)
     {
         public string Source { get; } = source;
-        public LanguageInfo? SourceLanguage { get; set; } = sourceLanguage;
-        public LanguageInfo TargetLanguage { get; set; } = targetLanguage ?? Service.config.SelectedTargetLanguage;
-
+        public LanguageInfo? SourceLanguage { get; } = sourceLanguage;
+        public LanguageInfo TargetLanguage { get; } = targetLanguage ?? Service.config.SelectedTargetLanguage;
         public string Content { get; } = content;
 
         public override string ToString()
