@@ -11,9 +11,9 @@ using static Echoglossian.Utils.LanguageDictionary;
 
 namespace Echoglossian.Translate
 {
-    internal class TranslationHandler
+    internal class TranslationHandler : IDisposable
     {
-        private readonly TranslationCache translationCache = new(Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "faster"));
+        private readonly TranslationCache translationCache = new();
 
         internal static readonly HttpClient HttpClient = new(new SocketsHttpHandler
         {
@@ -44,6 +44,11 @@ namespace Echoglossian.Translate
         public async Task<LanguageInfo> DetermineLanguage(string content)
         {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            HttpClient.Dispose();
         }
     }
 }

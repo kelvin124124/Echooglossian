@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Echoglossian.Chat
 {
-    internal partial class ChatHandler
+    internal partial class ChatHandler : IDisposable
     {
         private static readonly StringBuilder SB = new();
         private readonly Dictionary<string, int> lastMessageTime = [];

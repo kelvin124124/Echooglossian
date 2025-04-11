@@ -2,8 +2,10 @@ using Dalamud.Game.Text.Sanitizer;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
+using Echoglossian.Chat;
 using Echoglossian.Database;
 using Echoglossian.Translate;
+using Echoglossian.UI.GameUI;
 using Echoglossian.UI.Windows;
 
 namespace Echoglossian.Utils
@@ -32,8 +34,14 @@ namespace Echoglossian.Utils
         internal static AssetManager assetManager { get; set; } = null!;
         internal static MainWindow mainWindow { get; set; } = null!;
 
-        internal static TranslationHandler translationHandler { get; set; } = null!;
         internal static TranslationCache translationCache { get; set; } = null!;
+        internal static TranslationHandler translationHandler { get; set; } = null!;
+        internal static OverlayManager overlayManager { get; set; } = null!;
+        internal static GameUIManager gameUIManager { get; set; } = null!;
+
+        internal static ChatHandler chatHandler { get; set; } = null!;
+        internal static PFHandler pfHandler { get; set; } = null!;
+
         internal static Sanitizer sanitizer { get; set; } = null!;
     }
 }

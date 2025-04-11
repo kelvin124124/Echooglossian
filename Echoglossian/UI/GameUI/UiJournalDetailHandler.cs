@@ -105,7 +105,7 @@ namespace Echoglossian.UI.GameUI
                 }
 
                 // Translate objectives
-                for (int i = 2; i <= 6; i++)
+                for (uint i = 2; i <= 6; i++)
                 {
                     var objectiveNode = journalDetail->GetTextNodeById(20 + i);
                     if (objectiveNode != null && !objectiveNode->NodeText.IsEmpty)

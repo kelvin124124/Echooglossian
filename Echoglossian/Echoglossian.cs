@@ -2,7 +2,10 @@ using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
+using Echoglossian.Chat;
+using Echoglossian.Database;
 using Echoglossian.Translate;
+using Echoglossian.UI.GameUI;
 using Echoglossian.UI.Windows;
 using Echoglossian.Utils;
 using System;
@@ -40,9 +43,12 @@ namespace Echoglossian
             });
 
             Service.assetManager = new AssetManager();
+            Service.translationCache = new TranslationCache();
             Service.translationHandler = new TranslationHandler();
-
-            SetupDatabase();
+            Service.overlayManager = new OverlayManager();
+            Service.gameUIManager = new GameUIManager();
+            Service.chatHandler = new ChatHandler();
+            Service.pfHandler = new PFHandler();
 
             Service.config.PluginVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString()!;
             if (Service.config.Version < 5)
@@ -52,11 +58,6 @@ namespace Echoglossian
         }
 
         private static void MigrateConfig()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void SetupDatabase()
         {
             throw new NotImplementedException();
         }
@@ -78,7 +79,17 @@ namespace Echoglossian
 
         public void Dispose()
         {
+            Service.commandManager?.RemoveHandler(CommandName);
+            WindowSystem?.RemoveAllWindows();
 
+            Service.chatHandler?.Dispose();
+            Service.pfHandler?.Dispose();
+
+            Service.gameUIManager?.Dispose();
+            Service.overlayManager?.Dispose();
+
+            Service.translationHandler?.Dispose();
+            Service.translationCache?.Dispose();
         }
     }
 }

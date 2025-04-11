@@ -6,6 +6,10 @@ namespace Echoglossian.UI.GameUI
 {
     internal class GameUIManager : IDisposable
     {
+        private readonly UiToastsHandlers uiToastsHandlers = new();
+        private readonly UiActionTooltipHandler uiActionTooltipHandler = new();
+        private readonly UiChatBubbleHandler uiChatBubbleHandler = new();
+
         // Register UI addon handlers
         public GameUIManager()
         {
@@ -45,6 +49,10 @@ namespace Echoglossian.UI.GameUI
                 UiBattleTalkHandler.OnEvent,
                 UiTalkSubtitleHandler.OnEvent,
                 UiJournalHandler.OnEvent);
+
+            uiToastsHandlers.Dispose();
+            uiActionTooltipHandler.Dispose();
+            uiChatBubbleHandler.Dispose();
         }
     }
 }

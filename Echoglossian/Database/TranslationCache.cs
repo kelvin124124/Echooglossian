@@ -1,6 +1,8 @@
 using Echoglossian.Translate;
+using Echoglossian.Utils;
 using FASTER.core;
 using System;
+using System.IO;
 
 namespace Echoglossian.Database
 {
@@ -9,8 +11,10 @@ namespace Echoglossian.Database
         private readonly FasterKV<string, string> store;
         private readonly ClientSession<string, string, string, string, Empty, SimpleFunctions<string, string>> session;
 
-        public TranslationCache(string dbPath)
+        public TranslationCache()
         {
+            string dbPath = Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "FASTER");
+
             // 160 MB memory used for the cache
             var settings = new FasterKVSettings<string, string>(dbPath)
             {
