@@ -28,7 +28,7 @@ namespace Echoglossian.Chat
 
         private async void HandleChatMessage(XivChatType type, SeString sender, SeString message)
         {
-            if (!Service.config.ChatModuleEbanled || sender.TextValue.Contains("[E]") || !Service.config.CHAT_SelectedChatTypes.Contains(type))
+            if (!Service.config.ChatModuleEnabled || sender.TextValue.Contains("[E]") || !Service.config.CHAT_SelectedChatTypes.Contains(type))
                 return;
 
             // Get sender name

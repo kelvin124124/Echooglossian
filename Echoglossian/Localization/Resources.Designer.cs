@@ -142,6 +142,15 @@ namespace Echoglossian.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PartyFinder.
+        /// </summary>
+        internal static string PFModuleName {
+            get {
+                return ResourceManager.GetString("PFModuleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Plugin.
         /// </summary>
         internal static string PluginMainToggle {

@@ -144,6 +144,9 @@
   <data name="ModulesConfiguration" xml:space="preserve">
     <value>Modules</value>
   </data>
+  <data name="PFModuleName" xml:space="preserve">
+    <value>PartyFinder</value>
+  </data>
   <data name="PluginMainToggle" xml:space="preserve">
     <value>Enable Plugin</value>
   </data>

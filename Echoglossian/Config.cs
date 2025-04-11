@@ -1,6 +1,8 @@
 using Dalamud.Configuration;
+using Dalamud.Game.Text;
 using Echoglossian.Utils;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using static Echoglossian.Utils.LanguageDictionary;
 
@@ -15,11 +17,20 @@ namespace Echoglossian
         public bool isAssetPresent { get; set; } = false;
 
         #region General Settings
-        public bool Enabled { get; set; } = true;
+        public bool PluginEnabled { get; set; } = true;
+
+        public LanguageInfo SelectedPluginLanguage { get; set; } = LanguageDictionary.GetLanguage("English");
         public LanguageInfo SelectedTargetLanguage { get; set; } = LanguageDictionary.GetLanguage("English");
+
         public float FontSize { get; set; } = 18.0f;
         public float FontScale { get; set; } = 1.0f;
         public bool SwapTextsUsingImGui { get; set; } = false;
+        public bool ShowInCutscenes { get; set; } = true;
+
+        public Dictionary<string, string> API_Keys { get; set; } = [];
+
+        public List<LLMPreset> LLMPresets { get; set; } = [];
+        public LLMPreset SelectedLLMPreset { get; set; } = null!;
         #endregion
 
         #region Module Toggles
@@ -28,6 +39,8 @@ namespace Echoglossian
         public bool TalkSubtitleModuleEnabled { get; set; } = true;
         public bool JournalModuleEnabled { get; set; } = true;
         public bool ToastModuleEnabled { get; set; } = true;
+        public bool ChatModuleEnabled { get; set; } = true;
+        public bool PFModuleEnabled { get; set; } = true;
         #endregion
 
         #region UI Settings
@@ -71,6 +84,16 @@ namespace Echoglossian
         public bool TOAST_TranslateRegular { get; set; } = true;
         public bool TOAST_TranslateError { get; set; } = true;
         public bool TOAST_TranslateQuest { get; set; } = true;
+        #endregion
+
+        #region CHAT_MODULE
+        public bool CHAT_UseContext { get; set; } = false;
+
+        public List<XivChatType> CHAT_SelectedChatTypes { get; set; } = [];
+        public List<LanguageInfo> CHAT_SelectedSourceLanguages { get; set; } = [];
+        #endregion
+
+        #region PF_MODULE
         #endregion
 
         // Save configuration

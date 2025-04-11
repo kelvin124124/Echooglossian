@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Echoglossian
 {
-    public class AssetManager
+    public class AssetManager : IDisposable
     {
         public AssetManager() => VerifyPluginAssets().ConfigureAwait(false);
 
@@ -136,6 +136,11 @@ namespace Echoglossian
             };
 
             Service.notificationManager.AddNotification(notification);
+        }
+
+        public void Dispose()
+        {
+            HttpClient.Dispose();
         }
     }
 }

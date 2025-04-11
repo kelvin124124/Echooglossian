@@ -9,11 +9,11 @@ using static Echoglossian.Utils.LanguageDictionary;
 
 namespace Echoglossian.UI.Windows;
 
-public partial class MainWindow : Window
+public partial class ConfigWindow : Window
 {
     private bool saveConfig = false;
 
-    public MainWindow(Echoglossian plugin) : base(
+    public ConfigWindow(Echoglossian plugin) : base(
         $"Echoglossian - Plugin Version: {Service.config.PluginVersion}",
         ImGuiWindowFlags.AlwaysAutoResize)
     {
@@ -59,12 +59,12 @@ public partial class MainWindow : Window
         ImGui.Separator();
 
         // Module configuration tab
-        // Left panel: Module list [Talk, BattleTalk, Toast, Journal, TalkSubstitle, Chat] with image showcase
+        // Left panel: Module list [Talk, BattleTalk, Toast, Journal, TalkSubstitle, Chat, PF] with image showcase
         if (ImGui.CollapsingHeader(Resources.ModulesConfiguration, ImGuiTreeNodeFlags.None))
         {
             short CurrentTab = 0;
             string[] tabs = [Resources.TalkModuleName, Resources.BattleTalkModuleName, Resources.ToastModuleName,
-                Resources.JournalModuleName, Resources.TalkSubstitleModuleName, Resources.ChatModuleName];
+                Resources.JournalModuleName, Resources.TalkSubstitleModuleName, Resources.ChatModuleName, Resources.PFModuleName];
 
             ImGui.Columns(2, "ConfigColumns###Echo", false);
             ImGui.SetColumnWidth(0, 200);
@@ -88,12 +88,26 @@ public partial class MainWindow : Window
                 switch (CurrentTab)
                 {
                     case 0:
-
+                        ImGui.TextUnformatted(Resources.TalkModuleName);
                         break;
                     case 1:
-
+                        ImGui.TextUnformatted(Resources.BattleTalkModuleName);
                         break;
-
+                    case 2:
+                        ImGui.TextUnformatted(Resources.ToastModuleName);
+                        break;
+                    case 3:
+                        ImGui.TextUnformatted(Resources.JournalModuleName);
+                        break;
+                    case 4:
+                        ImGui.TextUnformatted(Resources.TalkSubstitleModuleName);
+                        break;
+                    case 5:
+                        ImGui.TextUnformatted(Resources.ChatModuleName);
+                        break;
+                    case 6:
+                        ImGui.TextUnformatted(Resources.PFModuleName);
+                        break;
                         // ... other cases
                 }
             }
@@ -108,10 +122,16 @@ public partial class MainWindow : Window
         {
             bool pluginAssetsStatus = Service.config.isAssetPresent;
 
-            ImGui.TextUnformatted("Asset status" + ": " + (pluginAssetsStatus ? "✓ Downloaded" : "X Missing"));
-
-            if (!pluginAssetsStatus) ImGui.TextUnformatted("Some asset files are missing, press the button below to re-download them.");
-            else ImGui.NewLine();
+            if (pluginAssetsStatus)
+            {
+                // green text
+                ImGui.TextColored(new Vector4(0.0f, 1.0f, 0.0f, 1.0f), "All assets are present.");
+            }
+            else
+            {
+                ImGui.TextColored(new Vector4(1.0f, 0.0f, 0.0f, 1.0f), "Some assets are missing.");
+                ImGui.TextUnformatted("Some asset files are missing, press the button below to re-download them.");
+            }
 
             ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
             if (ImGui.Button("Verify Assets"))

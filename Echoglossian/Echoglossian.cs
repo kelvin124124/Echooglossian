@@ -30,7 +30,7 @@ namespace Echoglossian
 
             Service.plugin = this;
 
-            Service.mainWindow = new MainWindow(this);
+            Service.mainWindow = new ConfigWindow(this);
             WindowSystem.AddWindow(Service.mainWindow);
 
             pluginInterface.UiBuilder.Draw += DrawUI;
@@ -90,6 +90,8 @@ namespace Echoglossian
 
             Service.translationHandler?.Dispose();
             Service.translationCache?.Dispose();
+
+            Service.assetManager?.Dispose();
         }
     }
 }

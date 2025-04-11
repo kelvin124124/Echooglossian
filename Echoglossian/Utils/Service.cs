@@ -29,7 +29,7 @@ namespace Echoglossian.Utils
         internal static Config config { get; set; } = null!;
         internal static AssetManager assetManager { get; set; } = null!;
         internal static FontManager fontManager { get; set; } = null!;
-        internal static MainWindow mainWindow { get; set; } = null!;
+        internal static ConfigWindow mainWindow { get; set; } = null!;
 
         internal static TranslationCache translationCache { get; set; } = null!;
         internal static TranslationHandler translationHandler { get; set; } = null!;
