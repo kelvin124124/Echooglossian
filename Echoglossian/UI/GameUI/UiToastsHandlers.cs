@@ -22,11 +22,11 @@ namespace Echoglossian.UI.GameUI
         };
 
         // Track active translations
-        private readonly Dictionary<ToastType, string> currentTranslations = new();
-        private readonly Dictionary<ToastType, int> translationIds = new();
+        private readonly Dictionary<ToastType, string> currentTranslations = [];
+        private readonly Dictionary<ToastType, int> translationIds = [];
 
         // Store pending SeString references
-        private readonly Dictionary<ToastType, SeStringRef> pendingRefs = new();
+        private readonly Dictionary<ToastType, SeStringRef> pendingRefs = [];
 
         private enum ToastType
         {
@@ -225,7 +225,7 @@ namespace Echoglossian.UI.GameUI
             else
             {
                 // Replace the message directly
-                originalMessage = SeString.Parse(translatedText);
+                originalMessage = (SeString)translatedText;
             }
         }
     }

@@ -100,7 +100,7 @@ namespace Echoglossian.Chat
             return addon == null ? 0 : addon->TabIndex;
         }
 
-        private async Task<bool> IsCustomSourceLanguage(Message chatMessage) =>
+        private static async Task<bool> IsCustomSourceLanguage(Message chatMessage) =>
             Service.config.CHAT_SelectedSourceLanguages.Contains(
                 await Service.translationHandler.DetermineLanguage(chatMessage.Content)
             );

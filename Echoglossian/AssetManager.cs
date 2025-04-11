@@ -74,7 +74,7 @@ namespace Echoglossian
         private List<AssetInfo> GetMissingAssets()
         {
             using var md5 = MD5.Create();
-            return requiredAssets.Where(asset =>
+            return [.. requiredAssets.Where(asset =>
             {
                 var filePath = Path.Combine(assetPath, asset.FileName);
                 if (!File.Exists(filePath))
@@ -96,7 +96,7 @@ namespace Echoglossian
                 {
                     throw new Exception($"Error reading {asset.FileName}: {ex.Message}", ex);
                 }
-            }).ToList();
+            })];
         }
 
         private async Task DownloadAssetAsync(AssetInfo asset)

@@ -11,7 +11,7 @@ namespace Echoglossian.UI.GameUI
 {
     internal partial class UiJournalHandler
     {
-        private static readonly Dictionary<string, string> TranslatedQuestNames = new();
+        private static readonly Dictionary<string, string> TranslatedQuestNames = [];
 
         internal static unsafe void OnEvent(AddonEvent type, AddonArgs args)
         {
@@ -64,7 +64,7 @@ namespace Echoglossian.UI.GameUI
 
         private static unsafe void TranslateQuestName(string questName, AtkValue* atkValues, int valueIndex)
         {
-            if (TranslatedQuestNames.TryGetValue(questName, out string translatedName))
+            if (TranslatedQuestNames.TryGetValue(questName, out string? translatedName))
             {
                 atkValues[valueIndex].SetManagedString(translatedName);
                 return;
@@ -78,9 +78,8 @@ namespace Echoglossian.UI.GameUI
                     var toLang = Service.config.SelectedTargetLanguage;
 
                     string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{questName}";
-                    string cachedTranslation;
 
-                    if (!Service.translationCache.TryGetString(questNameKey, out cachedTranslation))
+                    if (!Service.translationCache.TryGetString(questNameKey, out var cachedTranslation))
                     {
                         cachedTranslation = Service.translationHandler.TranslateString(questName, toLang).GetAwaiter().GetResult();
                         Service.translationCache.UpsertString(questNameKey, cachedTranslation);

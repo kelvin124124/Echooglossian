@@ -7,6 +7,7 @@ namespace Echoglossian.UI.GameUI
     internal class GameUIManager : IDisposable
     {
         private readonly UiToastsHandlers uiToastsHandlers = new();
+        // Not yet implemented
         //private readonly UiActionTooltipHandler uiActionTooltipHandler = new();
         //private readonly UiChatBubbleHandler uiChatBubbleHandler = new();
 

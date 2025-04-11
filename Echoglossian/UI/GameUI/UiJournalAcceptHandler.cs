@@ -13,7 +13,7 @@ namespace Echoglossian.UI.GameUI
     {
         private static unsafe void HandleJournalAccept(AddonSetupArgs args)
         {
-            if (args == null || args.AtkValues == null)
+            if (args == null || args.AtkValues == IntPtr.Zero)
                 return;
 
             var atkValues = (AtkValue*)args.AtkValues;

@@ -69,7 +69,7 @@ namespace Echoglossian.Chat
             Task.Run(() => TranslatePFAsync(PFmessage));
         }
 
-        private async Task TranslatePFAsync(Message message)
+        private static async Task TranslatePFAsync(Message message)
         {
             var translation = await Service.translationHandler.TranslateChat(message);
             ChatHandler.OutputMessage(message, translation);

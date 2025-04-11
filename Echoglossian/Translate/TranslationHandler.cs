@@ -26,17 +26,17 @@ namespace Echoglossian.Translate
 
         public async Task<string> TranslateUI(Dialogue dialogue)
         {
-            throw new NotImplementedException();
+            return "debug";
         }
 
         public async Task<string> TranslateChat(Message chatMessage)
         {
-            throw new NotImplementedException();
+            return "debug";
         }
 
         public async Task<string> TranslateString(string content, LanguageInfo toLanguage)
         {
-            throw new NotImplementedException();
+            return "debug";
         }
 
         public async Task<LanguageInfo> DetermineLanguage(string content)

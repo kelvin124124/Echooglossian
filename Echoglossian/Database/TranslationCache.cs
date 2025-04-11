@@ -56,6 +56,20 @@ namespace Echoglossian.Database
             session.Upsert(key, value);
         }
 
+        public void WipeCache()
+        {
+            session.Dispose();
+            store.Dispose();
+
+            string dbPath = Path.Combine(Service.pluginInterface.AssemblyLocation.Directory?.FullName!, "FASTER");
+            if (Directory.Exists(dbPath))
+            {
+                Directory.Delete(dbPath, true);
+            }
+
+            Service.translationCache = new TranslationCache();
+        }
+
         public void Dispose()
         {
             session?.Dispose();
