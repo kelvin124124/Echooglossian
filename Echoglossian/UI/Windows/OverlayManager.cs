@@ -1,10 +1,10 @@
+using Dalamud.Interface.Utility;
+using Echoglossian.Utils;
+using FFXIVClientStructs.FFXIV.Component.GUI;
+using ImGuiNET;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using FFXIVClientStructs.FFXIV.Component.GUI;
-using Dalamud.Interface.Utility;
-using ImGuiNET;
-using Echoglossian.Utils;
 
 namespace Echoglossian.UI.Windows
 {
@@ -196,7 +196,7 @@ namespace Echoglossian.UI.Windows
                 new Vector2(talkCachedWidth, talkDimensions.Y * Service.config.ImGuiTalkWindowHeightMult));
 
             PushFontHandle(Service.config.TALK_EnableImGuiTextSwap);
-            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(Service.config.OverlayTalkTextColor, 255));
+            ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin(talkWindowTitle, talkWindowFlags);
             ImGui.SetWindowFontScale(Service.config.FontScale);
@@ -275,7 +275,7 @@ namespace Echoglossian.UI.Windows
                 new Vector2(battleTalkCachedWidth, battleTalkDimensions.Y * 2.5f * Service.config.ImGuiBattleTalkWindowHeightMult));
 
             PushFontHandle(Service.config.BATTLETALK_EnableImGuiTextSwap);
-            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(Service.config.OverlayBattleTalkTextColor, 255));
+            ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayBattleTalkTextColor);
 
             ImGui.Begin(battleTalkWindowTitle, battleTalkWindowFlags);
             ImGui.SetWindowFontScale(Service.config.FontScale);
@@ -348,7 +348,7 @@ namespace Echoglossian.UI.Windows
                 new Vector2(talkSubtitleCachedWidth, talkSubtitleDimensions.Y * Service.config.ImGuiTalkSubtitleWindowHeightMult));
 
             PushFontHandle(Service.config.SUBTITLE_EnableImGuiTextSwap);
-            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(Service.config.OverlayTalkTextColor, 255));
+            ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin("TalkSubtitle translation", baseWindowFlags | ImGuiWindowFlags.NoTitleBar);
             ImGui.SetWindowFontScale(Service.config.FontScale);
@@ -400,7 +400,7 @@ namespace Echoglossian.UI.Windows
             }
         }
 
-        private void DrawToastOverlay(string toastType, ToastOverlay overlay)
+        private static void DrawToastOverlay(string toastType, ToastOverlay overlay)
         {
             if (string.IsNullOrEmpty(overlay.TranslatedText)) return;
 
@@ -421,7 +421,7 @@ namespace Echoglossian.UI.Windows
                 new Vector2(overlay.CachedWidth * 4f, overlay.Dimensions.Y * 2));
 
             PushFontHandle(Service.config.SwapTextsUsingImGui);
-            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(Service.config.OverlayTalkTextColor, 255));
+            ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin($"{toastType} Toast Translation", overlay.WindowFlags);
             ImGui.SetWindowFontScale(Service.config.FontScale);
@@ -449,20 +449,20 @@ namespace Echoglossian.UI.Windows
                 position.Y - imguiSize.Y - 20);
         }
 
-        private void PushFontHandle(bool useGeneralFont)
+        private static void PushFontHandle(bool useGeneralFont)
         {
             if (useGeneralFont)
-                Service.fontHandler.GeneralFontHandle.Push();
+                Service.fontManager.GeneralFontHandle.Push();
             else
-                Service.fontHandler.LanguageFontHandle.Push();
+                Service.fontManager.LanguageFontHandle.Push();
         }
 
-        private void PopFontHandle(bool useGeneralFont)
+        private static void PopFontHandle(bool useGeneralFont)
         {
             if (useGeneralFont)
-                Service.fontHandler.GeneralFontHandle.Pop();
+                Service.fontManager.GeneralFontHandle.Pop();
             else
-                Service.fontHandler.LanguageFontHandle.Pop();
+                Service.fontManager.LanguageFontHandle.Pop();
         }
         #endregion
     }
