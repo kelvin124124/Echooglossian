@@ -45,6 +45,9 @@ namespace Echoglossian
         #endregion
 
         #region BATTLETALK_MODULE
+        public bool BATTLETALK_UseImGui { get; set; } = true;
+        public bool BATTLETALK_EnableImGuiTextSwap { get; set; } = true;
+        public bool BATTLETALK_TranslateNpcNames { get; set; } = true;
         #endregion
 
         #region TOAST_MODULE
@@ -54,6 +57,8 @@ namespace Echoglossian
         #endregion
 
         #region TALK_SUBTITLE_MODULE
+        public bool SUBTITLE_UseImGui { get; set; } = true;
+        public bool SUBTITLE_EnableImGuiTextSwap { get; set; } = true;
         #endregion
 
         #region CHAT_MODULE

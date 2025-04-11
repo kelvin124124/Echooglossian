@@ -1,12 +1,12 @@
 using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using Dalamud.Memory;
-using FFXIVClientStructs.FFXIV.Component.GUI;
+using Echoglossian.Translate;
 using Echoglossian.Utils;
+using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Echoglossian.Translate;
 using static Echoglossian.Utils.LanguageDictionary;
 
 namespace Echoglossian.UI.GameUI
@@ -92,7 +92,7 @@ namespace Echoglossian.UI.GameUI
                     if (string.IsNullOrEmpty(name))
                         return;
 
-                    string nameKey = $"string_{fromLang.Code}_{toLang.Code}_{name}";
+                    string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
                     if (Service.translationCache.TryGetString(nameKey, out string cachedName))
                         CurrentTranslatedName = cachedName;
                     else
@@ -166,7 +166,7 @@ namespace Echoglossian.UI.GameUI
                     bool needNameTranslation = !string.IsNullOrEmpty(name);
                     if (needNameTranslation)
                     {
-                        string nameKey = $"string_{fromLang.Code}_{toLang.Code}_{name}";
+                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
                         if (Service.translationCache.TryGetString(nameKey, out nameTranslation))
                             needNameTranslation = false;
                     }
@@ -180,7 +180,7 @@ namespace Echoglossian.UI.GameUI
                     if (needNameTranslation)
                     {
                         nameTranslation = await Service.translationHandler.TranslateString(name, toLang);
-                        string nameKey = $"string_{fromLang.Code}_{toLang.Code}_{name}";
+                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
                         Service.translationCache.UpsertString(nameKey, nameTranslation);
                     }
 
@@ -216,7 +216,7 @@ namespace Echoglossian.UI.GameUI
                     string nameTranslation = name;
                     if (Service.config.TALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
                     {
-                        string nameKey = $"string_{fromLang.Code}_{toLang.Code}_{name}";
+                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
                         if (!Service.translationCache.TryGetString(nameKey, out nameTranslation))
                         {
                             nameTranslation = await Service.translationHandler.TranslateString(name, toLang);
