@@ -19,8 +19,8 @@ namespace Echoglossian
         #region General Settings
         public bool PluginEnabled { get; set; } = true;
 
-        public LanguageInfo SelectedPluginLanguage { get; set; } = LanguageDictionary.GetLanguage("English");
-        public LanguageInfo SelectedTargetLanguage { get; set; } = LanguageDictionary.GetLanguage("English");
+        public LanguageInfo SelectedPluginLanguage { get; set; } = LanguageDictionary.GetLanguage("en");
+        public LanguageInfo SelectedTargetLanguage { get; set; } = LanguageDictionary.GetLanguage("en");
 
         public float FontSize { get; set; } = 18.0f;
         public float FontScale { get; set; } = 1.0f;

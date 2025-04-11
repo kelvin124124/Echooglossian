@@ -38,7 +38,7 @@ namespace Echoglossian.UI.GameUI
                             {
                                 try
                                 {
-                                    var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                     var toLang = Service.config.SelectedTargetLanguage;
 
                                     string titleKey = $"quest_{fromLang.Code}_{toLang.Code}_{capturedTitle}";
@@ -85,7 +85,7 @@ namespace Echoglossian.UI.GameUI
                             {
                                 try
                                 {
-                                    var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                     var toLang = Service.config.SelectedTargetLanguage;
 
                                     string cachedTranslation = Service.translationHandler.TranslateString(capturedDesc, toLang)
@@ -128,7 +128,7 @@ namespace Echoglossian.UI.GameUI
                                 {
                                     try
                                     {
-                                        var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                                        var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                         var toLang = Service.config.SelectedTargetLanguage;
 
                                         string cachedTranslation = Service.translationHandler.TranslateString(capturedObjective, toLang)

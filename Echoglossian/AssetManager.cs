@@ -13,7 +13,11 @@ namespace Echoglossian
 {
     public class AssetManager : IDisposable
     {
-        public AssetManager() => VerifyPluginAssets().ConfigureAwait(false);
+        public AssetManager() 
+        { 
+            if (!Service.config.isAssetPresent) 
+                VerifyPluginAssets().ConfigureAwait(false); 
+        }
 
         private record AssetInfo(string FileName, string checkSum, Uri DownloadUri);
 

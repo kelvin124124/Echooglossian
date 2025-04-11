@@ -149,7 +149,7 @@ namespace Echoglossian.UI.GameUI
         {
             try
             {
-                var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                 var toLang = Service.config.SelectedTargetLanguage;
                 string cacheKey = $"toast_{fromLang.Code}_{toLang.Code}_{toastType}_{messageText.GetHashCode()}";
 

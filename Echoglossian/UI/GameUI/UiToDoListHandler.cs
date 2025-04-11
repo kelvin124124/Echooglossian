@@ -57,7 +57,7 @@ namespace Echoglossian.UI.GameUI
                         {
                             try
                             {
-                                var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                                var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                 var toLang = Service.config.SelectedTargetLanguage;
 
                                 string cachedTranslation = Service.translationHandler.TranslateString(capturedText, toLang)

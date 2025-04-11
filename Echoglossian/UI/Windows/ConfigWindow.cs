@@ -17,11 +17,7 @@ public partial class ConfigWindow : Window
         $"Echoglossian - Plugin Version: {Service.config.PluginVersion}",
         ImGuiWindowFlags.AlwaysAutoResize)
     {
-        SizeConstraints = new WindowSizeConstraints
-        {
-            MinimumSize = new Vector2(900, 700),
-            MaximumSize = new Vector2(1920, 1080)
-        };
+        Size = new Vector2(900, 400);
 
         Resources.Culture = (CultureInfo)Service.config.SelectedPluginLanguage;
     }
@@ -60,7 +56,7 @@ public partial class ConfigWindow : Window
 
         // Module configuration tab
         // Left panel: Module list [Talk, BattleTalk, Toast, Journal, TalkSubstitle, Chat, PF] with image showcase
-        if (ImGui.CollapsingHeader(Resources.ModulesConfiguration, ImGuiTreeNodeFlags.None))
+        if (ImGui.CollapsingHeader(Resources.ModulesConfiguration))
         {
             short CurrentTab = 0;
             string[] tabs = [Resources.TalkModuleName, Resources.BattleTalkModuleName, Resources.ToastModuleName,
@@ -68,7 +64,7 @@ public partial class ConfigWindow : Window
 
             ImGui.Columns(2, "ConfigColumns###Echo", false);
             ImGui.SetColumnWidth(0, 200);
-            if (ImGui.BeginChild("TabsBox###Echo", new Vector2(190, 300), true))
+            if (ImGui.BeginChild("TabsBox###Echo", new Vector2(190, 200), true))
             {
                 for (short i = 0; i < tabs.Length; i++)
                 {
@@ -83,7 +79,7 @@ public partial class ConfigWindow : Window
             ImGui.NextColumn();
 
             // Right panel: Module configuration
-            if (ImGui.BeginChild("ConfigBox", new Vector2(0, 300), true))
+            if (ImGui.BeginChild("ConfigBox", new Vector2(0, 200), true))
             {
                 switch (CurrentTab)
                 {

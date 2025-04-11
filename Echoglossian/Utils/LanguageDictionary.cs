@@ -1,3 +1,4 @@
+using Dalamud.Game;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Echoglossian.Utils
             ("sq", "Shqip; Albanian", "NotoSans-Medium.ttf"),
             ("ar", "العَرَبِيَّة Al'Arabiyyeẗ; Arabic", "NotoSansArabic-Medium.ttf"),
             // ... other languages
+            ("en", "English", "NotoSans-Medium.ttf")
         ];
 
         public readonly record struct LanguageInfo
@@ -25,6 +27,18 @@ namespace Echoglossian.Utils
             public static explicit operator CultureInfo(LanguageInfo v)
             {
                 return new CultureInfo(v.Code);
+            }
+
+            public static explicit operator LanguageInfo(ClientLanguage v)
+            {
+                return v switch
+                {
+                    ClientLanguage.English => GetLanguage("en"),
+                    ClientLanguage.French => GetLanguage("fr"),
+                    ClientLanguage.German => GetLanguage("de"),
+                    ClientLanguage.Japanese => GetLanguage("ja"),
+                    _ => GetLanguage("en"),
+                };
             }
         }
 

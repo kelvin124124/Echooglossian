@@ -55,7 +55,7 @@ namespace Echoglossian.UI.GameUI
                         {
                             try
                             {
-                                var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                                var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                 var toLang = Service.config.SelectedTargetLanguage;
 
                                 string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{capturedText}";

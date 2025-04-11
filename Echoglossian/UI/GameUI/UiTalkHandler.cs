@@ -76,7 +76,7 @@ namespace Echoglossian.UI.GameUI
             {
                 try
                 {
-                    var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                     var toLang = Service.config.SelectedTargetLanguage;
 
                     // Handle content translation
@@ -156,7 +156,7 @@ namespace Echoglossian.UI.GameUI
             {
                 try
                 {
-                    var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                     var toLang = Service.config.SelectedTargetLanguage;
 
                     var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
@@ -203,7 +203,7 @@ namespace Echoglossian.UI.GameUI
             {
                 try
                 {
-                    var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
+                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                     var toLang = Service.config.SelectedTargetLanguage;
 
                     var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
