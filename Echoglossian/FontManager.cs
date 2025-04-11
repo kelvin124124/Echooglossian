@@ -96,7 +96,7 @@ namespace Echoglossian
             };
         }
 
-        private void AddCommonFonts(IFontAtlasBuildToolkit tk, SafeFontConfig config)
+        private void AddCommonFonts(IFontAtlasBuildToolkitPreBuild tk, SafeFontConfig config)
         {
             tk.AddFontFromFile(symbolsFontPath, config);
             tk.AddFontFromFile(fontFilePath, config);

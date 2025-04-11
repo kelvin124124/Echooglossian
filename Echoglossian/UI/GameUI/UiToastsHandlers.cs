@@ -165,48 +165,62 @@ namespace Echoglossian.UI.GameUI
                 translationIds[toastType] = translationId;
                 currentTranslations[toastType] = "Waiting for translation...";
 
-                // Show overlay if using ImGui
-                if (Service.config.TOAST_UseImGui)
+                // Handle immediate modifications for non-ImGui
+                if (!Service.config.TOAST_UseImGui)
                 {
+                    // Store original message reference
+                    pendingRefs[toastType] = new SeStringRef
+                    {
+                        Message = originalMessage,
+                        IsHandled = pendingRefs[toastType].IsHandled
+                    };
+                }
+                else
+                {
+                    // Show overlay for ImGui
                     Service.overlayManager.UpdateToastOverlay(
                         toastType.ToString(),
                         messageText,
                         currentTranslations[toastType]);
                 }
 
-                // Translate in background
-                Task.Run(async () =>
-                {
-                    try
-                    {
-                        string translatedText = await Service.translationHandler.TranslateString(messageText, toLang);
-
-                        // Only update if this is still the active toast
-                        if (translationIds[toastType] == translationId)
-                        {
-                            if (!Service.config.TOAST_UseImGui)
-                            {
-                                // For in-game replacement, message is already replaced
-                                // Just update the cache for future use
-                                Service.translationCache.UpsertString(cacheKey, translatedText);
-                            }
-                            else
-                            {
-                                ApplyToastTranslation(toastType, messageText, translatedText, ref originalMessage);
-                                Service.translationCache.UpsertString(cacheKey, translatedText);
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Service.pluginLog.Error($"Toast translation error ({toastType}): {e}");
-                    }
-                });
+                StartToastTranslation(toastType, messageText, cacheKey, translationId, toLang);
             }
             catch (Exception e)
             {
                 Service.pluginLog.Error($"HandleToast error: {e}");
             }
+        }
+
+        private void StartToastTranslation(ToastType toastType, string messageText, string cacheKey, int translationId, LanguageInfo toLang)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    string translatedText = await Service.translationHandler.TranslateString(messageText, toLang);
+
+                    // Only update if this is still the active toast
+                    if (translationIds[toastType] == translationId)
+                    {
+                        currentTranslations[toastType] = translatedText;
+                        Service.translationCache.UpsertString(cacheKey, translatedText);
+
+                        if (Service.config.TOAST_UseImGui)
+                        {
+                            Service.overlayManager.UpdateToastOverlay(
+                                toastType.ToString(),
+                                messageText,
+                                translatedText);
+                            Service.overlayManager.SetToastOverlayVisible(toastType.ToString(), true);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Service.pluginLog.Error($"Toast translation error ({toastType}): {e}");
+                }
+            });
         }
 
         private void ApplyToastTranslation(ToastType toastType, string originalText, string translatedText, ref SeString originalMessage)
