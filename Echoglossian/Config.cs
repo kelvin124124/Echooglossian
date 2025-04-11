@@ -51,6 +51,10 @@ namespace Echoglossian
         #endregion
 
         #region TOAST_MODULE
+        public bool TOAST_UseImGui { get; set; } = true;
+        public bool TOAST_TranslateRegular { get; set; } = true;
+        public bool TOAST_TranslateError { get; set; } = true;
+        public bool TOAST_TranslateQuest { get; set; } = true;
         #endregion
 
         #region JOURNAL_MODULE

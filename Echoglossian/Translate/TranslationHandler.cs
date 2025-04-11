@@ -1,9 +1,7 @@
 using Dalamud.Networking.Http;
 using Echoglossian.Chat;
 using Echoglossian.Database;
-using Echoglossian.Utils;
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
