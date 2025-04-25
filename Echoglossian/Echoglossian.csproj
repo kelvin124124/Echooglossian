@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="Dalamud.NET.Sdk" Version="12.0.2" />
         <PackageReference Include="GTranslate" Version="2.3.1" />
+        <PackageReference Include="LanguageDetection.Ai" Version="1.1.0" />
         <PackageReference Include="Microsoft.FASTER.Core" Version="2.6.5" />
 
         <Compile Update="Localization\Resources.Designer.cs">

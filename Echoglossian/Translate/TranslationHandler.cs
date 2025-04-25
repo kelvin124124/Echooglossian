@@ -24,6 +24,8 @@ namespace Echoglossian.Translate
             Timeout = TimeSpan.FromSeconds(20)
         };
 
+        private readonly LanguageDetector detector = new();
+
         public async Task<string> TranslateUI(Dialogue dialogue)
         {
             return "debug";
@@ -41,7 +43,7 @@ namespace Echoglossian.Translate
 
         public async Task<LanguageInfo> DetermineLanguage(string content)
         {
-            throw new NotImplementedException();
+            return GetLanguage(detector.Detect(content));
         }
 
         public void Dispose()
