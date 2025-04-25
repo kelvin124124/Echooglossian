@@ -26,7 +26,7 @@ namespace Echoglossian.Database
                 MutableFraction = 0.95,
 
                 ReadCacheEnabled = true,
-                ReadCacheMemorySize = 32L << 20,  // 64MB
+                ReadCacheMemorySize = 32L << 20,  // 32MB
                 ReadCachePageSize = 2L << 20,  // 2MB
                 ReadCacheSecondChanceFraction = 0.2,
             };

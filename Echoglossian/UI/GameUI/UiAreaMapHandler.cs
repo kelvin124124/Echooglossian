@@ -15,7 +15,7 @@ namespace Echoglossian.UI.GameUI
             if (atkValues == null)
                 return;
 
-            if (atkValues[142].Type != FFXIVClientStructs.FFXIV.Component.GUI.ValueType.String || atkValues[142].String == null)
+            if (atkValues[142].Type != ValueType.String || atkValues[142].String == null)
                 return;
 
             var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)atkValues[142].String.Value);

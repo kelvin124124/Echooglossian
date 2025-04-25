@@ -1,7 +1,8 @@
 using Dalamud.Networking.Http;
 using Echoglossian.Chat;
-using Echoglossian.Database;
+using LanguageDetection;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Echoglossian.Translate
 {
     internal class TranslationHandler : IDisposable
     {
-        private readonly TranslationCache translationCache = new();
+        private static readonly Dictionary<string, string> ChatTranslationCache = [];
 
         internal static readonly HttpClient HttpClient = new(new SocketsHttpHandler
         {
@@ -46,8 +47,11 @@ namespace Echoglossian.Translate
             return GetLanguage(detector.Detect(content));
         }
 
+        public void WipeCache() => ChatTranslationCache.Clear();
+
         public void Dispose()
         {
+            this.WipeCache();
             HttpClient.Dispose();
         }
     }

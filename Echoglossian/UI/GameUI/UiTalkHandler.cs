@@ -211,6 +211,8 @@ namespace Echoglossian.UI.GameUI
                     {
                         textTranslation = await Service.translationHandler.TranslateUI(dialogue);
                         Service.translationCache.Upsert(dialogue, textTranslation);
+
+                        Service.pluginLog.Debug($"Translated content: {textTranslation}");
                     }
 
                     string nameTranslation = name;

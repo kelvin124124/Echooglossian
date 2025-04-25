@@ -26,6 +26,12 @@
         "resolved": "2.3.1",
         "contentHash": "bHT6UbYjVWCmhNyxt73NEyJtE1tDl9OMrIGIMypn3DPD7S7pjUVbS1TyZF6N8V2qtn9mSlaiu+6XbecIvjQZ8w=="
       },
+      "LanguageDetection.Ai": {
+        "type": "Direct",
+        "requested": "[1.1.0, )",
+        "resolved": "1.1.0",
+        "contentHash": "m4IwpYNLG5v37/oX98QwUVWjmJKVkn24QygNRpGcQlS9bvwMTEh3akBcLCMCxVHgYt4+ufLT5+g/pV+Q+V9gHQ=="
+      },
       "Microsoft.FASTER.Core": {
         "type": "Direct",
         "requested": "[2.6.5, )",
