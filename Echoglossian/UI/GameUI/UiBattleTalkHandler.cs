@@ -15,7 +15,7 @@ namespace Echoglossian.UI.GameUI
     {
         private static string CurrentTranslatedName = string.Empty;
         private static string CurrentTranslatedText = string.Empty;
-        private static string lastOriginalText = string.Empty;
+        private static string LastOriginalText = string.Empty;
         private const short OverlayCheckDelay = 100;
 
         internal static unsafe void OnEvent(AddonEvent type, AddonArgs args)
@@ -27,7 +27,7 @@ namespace Echoglossian.UI.GameUI
             {
                 case AddonEvent.PreReceiveEvent:
                     // Reset translation on new dialogue
-                    CurrentTranslatedName = CurrentTranslatedText = lastOriginalText = string.Empty;
+                    CurrentTranslatedName = CurrentTranslatedText = LastOriginalText = string.Empty;
                     ShowBattleTalkOverlay();
                     return;
 
@@ -49,10 +49,10 @@ namespace Echoglossian.UI.GameUI
                     return;
 
                 var text = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
-                if (text == lastOriginalText || string.IsNullOrEmpty(text))
+                if (text == LastOriginalText || string.IsNullOrEmpty(text))
                     return;
 
-                lastOriginalText = text;
+                LastOriginalText = text;
                 var name = nameNode != null && !nameNode->NodeText.IsEmpty
                     ? MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr.Value)
                     : string.Empty;

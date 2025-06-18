@@ -51,7 +51,7 @@ namespace Echoglossian
             }
 
             // files are missing or corrupted
-            Service.config.isAssetPresent = false;
+            Service.config.AssetPresent = false;
             Service.config.Save();
 
             Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}");
@@ -82,7 +82,7 @@ namespace Echoglossian
                         Service.pluginLog.Debug("Plugin assets are intact.");
                         ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);
 
-                        Service.config.isAssetPresent = true;
+                        Service.config.AssetPresent = true;
                         Service.config.Save();
 
                         Service.fontManager?.RebuildFonts();
@@ -90,7 +90,7 @@ namespace Echoglossian
                 }
             }
 
-            if (Service.config.isAssetPresent)
+            if (Service.config.AssetPresent)
                 return;
 
             ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
@@ -102,7 +102,7 @@ namespace Echoglossian
             missingAssets = GetMissingAssets();
             if (missingAssets.Count == 0)
             {
-                Service.config.isAssetPresent = true;
+                Service.config.AssetPresent = true;
                 Service.config.Save();
 
                 ShowNotification(Resources.AssetsPresentPopupMsg, NotificationType.Success);

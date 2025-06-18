@@ -116,7 +116,7 @@ public partial class ConfigWindow : Window
         ImGui.PushStyleColor(ImGuiCol.Header, 0xFF000000 | 0x005E5BFF);
         if (ImGui.CollapsingHeader("Assets configuration", ImGuiTreeNodeFlags.None))
         {
-            bool pluginAssetsStatus = Service.config.isAssetPresent;
+            bool pluginAssetsStatus = Service.config.AssetPresent;
 
             if (pluginAssetsStatus)
             {

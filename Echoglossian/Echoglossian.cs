@@ -43,7 +43,7 @@ namespace Echoglossian
             });
 
             // DEBUG
-            Service.config.isAssetPresent = false;
+            Service.config.AssetPresent = false;
 
             Service.assetManager = new AssetManager();
             Service.fontManager = new FontManager();

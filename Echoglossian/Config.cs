@@ -14,7 +14,8 @@ namespace Echoglossian
         public int Version { get; set; } = 1;
         public string PluginVersion { get; set; } = "0";
 
-        public bool isAssetPresent { get; set; } = false;
+        public bool AssetPresent { get; set; } = false;
+        public bool FirstTimeSetupComplete { get; set; } = false;
 
         #region General Settings
         public bool PluginEnabled { get; set; } = true;
@@ -24,7 +25,6 @@ namespace Echoglossian
 
         public float FontSize { get; set; } = 18.0f;
         public float FontScale { get; set; } = 1.0f;
-        public bool SwapTextsUsingImGui { get; set; } = false;
         public bool ShowInCutscenes { get; set; } = true;
 
         public Dictionary<string, string> API_Keys { get; set; } = [];
@@ -84,7 +84,7 @@ namespace Echoglossian
         #endregion
 
         #region CHAT_MODULE
-        public bool CHAT_UseContext { get; set; } = false;
+        public bool CHAT_UseContext { get; set; } = true;
 
         public List<XivChatType> CHAT_SelectedChatTypes { get; set; } = [];
         public List<LanguageInfo> CHAT_SelectedSourceLanguages { get; set; } = [];

@@ -51,7 +51,7 @@ namespace Echoglossian
         public void InitializeFonts()
         {
             // wait for asset initialization
-            if (!Service.config.isAssetPresent)
+            if (!Service.config.AssetPresent)
             {
                 Service.pluginLog.Debug("Waiting for assets");
                 Service.assetManager.VerifyPluginAssets().Wait();
