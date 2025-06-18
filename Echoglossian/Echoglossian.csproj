@@ -44,10 +44,6 @@
         </Content>
     </ItemGroup>
 
-    <!-- Use new dalamud imgui bindings -->
-    <ItemGroup>
-        <Reference Include="Dalamud.Bindings.ImGui" Private="false" />
-        <Reference Include="Dalamud.Bindings.ImPlot" Private="false" />
-        <Reference Include="Dalamud.Bindings.ImGuizmo" Private="false" />
-    </ItemGroup>
+
+
 </Project>
