@@ -33,14 +33,16 @@ namespace Echoglossian.UI.GameUI
                     if (textNode == null || textNode->NodeText.IsEmpty)
                         return;
 
+                    ShowTalkOverlay();  // Show the talk overlay if the addon is visible
+
                     var textNodeText = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
                     if (textNodeText == CurrentTranslatedText)
                         CurrentTranslatedName = CurrentTranslatedText = string.Empty;
                     return;
 
                 case AddonEvent.PreDraw:
-                    if (!Service.config.TALK_UseImGui || Service.config.TALK_EnableImGuiTextSwap)
-                        ReplaceGameText();
+                    if (!Service.config.TALK_UseImGui)
+                        ReplaceGameText();  // Replace the game text with CurrentTranslatedName and CurrentTranslatedText
                     return;
             }
 
@@ -59,10 +61,7 @@ namespace Echoglossian.UI.GameUI
 
                 CurrentTranslatedName = CurrentTranslatedText = string.Empty;
 
-                if (Service.config.TALK_UseImGui)
-                    TranslateWithImGui(name, content);
-                else
-                    TranslateTalk(name, content);
+                HandleTalkTranslation(name, content);
             }
             catch (Exception e)
             {
@@ -70,7 +69,7 @@ namespace Echoglossian.UI.GameUI
             }
         }
 
-        private static void TranslateTalk(string name, string content)
+        private static void HandleTalkTranslation(string name, string text)
         {
             Task.Run(async () =>
             {
@@ -79,32 +78,40 @@ namespace Echoglossian.UI.GameUI
                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                     var toLang = Service.config.SelectedTargetLanguage;
 
-                    // Handle content translation
-                    var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, content);
-                    if (!Service.translationCache.TryGet(dialogue, out string translatedContent))
+                    // Translate text
+                    var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
+                    if (!Service.translationCache.TryGet(dialogue, out string translatedText))
                     {
-                        translatedContent = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, translatedContent);
+                        translatedText = await Service.translationHandler.TranslateUI(dialogue);
+                        Service.translationCache.Upsert(dialogue, translatedText);
+                        Service.pluginLog.Debug($"Translated content: {translatedText}");
                     }
-                    CurrentTranslatedText = translatedContent;
 
-                    // Handle name translation if needed
-                    if (string.IsNullOrEmpty(name))
-                        return;
+                    // Translate name
+                    string translatedName = name; // Default to original name
+                    if (Service.config.TALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
+                    {
+                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
+                        if (!Service.translationCache.TryGetString(nameKey, out translatedName))
+                        {
+                            translatedName = await Service.translationHandler.TranslateString(name, toLang);
+                            Service.translationCache.UpsertString(nameKey, translatedName);
+                        }
+                    }
 
-                    string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                    if (Service.translationCache.TryGetString(nameKey, out string cachedName))
-                        CurrentTranslatedName = cachedName;
+                    if (Service.config.TALK_UseImGui)
+                    {
+                        Service.overlayManager.UpdateTalkOverlay(name, text, translatedName, translatedText);
+                    }
                     else
                     {
-                        string translatedName = await Service.translationHandler.TranslateString(name, toLang);
-                        Service.translationCache.UpsertString(nameKey, translatedName);
-                        CurrentTranslatedName = translatedName;
+                        CurrentTranslatedText = translatedText;
+                        CurrentTranslatedName = Service.config.TALK_TranslateNpcNames ? translatedName : name;
                     }
                 }
                 catch (Exception e)
                 {
-                    Service.pluginLog.Error($"TranslateTalk error: {e}");
+                    Service.pluginLog.Error($"HandleTalkTranslation error: {e}");
                 }
             });
         }
@@ -138,102 +145,6 @@ namespace Echoglossian.UI.GameUI
             {
                 Service.pluginLog.Error($"ReplaceGameText error: {e}");
             }
-        }
-
-        private static void TranslateWithImGui(string name, string text)
-        {
-            if (Service.config.TALK_EnableImGuiTextSwap)
-            {
-                TranslateWithOverlayAndSwap(name, text);
-                return;
-            }
-            TranslateWithOverlayOnly(name, text);
-        }
-
-        private static void TranslateWithOverlayAndSwap(string name, string text)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                    var toLang = Service.config.SelectedTargetLanguage;
-
-                    var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
-                    bool needTextTranslation = !Service.translationCache.TryGet(dialogue, out string textTranslation);
-
-                    string nameTranslation = string.Empty;
-                    bool needNameTranslation = !string.IsNullOrEmpty(name);
-                    if (needNameTranslation)
-                    {
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        if (Service.translationCache.TryGetString(nameKey, out nameTranslation))
-                            needNameTranslation = false;
-                    }
-
-                    if (needTextTranslation)
-                    {
-                        textTranslation = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, textTranslation);
-                    }
-
-                    if (needNameTranslation)
-                    {
-                        nameTranslation = await Service.translationHandler.TranslateString(name, toLang);
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        Service.translationCache.UpsertString(nameKey, nameTranslation);
-                    }
-
-                    CurrentTranslatedText = textTranslation;
-                    CurrentTranslatedName = nameTranslation;
-
-                    // Update UI overlay
-                    Service.overlayManager.UpdateTalkOverlay(name, text, nameTranslation, textTranslation);
-                }
-                catch (Exception e)
-                {
-                    Service.pluginLog.Error($"TranslateWithOverlayAndSwap error: {e}");
-                }
-            });
-        }
-
-        private static void TranslateWithOverlayOnly(string name, string text)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                    var toLang = Service.config.SelectedTargetLanguage;
-
-                    var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
-                    if (!Service.translationCache.TryGet(dialogue, out string textTranslation))
-                    {
-                        textTranslation = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, textTranslation);
-
-                        Service.pluginLog.Debug($"Translated content: {textTranslation}");
-                    }
-
-                    string nameTranslation = name;
-                    if (Service.config.TALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
-                    {
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        if (!Service.translationCache.TryGetString(nameKey, out nameTranslation))
-                        {
-                            nameTranslation = await Service.translationHandler.TranslateString(name, toLang);
-                            Service.translationCache.UpsertString(nameKey, nameTranslation);
-                        }
-                    }
-
-                    // Update UI overlay without changing game text
-                    Service.overlayManager.UpdateTalkOverlay(name, text, nameTranslation, textTranslation);
-                }
-                catch (Exception e)
-                {
-                    Service.pluginLog.Error($"TranslateWithOverlayOnly error: {e}");
-                }
-            });
         }
 
         internal static unsafe void ShowTalkOverlay()

@@ -64,19 +64,16 @@ namespace Echoglossian
 
         #region Talk Settings
         public bool TALK_UseImGui { get; set; } = true;
-        public bool TALK_EnableImGuiTextSwap { get; set; } = false;
         public bool TALK_TranslateNpcNames { get; set; } = true;
         #endregion
 
         #region BattleTalk Settings
         public bool BATTLETALK_UseImGui { get; set; } = true;
-        public bool BATTLETALK_EnableImGuiTextSwap { get; set; } = false;
         public bool BATTLETALK_TranslateNpcNames { get; set; } = true;
         #endregion
 
         #region Subtitle Settings
         public bool SUBTITLE_UseImGui { get; set; } = true;
-        public bool SUBTITLE_EnableImGuiTextSwap { get; set; } = false;
         #endregion
 
         #region Toast Settings

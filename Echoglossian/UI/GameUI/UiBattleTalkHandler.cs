@@ -15,6 +15,7 @@ namespace Echoglossian.UI.GameUI
     {
         private static string CurrentTranslatedName = string.Empty;
         private static string CurrentTranslatedText = string.Empty;
+        private static string lastOriginalText = string.Empty;
         private const short OverlayCheckDelay = 100;
 
         internal static unsafe void OnEvent(AddonEvent type, AddonArgs args)
@@ -26,16 +27,16 @@ namespace Echoglossian.UI.GameUI
             {
                 case AddonEvent.PreReceiveEvent:
                     // Reset translation on new dialogue
-                    CurrentTranslatedName = CurrentTranslatedText = string.Empty;
+                    CurrentTranslatedName = CurrentTranslatedText = lastOriginalText = string.Empty;
+                    ShowBattleTalkOverlay();
                     return;
 
                 case AddonEvent.PreDraw:
-                    if (!Service.config.BATTLETALK_UseImGui || Service.config.BATTLETALK_EnableImGuiTextSwap)
+                    if (!Service.config.BATTLETALK_UseImGui)
                         ReplaceGameText();
                     return;
             }
 
-            // Handle new dialogue
             try
             {
                 var battleTalkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("_BattleTalk");
@@ -47,17 +48,18 @@ namespace Echoglossian.UI.GameUI
                 if (textNode == null || textNode->NodeText.IsEmpty)
                     return;
 
+                var text = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
+                if (text == lastOriginalText || string.IsNullOrEmpty(text))
+                    return;
+
+                lastOriginalText = text;
                 var name = nameNode != null && !nameNode->NodeText.IsEmpty
                     ? MemoryHelper.ReadSeStringAsString(out _, (nint)nameNode->NodeText.StringPtr.Value)
                     : string.Empty;
 
-                var text = MemoryHelper.ReadSeStringAsString(out _, (nint)textNode->NodeText.StringPtr.Value);
                 Service.pluginLog.Debug($"BattleTalk to translate: {name}: {text}");
 
-                if (Service.config.BATTLETALK_UseImGui)
-                    TranslateWithImGui(name, text);
-                else
-                    TranslateBattleTalk(name, text);
+                HandleBattleTalkTranslation(name, text);
             }
             catch (Exception e)
             {
@@ -65,7 +67,7 @@ namespace Echoglossian.UI.GameUI
             }
         }
 
-        private static void TranslateBattleTalk(string name, string content)
+        private static void HandleBattleTalkTranslation(string name, string text)
         {
             Task.Run(async () =>
             {
@@ -74,38 +76,48 @@ namespace Echoglossian.UI.GameUI
                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                     var toLang = Service.config.SelectedTargetLanguage;
 
-                    // Handle content translation
-                    var dialogue = new Dialogue(nameof(UiBattleTalkHandler), fromLang, toLang, content);
-                    if (!Service.translationCache.TryGet(dialogue, out string translatedContent))
+                    // Translate text
+                    var dialogue = new Dialogue(nameof(UiBattleTalkHandler), fromLang, toLang, text);
+                    if (!Service.translationCache.TryGet(dialogue, out string translatedText))
                     {
-                        translatedContent = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, translatedContent);
+                        translatedText = await Service.translationHandler.TranslateUI(dialogue);
+                        Service.translationCache.Upsert(dialogue, translatedText);
                     }
-                    CurrentTranslatedText = translatedContent;
 
-                    // Handle name translation if needed
-                    if (string.IsNullOrEmpty(name))
-                        return;
+                    // Translate name
+                    string translatedName = name;
+                    if (Service.config.BATTLETALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
+                    {
+                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
+                        if (!Service.translationCache.TryGetString(nameKey, out translatedName))
+                        {
+                            translatedName = await Service.translationHandler.TranslateString(name, toLang);
+                            Service.translationCache.UpsertString(nameKey, translatedName);
+                        }
+                    }
 
-                    string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                    if (Service.translationCache.TryGetString(nameKey, out string cachedName))
-                        CurrentTranslatedName = cachedName;
+                    if (Service.config.BATTLETALK_UseImGui)
+                    {
+                        Service.overlayManager.UpdateBattleTalkOverlay(name, text, translatedName, translatedText);
+                    }
                     else
                     {
-                        string translatedName = await Service.translationHandler.TranslateString(name, toLang);
-                        Service.translationCache.UpsertString(nameKey, translatedName);
-                        CurrentTranslatedName = translatedName;
+                        CurrentTranslatedText = translatedText;
+                        CurrentTranslatedName = Service.config.BATTLETALK_TranslateNpcNames ? translatedName : name;
                     }
                 }
                 catch (Exception e)
                 {
-                    Service.pluginLog.Error($"TranslateBattleTalk error: {e}");
+                    Service.pluginLog.Error($"HandleBattleTalkTranslation error: {e}");
                 }
             });
         }
 
         private static unsafe void ReplaceGameText()
         {
+            if (string.IsNullOrEmpty(CurrentTranslatedText))
+                return;
+
             try
             {
                 var battleTalkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("_BattleTalk");
@@ -141,100 +153,6 @@ namespace Echoglossian.UI.GameUI
             {
                 Service.pluginLog.Error($"ReplaceGameText error: {e}");
             }
-        }
-
-        private static void TranslateWithImGui(string name, string text)
-        {
-            if (Service.config.BATTLETALK_EnableImGuiTextSwap)
-            {
-                TranslateWithOverlayAndSwap(name, text);
-                return;
-            }
-            TranslateWithOverlayOnly(name, text);
-        }
-
-        private static void TranslateWithOverlayAndSwap(string name, string text)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                    var toLang = Service.config.SelectedTargetLanguage;
-
-                    var dialogue = new Dialogue(nameof(UiBattleTalkHandler), fromLang, toLang, text);
-                    bool needTextTranslation = !Service.translationCache.TryGet(dialogue, out string textTranslation);
-
-                    string nameTranslation = string.Empty;
-                    bool needNameTranslation = !string.IsNullOrEmpty(name);
-                    if (needNameTranslation)
-                    {
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        if (Service.translationCache.TryGetString(nameKey, out nameTranslation))
-                            needNameTranslation = false;
-                    }
-
-                    if (needTextTranslation)
-                    {
-                        textTranslation = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, textTranslation);
-                    }
-
-                    if (needNameTranslation)
-                    {
-                        nameTranslation = await Service.translationHandler.TranslateString(name, toLang);
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        Service.translationCache.UpsertString(nameKey, nameTranslation);
-                    }
-
-                    CurrentTranslatedText = textTranslation;
-                    CurrentTranslatedName = nameTranslation;
-
-                    // Update UI overlay and also replace text in-game
-                    Service.overlayManager.UpdateBattleTalkOverlay(name, text, nameTranslation, textTranslation);
-                }
-                catch (Exception e)
-                {
-                    Service.pluginLog.Error($"TranslateWithOverlayAndSwap error: {e}");
-                }
-            });
-        }
-
-        private static void TranslateWithOverlayOnly(string name, string text)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var fromLang = GetLanguage(Service.clientState.ClientLanguage.ToString());
-                    var toLang = Service.config.SelectedTargetLanguage;
-
-                    var dialogue = new Dialogue(nameof(UiBattleTalkHandler), fromLang, toLang, text);
-                    if (!Service.translationCache.TryGet(dialogue, out string textTranslation))
-                    {
-                        textTranslation = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, textTranslation);
-                    }
-
-                    string nameTranslation = name;
-                    if (Service.config.BATTLETALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
-                    {
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        if (!Service.translationCache.TryGetString(nameKey, out nameTranslation))
-                        {
-                            nameTranslation = await Service.translationHandler.TranslateString(name, toLang);
-                            Service.translationCache.UpsertString(nameKey, nameTranslation);
-                        }
-                    }
-
-                    // Update UI overlay without changing game text
-                    Service.overlayManager.UpdateBattleTalkOverlay(name, text, nameTranslation, textTranslation);
-                }
-                catch (Exception e)
-                {
-                    Service.pluginLog.Error($"TranslateWithOverlayOnly error: {e}");
-                }
-            });
         }
 
         internal static unsafe void ShowBattleTalkOverlay()

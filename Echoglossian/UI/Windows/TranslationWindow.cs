@@ -1,7 +1,7 @@
 using Dalamud.Interface.Windowing;
 using Echoglossian.Localization;
 using Echoglossian.Utils;
-using Dalamud.Bindings.ImGui;
+using ImGuiNET;
 using System.Globalization;
 using System.Numerics;
 

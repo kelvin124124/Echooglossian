@@ -1,7 +1,7 @@
 using Dalamud.Interface.Utility;
 using Echoglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using Dalamud.Bindings.ImGui;
+using ImGuiNET;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -23,7 +23,6 @@ namespace Echoglossian.UI.Windows
         private float talkCachedWidth = 0f;
         private string talkWindowTitle = "Talk translation";
         private ImGuiWindowFlags talkWindowFlags = ImGuiWindowFlags.NoTitleBar;
-        private bool talkLastFontState = false;
 
         // Battle Talk Overlay
         private bool battleTalkOverlayVisible = false;
@@ -38,7 +37,6 @@ namespace Echoglossian.UI.Windows
         private float battleTalkCachedWidth = 0f;
         private string battleTalkWindowTitle = "BattleTalk translation";
         private ImGuiWindowFlags battleTalkWindowFlags = ImGuiWindowFlags.NoTitleBar;
-        private bool battleTalkLastFontState = false;
 
         // Talk Subtitle Overlay
         private bool talkSubtitleOverlayVisible = false;
@@ -49,7 +47,6 @@ namespace Echoglossian.UI.Windows
         private Vector2 talkSubtitleImguiSize = Vector2.Zero;
         private bool talkSubtitleDirty = true;
         private float talkSubtitleCachedWidth = 0f;
-        private bool subtitleLastFontState = false;
 
         // Toast Overlays
         private readonly Dictionary<string, ToastOverlay> toastOverlays = [];
@@ -66,7 +63,6 @@ namespace Echoglossian.UI.Windows
             public float CachedWidth { get; set; } = 0f;
             public ImGuiWindowFlags WindowFlags { get; set; } = ImGuiWindowFlags.NoTitleBar;
             public string WindowTitle { get; set; } = string.Empty;
-            public bool LastFontState { get; set; } = false;
         }
 
         private readonly ImGuiWindowFlags baseWindowFlags = ImGuiWindowFlags.NoNav |
@@ -80,6 +76,7 @@ namespace Echoglossian.UI.Windows
 
         public OverlayManager()
         {
+            // Initialize toast overlays
             foreach (var type in ToastTypeStrings)
             {
                 var overlay = new ToastOverlay
@@ -205,19 +202,18 @@ namespace Echoglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(translatedTalkText)) return;
 
-            bool fontStateChanged = talkLastFontState != Service.config.TALK_EnableImGuiTextSwap;
+            PushFontHandle();
 
-            if (talkDirty || fontStateChanged)
+            if (talkDirty) // recalculate window size if dirty
             {
                 talkCachedWidth = CalculateWindowWidth(
                     talkDimensions.X,
                     Service.config.ImGuiTalkWindowWidthMult,
                     translatedTalkText);
                 talkDirty = false;
-                talkLastFontState = Service.config.TALK_EnableImGuiTextSwap;
             }
 
-            var windowPos = CalculateWindowPosition(talkPosition, talkDimensions, talkImguiSize);
+            var windowPos = CalculateWindowPosition(talkPosition, talkDimensions, talkImguiSize); // maybe cache this too?
             windowPos += Service.config.ImGuiWindowPosCorrection;
 
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
@@ -226,9 +222,9 @@ namespace Echoglossian.UI.Windows
                 new Vector2(talkCachedWidth, 0),
                 new Vector2(talkCachedWidth, talkDimensions.Y * Service.config.ImGuiTalkWindowHeightMult));
 
-            PushFontHandle(Service.config.TALK_EnableImGuiTextSwap);
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
+            // BUG: Window overlay not seen, not sure if it is drawn
             ImGui.Begin(talkWindowTitle, talkWindowFlags);
             ImGui.SetWindowFontScale(Service.config.FontScale);
             ImGui.TextWrapped(translatedTalkText);
@@ -236,7 +232,7 @@ namespace Echoglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle(Service.config.TALK_EnableImGuiTextSwap);
+            PopFontHandle();
         }
         #endregion
 
@@ -300,15 +296,14 @@ namespace Echoglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(translatedBattleTalkText)) return;
 
-            bool fontStateChanged = battleTalkLastFontState != Service.config.BATTLETALK_EnableImGuiTextSwap;
+            PushFontHandle();
 
-            if (battleTalkDirty || fontStateChanged)
+            if (battleTalkDirty)
             {
                 battleTalkCachedWidth = Math.Min(
                     battleTalkDimensions.X * Service.config.ImGuiBattleTalkWindowWidthMult * 1.5f,
                     ImGui.CalcTextSize(translatedBattleTalkText).X + (ImGui.GetStyle().WindowPadding.X * 3));
                 battleTalkDirty = false;
-                battleTalkLastFontState = Service.config.BATTLETALK_EnableImGuiTextSwap;
             }
 
             var windowPos = CalculateWindowPosition(battleTalkPosition, battleTalkDimensions, battleTalkImguiSize);
@@ -320,7 +315,6 @@ namespace Echoglossian.UI.Windows
                 new Vector2(battleTalkCachedWidth, 0),
                 new Vector2(battleTalkCachedWidth, battleTalkDimensions.Y * 2.5f * Service.config.ImGuiBattleTalkWindowHeightMult));
 
-            PushFontHandle(Service.config.BATTLETALK_EnableImGuiTextSwap);
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayBattleTalkTextColor);
 
             ImGui.Begin(battleTalkWindowTitle, battleTalkWindowFlags);
@@ -330,7 +324,7 @@ namespace Echoglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle(Service.config.BATTLETALK_EnableImGuiTextSwap);
+            PopFontHandle();
         }
         #endregion
 
@@ -379,16 +373,15 @@ namespace Echoglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(translatedTalkSubtitleText)) return;
 
-            bool fontStateChanged = subtitleLastFontState != Service.config.SUBTITLE_EnableImGuiTextSwap;
+            PushFontHandle();
 
-            if (talkSubtitleDirty || fontStateChanged)
+            if (talkSubtitleDirty)
             {
                 talkSubtitleCachedWidth = CalculateWindowWidth(
                     talkSubtitleDimensions.X,
                     Service.config.ImGuiTalkSubtitleWindowWidthMult,
                     translatedTalkSubtitleText);
                 talkSubtitleDirty = false;
-                subtitleLastFontState = Service.config.SUBTITLE_EnableImGuiTextSwap;
             }
 
             var windowPos = CalculateWindowPosition(talkSubtitlePosition, talkSubtitleDimensions, talkSubtitleImguiSize);
@@ -400,7 +393,6 @@ namespace Echoglossian.UI.Windows
                 new Vector2(talkSubtitleCachedWidth, 0),
                 new Vector2(talkSubtitleCachedWidth, talkSubtitleDimensions.Y * Service.config.ImGuiTalkSubtitleWindowHeightMult));
 
-            PushFontHandle(Service.config.SUBTITLE_EnableImGuiTextSwap);
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin("TalkSubtitle translation", baseWindowFlags | ImGuiWindowFlags.NoTitleBar);
@@ -410,7 +402,7 @@ namespace Echoglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle(Service.config.SUBTITLE_EnableImGuiTextSwap);
+            PopFontHandle();
         }
         #endregion
 
@@ -455,15 +447,14 @@ namespace Echoglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(overlay.TranslatedText)) return;
 
-            bool fontStateChanged = overlay.LastFontState != Service.config.SwapTextsUsingImGui;
+            PushFontHandle();
 
-            if (overlay.Dirty || fontStateChanged)
+            if (overlay.Dirty)
             {
                 overlay.CachedWidth = Math.Min(
                     overlay.Dimensions.X * Service.config.ImGuiToastWindowWidthMult,
                     ImGui.CalcTextSize(overlay.TranslatedText).X + (ImGui.GetStyle().WindowPadding.X * 2));
                 overlay.Dirty = false;
-                overlay.LastFontState = Service.config.SwapTextsUsingImGui;
             }
 
             var windowPos = CalculateWindowPosition(overlay.Position, overlay.Dimensions, overlay.ImguiSize);
@@ -475,7 +466,6 @@ namespace Echoglossian.UI.Windows
                 new Vector2(overlay.CachedWidth, 0),
                 new Vector2(overlay.CachedWidth * 4f, overlay.Dimensions.Y * 2));
 
-            PushFontHandle(Service.config.SwapTextsUsingImGui);
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin(overlay.WindowTitle, overlay.WindowFlags);
@@ -485,7 +475,7 @@ namespace Echoglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle(Service.config.SwapTextsUsingImGui);
+            PopFontHandle();
         }
         #endregion
 
@@ -507,20 +497,14 @@ namespace Echoglossian.UI.Windows
                 position.Y - imguiSize.Y - 20);
         }
 
-        private static void PushFontHandle(bool useGeneralFont)
+        private static void PushFontHandle()
         {
-            if (useGeneralFont)
-                Service.fontManager.GeneralFontHandle.Push();
-            else
-                Service.fontManager.LanguageFontHandle.Push();
+            Service.fontManager.LanguageFontHandle.Push();
         }
 
-        private static void PopFontHandle(bool useGeneralFont)
+        private static void PopFontHandle()
         {
-            if (useGeneralFont)
-                Service.fontManager.GeneralFontHandle.Pop();
-            else
-                Service.fontManager.LanguageFontHandle.Pop();
+            Service.fontManager.LanguageFontHandle.Pop();
         }
         #endregion
     }

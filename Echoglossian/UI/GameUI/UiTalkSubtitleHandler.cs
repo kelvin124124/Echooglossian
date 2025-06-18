@@ -39,7 +39,7 @@ namespace Echoglossian.UI.GameUI
             if (string.IsNullOrEmpty(textToTranslate))
                 return;
 
-            if (!Service.config.SUBTITLE_UseImGui || Service.config.SUBTITLE_EnableImGuiTextSwap)
+            if (!Service.config.SUBTITLE_UseImGui)
                 atkValues[0].SetManagedString(string.Empty);
 
             TranslateTalkSubtitle(textToTranslate);
@@ -103,17 +103,7 @@ namespace Echoglossian.UI.GameUI
 
         private static void TranslateWithImGui(string originalText, string translatedText)
         {
-            if (Service.config.SUBTITLE_EnableImGuiTextSwap)
-            {
-                ReplaceGameText(translatedText);
-                // Also update overlay for better visibility
-                Service.overlayManager.UpdateTalkSubtitleOverlay(originalText, translatedText);
-            }
-            else
-            {
-                // Use overlay only without changing game text
-                Service.overlayManager.UpdateTalkSubtitleOverlay(originalText, translatedText);
-            }
+            Service.overlayManager.UpdateTalkSubtitleOverlay(originalText, translatedText);
 
             ShowTalkSubtitleOverlay();
         }

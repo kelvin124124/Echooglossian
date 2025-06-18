@@ -41,6 +41,8 @@ namespace Echoglossian.UI.GameUI
             Service.addonLifecycle.RegisterListener(AddonEvent.PreRequestedUpdate, "JournalDetail", UiJournalHandler.OnEvent);
             Service.addonLifecycle.RegisterListener(AddonEvent.PreSetup, "JournalAccept", UiJournalHandler.OnEvent);
             Service.addonLifecycle.RegisterListener(AddonEvent.PostRequestedUpdate, "_ToDoList", UiJournalHandler.OnEvent);
+
+            Service.pluginLog.Debug("UI handlers registered");
         }
 
         public void Dispose()

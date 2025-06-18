@@ -14,7 +14,7 @@ namespace Echoglossian
 {
     public class AssetManager : IDisposable
     {
-        public AssetManager() 
+        public AssetManager()
         {
             // Asset verification is called in FontManager
         }
@@ -54,7 +54,7 @@ namespace Echoglossian
             Service.config.isAssetPresent = false;
             Service.config.Save();
 
-            Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}"); 
+            Service.pluginLog.Warning($"Missing {missingAssets.Count} asset(s): {string.Join(", ", missingAssets.Select(f => f.FileName))}");
 
             if (File.Exists(Path.Combine(assetPath, "Font.zip")))
             {
@@ -90,7 +90,7 @@ namespace Echoglossian
                 }
             }
 
-            if (Service.config.isAssetPresent) 
+            if (Service.config.isAssetPresent)
                 return;
 
             ShowNotification(Resources.DownloadingAssetsPopupMsg, NotificationType.Warning);
