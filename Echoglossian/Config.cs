@@ -58,10 +58,10 @@ namespace Echoglossian
         public Vector2 ImGuiToastWindowPosCorrection { get; set; } = Vector2.Zero;
 
         // Font size multipliers
-        public float ImGuiTalkFontMult { get; set; } = 1.5f;
-        public float ImGuiBattleTalkFontMult { get; set; } = 1.5f;
-        public float ImGuiTalkSubtitleFontMult { get; set; } = 1.5f;
-        public float ImGuiToastFontMult { get; set; } = 1.5f;
+        public float ImGuiTalkFontMult { get; set; } = 1.0f;
+        public float ImGuiBattleTalkFontMult { get; set; } = 1.0f;
+        public float ImGuiTalkSubtitleFontMult { get; set; } = 1.0f;
+        public float ImGuiToastFontMult { get; set; } = 1.0f;
         #endregion
 
         #region Talk Settings

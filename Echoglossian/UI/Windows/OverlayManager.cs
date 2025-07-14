@@ -71,16 +71,11 @@ namespace Echoglossian.UI.Windows
 
                 toastOverlays[type] = overlay;
             }
-
-            Service.framework.Update += OnFrameworkUpdate;
         }
 
-        public void Dispose()
-        {
-            Service.framework.Update -= OnFrameworkUpdate;
-        }
+        public void Dispose() { }
 
-        private void OnFrameworkUpdate(Dalamud.Plugin.Services.IFramework framework)
+        public void Draw()
         {
             if (!Service.clientState.IsLoggedIn)
             {
@@ -145,8 +140,8 @@ namespace Echoglossian.UI.Windows
 
             var scale = talkAddon->Scale;
             var newPosition = new Vector2(
-                (talkAddon->X + textNode->AtkResNode.X) * scale,
-                (talkAddon->Y + textNode->AtkResNode.Y) * scale
+                talkAddon->X + textNode->AtkResNode.X,
+                talkAddon->Y + textNode->AtkResNode.Y
             );
             var newDimensions = new Vector2(
                 textNode->AtkResNode.Width * scale,
@@ -177,7 +172,7 @@ namespace Echoglossian.UI.Windows
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
             ImGui.SetNextWindowSize(talkDimensions);
 
-            ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
+            //ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin(talkWindowTitle, talkWindowFlags);
             ImGui.SetWindowFontScale(Service.config.FontScale * Service.config.ImGuiTalkFontMult);
@@ -215,8 +210,8 @@ namespace Echoglossian.UI.Windows
 
             var scale = battleTalkAddon->Scale;
             var newPosition = new Vector2(
-                (battleTalkAddon->X + textNode->AtkResNode.X) * scale,
-                (battleTalkAddon->Y + textNode->AtkResNode.Y) * scale
+                battleTalkAddon->X + textNode->AtkResNode.X,
+                battleTalkAddon->Y + textNode->AtkResNode.Y
             );
             var newDimensions = new Vector2(
                 textNode->AtkResNode.Width * scale,
@@ -278,8 +273,8 @@ namespace Echoglossian.UI.Windows
 
             var scale = talkSubtitleAddon->Scale;
             var newPosition = new Vector2(
-                (talkSubtitleAddon->X + textNode->AtkResNode.X) * scale,
-                (talkSubtitleAddon->Y + textNode->AtkResNode.Y) * scale
+                talkSubtitleAddon->X + textNode->AtkResNode.X,
+                talkSubtitleAddon->Y + textNode->AtkResNode.Y
             );
             var newDimensions = new Vector2(
                 textNode->AtkResNode.Width * scale,

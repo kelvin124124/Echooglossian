@@ -74,6 +74,9 @@ namespace Echoglossian
         private void DrawUI()
         {
             WindowSystem.Draw();
+
+            // draw overlays
+            Service.overlayManager?.Draw();
         }
 
         public static void DrawMainUI()
