@@ -10,7 +10,6 @@ namespace Echoglossian.UI.Windows
 {
     internal class OverlayManager : IDisposable
     {
-        // Talk Overlay
         private bool talkOverlayVisible = false;
         private string originalTalkName = string.Empty;
         private string originalTalkText = string.Empty;
@@ -18,13 +17,9 @@ namespace Echoglossian.UI.Windows
         private string translatedTalkText = string.Empty;
         private Vector2 talkPosition = Vector2.Zero;
         private Vector2 talkDimensions = Vector2.Zero;
-        private Vector2 talkImguiSize = Vector2.Zero;
-        private bool talkDirty = true;
-        private float talkCachedWidth = 0f;
         private string talkWindowTitle = "Talk translation";
         private ImGuiWindowFlags talkWindowFlags = ImGuiWindowFlags.NoTitleBar;
 
-        // Battle Talk Overlay
         private bool battleTalkOverlayVisible = false;
         private string originalBattleTalkName = string.Empty;
         private string originalBattleTalkText = string.Empty;
@@ -32,23 +27,15 @@ namespace Echoglossian.UI.Windows
         private string translatedBattleTalkText = string.Empty;
         private Vector2 battleTalkPosition = Vector2.Zero;
         private Vector2 battleTalkDimensions = Vector2.Zero;
-        private Vector2 battleTalkImguiSize = Vector2.Zero;
-        private bool battleTalkDirty = true;
-        private float battleTalkCachedWidth = 0f;
         private string battleTalkWindowTitle = "BattleTalk translation";
         private ImGuiWindowFlags battleTalkWindowFlags = ImGuiWindowFlags.NoTitleBar;
 
-        // Talk Subtitle Overlay
         private bool talkSubtitleOverlayVisible = false;
         private string originalTalkSubtitleText = string.Empty;
         private string translatedTalkSubtitleText = string.Empty;
         private Vector2 talkSubtitlePosition = Vector2.Zero;
         private Vector2 talkSubtitleDimensions = Vector2.Zero;
-        private Vector2 talkSubtitleImguiSize = Vector2.Zero;
-        private bool talkSubtitleDirty = true;
-        private float talkSubtitleCachedWidth = 0f;
 
-        // Toast Overlays
         private readonly Dictionary<string, ToastOverlay> toastOverlays = [];
 
         private class ToastOverlay
@@ -58,16 +45,12 @@ namespace Echoglossian.UI.Windows
             public string TranslatedText { get; set; } = string.Empty;
             public Vector2 Position { get; set; } = Vector2.Zero;
             public Vector2 Dimensions { get; set; } = Vector2.Zero;
-            public Vector2 ImguiSize { get; set; } = Vector2.Zero;
-            public bool Dirty { get; set; } = true;
-            public float CachedWidth { get; set; } = 0f;
             public ImGuiWindowFlags WindowFlags { get; set; } = ImGuiWindowFlags.NoTitleBar;
             public string WindowTitle { get; set; } = string.Empty;
         }
 
         private readonly ImGuiWindowFlags baseWindowFlags = ImGuiWindowFlags.NoNav |
                                                           ImGuiWindowFlags.NoCollapse |
-                                                          ImGuiWindowFlags.AlwaysAutoResize |
                                                           ImGuiWindowFlags.NoFocusOnAppearing |
                                                           ImGuiWindowFlags.NoMouseInputs |
                                                           ImGuiWindowFlags.NoScrollbar;
@@ -76,18 +59,15 @@ namespace Echoglossian.UI.Windows
 
         public OverlayManager()
         {
-            // Initialize toast overlays
             foreach (var type in ToastTypeStrings)
             {
                 var overlay = new ToastOverlay
                 {
-                    WindowTitle = $"{type} Toast Translation"
+                    WindowTitle = $"{type} Toast Translation",
+                    WindowFlags = (type == "Error" || type == "ClassChange")
+                        ? baseWindowFlags | ImGuiWindowFlags.NoBackground
+                        : baseWindowFlags
                 };
-
-                if (type == "Error" || type == "ClassChange")
-                    overlay.WindowFlags = baseWindowFlags | ImGuiWindowFlags.NoBackground;
-                else
-                    overlay.WindowFlags = baseWindowFlags;
 
                 toastOverlays[type] = overlay;
             }
@@ -119,53 +99,41 @@ namespace Echoglossian.UI.Windows
 
             if (Service.config.ToastModuleEnabled && Service.config.TOAST_UseImGui)
             {
-                foreach (var entry in toastOverlays)
+                foreach (var overlay in toastOverlays.Values)
                 {
-                    if (entry.Value.Visible)
-                        DrawToastOverlay(entry.Key, entry.Value);
+                    if (overlay.Visible)
+                        DrawToastOverlay(overlay);
                 }
             }
         }
 
         private void HideAllOverlays()
         {
-            SetTalkOverlayVisible(false);
-            SetBattleTalkOverlayVisible(false);
-            SetTalkSubtitleOverlayVisible(false);
+            talkOverlayVisible = false;
+            battleTalkOverlayVisible = false;
+            talkSubtitleOverlayVisible = false;
 
-            foreach (var type in ToastTypeStrings)
+            foreach (var overlay in toastOverlays.Values)
             {
-                if (toastOverlays.TryGetValue(type, out var overlay) && overlay.Visible)
-                {
-                    overlay.Visible = false;
-                }
+                overlay.Visible = false;
             }
         }
 
         #region Talk Overlay
         public void UpdateTalkOverlay(string originalName, string originalText, string translatedName, string translatedText)
         {
-            if (originalTalkName != originalName || originalTalkText != originalText ||
-                translatedTalkName != translatedName || translatedTalkText != translatedText)
-            {
-                originalTalkName = originalName;
-                originalTalkText = originalText;
-                translatedTalkName = translatedName;
-                translatedTalkText = translatedText;
-                talkDirty = true;
+            if (originalTalkName == originalName && originalTalkText == originalText &&
+                translatedTalkName == translatedName && translatedTalkText == translatedText)
+                return;
 
-                bool showTitle = Service.config.TALK_TranslateNpcNames && !string.IsNullOrEmpty(translatedTalkName);
-                if (showTitle)
-                {
-                    talkWindowTitle = translatedTalkName;
-                    talkWindowFlags = baseWindowFlags;
-                }
-                else
-                {
-                    talkWindowTitle = "Talk translation";
-                    talkWindowFlags = baseWindowFlags | ImGuiWindowFlags.NoTitleBar;
-                }
-            }
+            originalTalkName = originalName;
+            originalTalkText = originalText;
+            translatedTalkName = translatedName;
+            translatedTalkText = translatedText;
+
+            bool showTitle = Service.config.TALK_TranslateNpcNames && !string.IsNullOrEmpty(translatedTalkName);
+            talkWindowTitle = showTitle ? translatedTalkName : "Talk translation";
+            talkWindowFlags = showTitle ? baseWindowFlags : baseWindowFlags | ImGuiWindowFlags.NoTitleBar;
         }
 
         public unsafe void UpdateTalkOverlayPosition(AtkUnitBase* talkAddon)
@@ -175,27 +143,26 @@ namespace Echoglossian.UI.Windows
             var textNode = talkAddon->GetTextNodeById(3);
             if (textNode == null) return;
 
-            float x = textNode->AtkResNode.X;
-            float y = textNode->AtkResNode.Y;
-            float width = textNode->AtkResNode.Width;
-            float height = textNode->AtkResNode.Height;
+            var scale = talkAddon->Scale;
+            var newPosition = new Vector2(
+                (talkAddon->X + textNode->AtkResNode.X) * scale,
+                (talkAddon->Y + textNode->AtkResNode.Y) * scale
+            );
+            var newDimensions = new Vector2(
+                textNode->AtkResNode.Width * scale,
+                textNode->AtkResNode.Height * scale
+            );
 
-            if (talkPosition.X != x || talkPosition.Y != y ||
-                talkDimensions.X != width || talkDimensions.Y != height)
+            if (talkPosition != newPosition || talkDimensions != newDimensions)
             {
-                talkPosition = new Vector2(x, y);
-                talkDimensions = new Vector2(width, height);
-                talkDirty = true;
+                talkPosition = newPosition;
+                talkDimensions = newDimensions;
             }
         }
 
         public void SetTalkOverlayVisible(bool visible)
         {
-            if (talkOverlayVisible != visible)
-            {
-                talkOverlayVisible = visible;
-                talkDirty = true;
-            }
+            talkOverlayVisible = visible;
         }
 
         private void DrawTalkOverlay()
@@ -204,31 +171,17 @@ namespace Echoglossian.UI.Windows
 
             PushFontHandle();
 
-            if (talkDirty) // recalculate window size if dirty
-            {
-                talkCachedWidth = CalculateWindowWidth(
-                    talkDimensions.X,
-                    Service.config.ImGuiTalkWindowWidthMult,
-                    translatedTalkText);
-                talkDirty = false;
-            }
-
-            var windowPos = CalculateWindowPosition(talkPosition, talkDimensions, talkImguiSize); // maybe cache this too?
+            var windowPos = CalculateWindowPosition(talkPosition, talkDimensions);
             windowPos += Service.config.ImGuiWindowPosCorrection;
 
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
-
-            ImGui.SetNextWindowSizeConstraints(
-                new Vector2(talkCachedWidth, 0),
-                new Vector2(talkCachedWidth, talkDimensions.Y * Service.config.ImGuiTalkWindowHeightMult));
+            ImGui.SetNextWindowSize(talkDimensions);
 
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
-            // BUG: Window overlay not seen, not sure if it is drawn
             ImGui.Begin(talkWindowTitle, talkWindowFlags);
-            ImGui.SetWindowFontScale(Service.config.FontScale);
+            ImGui.SetWindowFontScale(Service.config.FontScale * Service.config.ImGuiTalkFontMult);
             ImGui.TextWrapped(translatedTalkText);
-            talkImguiSize = ImGui.GetWindowSize();
             ImGui.End();
 
             ImGui.PopStyleColor();
@@ -239,27 +192,18 @@ namespace Echoglossian.UI.Windows
         #region Battle Talk Overlay
         public void UpdateBattleTalkOverlay(string originalName, string originalText, string translatedName, string translatedText)
         {
-            if (originalBattleTalkName != originalName || originalBattleTalkText != originalText ||
-                translatedBattleTalkName != translatedName || translatedBattleTalkText != translatedText)
-            {
-                originalBattleTalkName = originalName;
-                originalBattleTalkText = originalText;
-                translatedBattleTalkName = translatedName;
-                translatedBattleTalkText = translatedText;
-                battleTalkDirty = true;
+            if (originalBattleTalkName == originalName && originalBattleTalkText == originalText &&
+                translatedBattleTalkName == translatedName && translatedBattleTalkText == translatedText)
+                return;
 
-                bool showTitle = Service.config.BATTLETALK_TranslateNpcNames && !string.IsNullOrEmpty(translatedBattleTalkName);
-                if (showTitle)
-                {
-                    battleTalkWindowTitle = translatedBattleTalkName;
-                    battleTalkWindowFlags = baseWindowFlags;
-                }
-                else
-                {
-                    battleTalkWindowTitle = "BattleTalk translation";
-                    battleTalkWindowFlags = baseWindowFlags | ImGuiWindowFlags.NoTitleBar;
-                }
-            }
+            originalBattleTalkName = originalName;
+            originalBattleTalkText = originalText;
+            translatedBattleTalkName = translatedName;
+            translatedBattleTalkText = translatedText;
+
+            bool showTitle = Service.config.BATTLETALK_TranslateNpcNames && !string.IsNullOrEmpty(translatedBattleTalkName);
+            battleTalkWindowTitle = showTitle ? translatedBattleTalkName : "BattleTalk translation";
+            battleTalkWindowFlags = showTitle ? baseWindowFlags : baseWindowFlags | ImGuiWindowFlags.NoTitleBar;
         }
 
         public unsafe void UpdateBattleTalkOverlayPosition(AtkUnitBase* battleTalkAddon)
@@ -269,27 +213,26 @@ namespace Echoglossian.UI.Windows
             var textNode = battleTalkAddon->GetTextNodeById(6);
             if (textNode == null) return;
 
-            float x = textNode->AtkResNode.X;
-            float y = textNode->AtkResNode.Y;
-            float width = textNode->AtkResNode.Width;
-            float height = textNode->AtkResNode.Height;
+            var scale = battleTalkAddon->Scale;
+            var newPosition = new Vector2(
+                (battleTalkAddon->X + textNode->AtkResNode.X) * scale,
+                (battleTalkAddon->Y + textNode->AtkResNode.Y) * scale
+            );
+            var newDimensions = new Vector2(
+                textNode->AtkResNode.Width * scale,
+                textNode->AtkResNode.Height * scale
+            );
 
-            if (battleTalkPosition.X != x || battleTalkPosition.Y != y ||
-                battleTalkDimensions.X != width || battleTalkDimensions.Y != height)
+            if (battleTalkPosition != newPosition || battleTalkDimensions != newDimensions)
             {
-                battleTalkPosition = new Vector2(x, y);
-                battleTalkDimensions = new Vector2(width, height);
-                battleTalkDirty = true;
+                battleTalkPosition = newPosition;
+                battleTalkDimensions = newDimensions;
             }
         }
 
         public void SetBattleTalkOverlayVisible(bool visible)
         {
-            if (battleTalkOverlayVisible != visible)
-            {
-                battleTalkOverlayVisible = visible;
-                battleTalkDirty = true;
-            }
+            battleTalkOverlayVisible = visible;
         }
 
         private void DrawBattleTalkOverlay()
@@ -298,29 +241,17 @@ namespace Echoglossian.UI.Windows
 
             PushFontHandle();
 
-            if (battleTalkDirty)
-            {
-                battleTalkCachedWidth = Math.Min(
-                    battleTalkDimensions.X * Service.config.ImGuiBattleTalkWindowWidthMult * 1.5f,
-                    ImGui.CalcTextSize(translatedBattleTalkText).X + (ImGui.GetStyle().WindowPadding.X * 3));
-                battleTalkDirty = false;
-            }
-
-            var windowPos = CalculateWindowPosition(battleTalkPosition, battleTalkDimensions, battleTalkImguiSize);
+            var windowPos = CalculateWindowPosition(battleTalkPosition, battleTalkDimensions);
             windowPos += Service.config.ImGuiWindowPosCorrection;
 
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
-
-            ImGui.SetNextWindowSizeConstraints(
-                new Vector2(battleTalkCachedWidth, 0),
-                new Vector2(battleTalkCachedWidth, battleTalkDimensions.Y * 2.5f * Service.config.ImGuiBattleTalkWindowHeightMult));
+            ImGui.SetNextWindowSize(battleTalkDimensions);
 
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayBattleTalkTextColor);
 
             ImGui.Begin(battleTalkWindowTitle, battleTalkWindowFlags);
-            ImGui.SetWindowFontScale(Service.config.FontScale);
+            ImGui.SetWindowFontScale(Service.config.FontScale * Service.config.ImGuiBattleTalkFontMult);
             ImGui.TextWrapped(translatedBattleTalkText);
-            battleTalkImguiSize = ImGui.GetWindowSize();
             ImGui.End();
 
             ImGui.PopStyleColor();
@@ -331,12 +262,11 @@ namespace Echoglossian.UI.Windows
         #region Talk Subtitle Overlay
         public void UpdateTalkSubtitleOverlay(string originalText, string translatedText)
         {
-            if (originalTalkSubtitleText != originalText || translatedTalkSubtitleText != translatedText)
-            {
-                originalTalkSubtitleText = originalText;
-                translatedTalkSubtitleText = translatedText;
-                talkSubtitleDirty = true;
-            }
+            if (originalTalkSubtitleText == originalText && translatedTalkSubtitleText == translatedText)
+                return;
+
+            originalTalkSubtitleText = originalText;
+            translatedTalkSubtitleText = translatedText;
         }
 
         public unsafe void UpdateTalkSubtitleOverlayPosition(AtkUnitBase* talkSubtitleAddon)
@@ -346,27 +276,26 @@ namespace Echoglossian.UI.Windows
             var textNode = talkSubtitleAddon->GetTextNodeById(2);
             if (textNode == null) return;
 
-            float x = textNode->AtkResNode.X;
-            float y = textNode->AtkResNode.Y;
-            float width = textNode->AtkResNode.Width;
-            float height = textNode->AtkResNode.Height;
+            var scale = talkSubtitleAddon->Scale;
+            var newPosition = new Vector2(
+                (talkSubtitleAddon->X + textNode->AtkResNode.X) * scale,
+                (talkSubtitleAddon->Y + textNode->AtkResNode.Y) * scale
+            );
+            var newDimensions = new Vector2(
+                textNode->AtkResNode.Width * scale,
+                textNode->AtkResNode.Height * scale
+            );
 
-            if (talkSubtitlePosition.X != x || talkSubtitlePosition.Y != y ||
-                talkSubtitleDimensions.X != width || talkSubtitleDimensions.Y != height)
+            if (talkSubtitlePosition != newPosition || talkSubtitleDimensions != newDimensions)
             {
-                talkSubtitlePosition = new Vector2(x, y);
-                talkSubtitleDimensions = new Vector2(width, height);
-                talkSubtitleDirty = true;
+                talkSubtitlePosition = newPosition;
+                talkSubtitleDimensions = newDimensions;
             }
         }
 
         public void SetTalkSubtitleOverlayVisible(bool visible)
         {
-            if (talkSubtitleOverlayVisible != visible)
-            {
-                talkSubtitleOverlayVisible = visible;
-                talkSubtitleDirty = true;
-            }
+            talkSubtitleOverlayVisible = visible;
         }
 
         private void DrawTalkSubtitleOverlay()
@@ -375,30 +304,17 @@ namespace Echoglossian.UI.Windows
 
             PushFontHandle();
 
-            if (talkSubtitleDirty)
-            {
-                talkSubtitleCachedWidth = CalculateWindowWidth(
-                    talkSubtitleDimensions.X,
-                    Service.config.ImGuiTalkSubtitleWindowWidthMult,
-                    translatedTalkSubtitleText);
-                talkSubtitleDirty = false;
-            }
-
-            var windowPos = CalculateWindowPosition(talkSubtitlePosition, talkSubtitleDimensions, talkSubtitleImguiSize);
+            var windowPos = CalculateWindowPosition(talkSubtitlePosition, talkSubtitleDimensions);
             windowPos += Service.config.ImGuiWindowPosCorrection;
 
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
-
-            ImGui.SetNextWindowSizeConstraints(
-                new Vector2(talkSubtitleCachedWidth, 0),
-                new Vector2(talkSubtitleCachedWidth, talkSubtitleDimensions.Y * Service.config.ImGuiTalkSubtitleWindowHeightMult));
+            ImGui.SetNextWindowSize(talkSubtitleDimensions);
 
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin("TalkSubtitle translation", baseWindowFlags | ImGuiWindowFlags.NoTitleBar);
-            ImGui.SetWindowFontScale(Service.config.FontScale);
+            ImGui.SetWindowFontScale(Service.config.FontScale * Service.config.ImGuiTalkSubtitleFontMult);
             ImGui.TextWrapped(translatedTalkSubtitleText);
-            talkSubtitleImguiSize = ImGui.GetWindowSize();
             ImGui.End();
 
             ImGui.PopStyleColor();
@@ -411,67 +327,53 @@ namespace Echoglossian.UI.Windows
         {
             if (!toastOverlays.TryGetValue(toastType, out var overlay)) return;
 
-            if (overlay.OriginalText != originalText || overlay.TranslatedText != translatedText)
-            {
-                overlay.OriginalText = originalText;
-                overlay.TranslatedText = translatedText;
-                overlay.Dirty = true;
-            }
+            if (overlay.OriginalText == originalText && overlay.TranslatedText == translatedText)
+                return;
+
+            overlay.OriginalText = originalText;
+            overlay.TranslatedText = translatedText;
         }
 
         public void UpdateToastOverlayPosition(string toastType, float x, float y, float width, float height)
         {
             if (!toastOverlays.TryGetValue(toastType, out var overlay)) return;
 
-            if (overlay.Position.X != x || overlay.Position.Y != y ||
-                overlay.Dimensions.X != width || overlay.Dimensions.Y != height)
+            // no addon position calculation needed
+            var newPosition = new Vector2(x, y);
+            var newDimensions = new Vector2(width, height);
+
+            if (overlay.Position != newPosition || overlay.Dimensions != newDimensions)
             {
-                overlay.Position = new Vector2(x, y);
-                overlay.Dimensions = new Vector2(width, height);
-                overlay.Dirty = true;
+                overlay.Position = newPosition;
+                overlay.Dimensions = newDimensions;
             }
         }
 
         public void SetToastOverlayVisible(string toastType, bool visible)
         {
-            if (!toastOverlays.TryGetValue(toastType, out var overlay)) return;
-
-            if (overlay.Visible != visible)
+            if (toastOverlays.TryGetValue(toastType, out var overlay))
             {
                 overlay.Visible = visible;
-                overlay.Dirty = true;
             }
         }
 
-        private static void DrawToastOverlay(string toastType, ToastOverlay overlay)
+        private static void DrawToastOverlay(ToastOverlay overlay)
         {
             if (string.IsNullOrEmpty(overlay.TranslatedText)) return;
 
             PushFontHandle();
 
-            if (overlay.Dirty)
-            {
-                overlay.CachedWidth = Math.Min(
-                    overlay.Dimensions.X * Service.config.ImGuiToastWindowWidthMult,
-                    ImGui.CalcTextSize(overlay.TranslatedText).X + (ImGui.GetStyle().WindowPadding.X * 2));
-                overlay.Dirty = false;
-            }
-
-            var windowPos = CalculateWindowPosition(overlay.Position, overlay.Dimensions, overlay.ImguiSize);
+            var windowPos = CalculateWindowPosition(overlay.Position, overlay.Dimensions);
             windowPos += Service.config.ImGuiToastWindowPosCorrection;
 
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
-
-            ImGui.SetNextWindowSizeConstraints(
-                new Vector2(overlay.CachedWidth, 0),
-                new Vector2(overlay.CachedWidth * 4f, overlay.Dimensions.Y * 2));
+            ImGui.SetNextWindowSize(overlay.Dimensions);
 
             ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin(overlay.WindowTitle, overlay.WindowFlags);
-            ImGui.SetWindowFontScale(Service.config.FontScale);
-            ImGui.Text(overlay.TranslatedText);
-            overlay.ImguiSize = ImGui.GetWindowSize();
+            ImGui.SetWindowFontScale(Service.config.FontScale * Service.config.ImGuiToastFontMult);
+            ImGui.TextWrapped(overlay.TranslatedText);
             ImGui.End();
 
             ImGui.PopStyleColor();
@@ -480,21 +382,9 @@ namespace Echoglossian.UI.Windows
         #endregion
 
         #region Helper Methods
-        private static float CalculateWindowWidth(float baseDimension, float multiplier, string text)
+        private static Vector2 CalculateWindowPosition(Vector2 position, Vector2 dimensions)
         {
-            var textSize = ImGui.CalcTextSize(text);
-            var windowPadding = ImGui.GetStyle().WindowPadding.X * 2;
-
-            return Math.Min(
-                (baseDimension * multiplier) + windowPadding,
-                (textSize.X * 1.25f) + windowPadding);
-        }
-
-        private static Vector2 CalculateWindowPosition(Vector2 position, Vector2 dimensions, Vector2 imguiSize)
-        {
-            return new Vector2(
-                position.X + (dimensions.X / 2) - (imguiSize.X / 2),
-                position.Y - imguiSize.Y - 20);
+            return new Vector2(position.X, position.Y - dimensions.Y - 40);
         }
 
         private static void PushFontHandle()

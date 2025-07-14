@@ -57,14 +57,11 @@ namespace Echoglossian
         public Vector2 ImGuiWindowPosCorrection { get; set; } = Vector2.Zero;
         public Vector2 ImGuiToastWindowPosCorrection { get; set; } = Vector2.Zero;
 
-        // Window size multipliers
-        public float ImGuiTalkWindowWidthMult { get; set; } = 1.5f;
-        public float ImGuiTalkWindowHeightMult { get; set; } = 2.0f;
-        public float ImGuiBattleTalkWindowWidthMult { get; set; } = 1.5f;
-        public float ImGuiBattleTalkWindowHeightMult { get; set; } = 2.0f;
-        public float ImGuiTalkSubtitleWindowWidthMult { get; set; } = 1.5f;
-        public float ImGuiTalkSubtitleWindowHeightMult { get; set; } = 2.0f;
-        public float ImGuiToastWindowWidthMult { get; set; } = 1.5f;
+        // Font size multipliers
+        public float ImGuiTalkFontMult { get; set; } = 1.5f;
+        public float ImGuiBattleTalkFontMult { get; set; } = 1.5f;
+        public float ImGuiTalkSubtitleFontMult { get; set; } = 1.5f;
+        public float ImGuiToastFontMult { get; set; } = 1.5f;
         #endregion
 
         #region Talk Settings

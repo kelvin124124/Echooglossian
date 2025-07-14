@@ -30,12 +30,14 @@ namespace Echoglossian.Translate
 
         public async Task<string> TranslateUI(Dialogue dialogue)
         {
-            if (Service.config.UseLLMTranslation) 
-            {
-                var context = GetDialogueContext(dialogue);
+            return "debug";
 
-                var translation = await OpenAITranslator.TranslateAsync(dialogue.Content, dialogue.TargetLanguage.Code, context).ConfigureAwait(false);
-            }
+            //if (Service.config.UseLLMTranslation) 
+            //{
+            //    var context = GetDialogueContext(dialogue);
+
+            //    var translation = await OpenAITranslator.TranslateAsync(dialogue.Content, dialogue.TargetLanguage.Code, context).ConfigureAwait(false);
+            //}
         }
 
         public async Task<string> TranslateChat(Message chatMessage)
