@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Echoglossian.Translate
 {
-    internal static class OpenAITranslate
+    internal static class OpenAITranslator
     {
         private const string DefaultContentType = "application/json";
 
@@ -27,6 +27,7 @@ namespace Echoglossian.Translate
             }
 
             var prompt = BuildPrompt(targetLanguage, Service.config.CHAT_UseContext ? GetContext() : null);
+
             var promptLength = prompt.Length;
             var userMsg = $"Translate to: {targetLanguage}\n#### Original Text\n{content}";
             var requestData = new
@@ -120,14 +121,6 @@ namespace Echoglossian.Translate
         private static string GetContext()
         {
             throw new NotImplementedException();
-        }
-    }
-
-    internal static class OpenAICompatible
-    {
-        public static async Task<string> Translate(Dialogue dialogue)
-        {
-            return await OpenAITranslate.Translate(dialogue, Service.config.SelectedLLMPreset);
         }
     }
 }

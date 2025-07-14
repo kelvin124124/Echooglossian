@@ -1,5 +1,6 @@
 using Dalamud.Configuration;
 using Dalamud.Game.Text;
+using Echoglossian.Database;
 using Echoglossian.Utils;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,10 @@ namespace Echoglossian
 
         public List<LLMPreset> LLMPresets { get; set; } = [];
         public LLMPreset SelectedLLMPreset { get; set; } = null!;
+        #endregion
+
+        #region Translation Settings
+        public bool UseLLMTranslation { get; set; } = false;
         #endregion
 
         #region Module Toggles

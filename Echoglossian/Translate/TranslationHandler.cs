@@ -1,5 +1,6 @@
 using Dalamud.Networking.Http;
 using Echoglossian.Chat;
+using Echoglossian.Utils;
 using LanguageDetection;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,12 @@ namespace Echoglossian.Translate
 
         public async Task<string> TranslateUI(Dialogue dialogue)
         {
-            return "debug";
+            if (Service.config.UseLLMTranslation) 
+            {
+                var context = GetDialogueContext(dialogue);
+
+                var translation = await OpenAITranslator.TranslateAsync(dialogue.Content, dialogue.TargetLanguage.Code, context).ConfigureAwait(false);
+            }
         }
 
         public async Task<string> TranslateChat(Message chatMessage)

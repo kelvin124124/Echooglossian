@@ -64,6 +64,7 @@ namespace Echoglossian.Chat
             }
         }
 
+        // TODO: mark [user] when message sent by user
         public unsafe string GetChatMessageContext()
         {
             var chatPanelIndex = GetActiveChatLogPanel();
