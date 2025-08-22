@@ -1,0 +1,10 @@
+﻿{
+  "Name": "Echooglossian",
+  "Author": "lokinmodar",
+  "Contributors": [ "Limiana", "Bluefissure", "Soreenpeong", "samulopez" ],
+  "ApplicableVersion": "any",
+  "Punchline": "Dialogue and other in-game text translations? Yes we have!",
+  "Description": "Realtime game text translator",
+  "RepoUrl": "https://github.com/lokinmodar/Echoglossian",
+  "Tags": [ "translation", "UI", "Utility" ]
+}
