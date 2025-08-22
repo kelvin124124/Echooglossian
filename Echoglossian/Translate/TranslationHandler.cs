@@ -1,6 +1,5 @@
 using Dalamud.Networking.Http;
 using Echoglossian.Chat;
-using Echoglossian.Utils;
 using LanguageDetection;
 using System;
 using System.Collections.Generic;

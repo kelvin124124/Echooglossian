@@ -1,11 +1,9 @@
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 using Echoglossian.Chat;
-using Echoglossian.Translate;
 using Echoglossian.Utils;
-using GTranslate;
-using static Echoglossian.Utils.LanguageDictionary;
 using System.Threading.Tasks;
+using static Echoglossian.Utils.LanguageDictionary;
 
 namespace Echoglossian.Ipc
 {

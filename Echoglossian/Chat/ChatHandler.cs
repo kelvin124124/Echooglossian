@@ -73,7 +73,7 @@ namespace Echoglossian.Chat
                 var chatLogPanelPtr = Service.gameGui.GetAddonByName($"ChatLogPanel_{chatPanelIndex}");
                 if (chatLogPanelPtr != 0)
                 {
-                    var chatLogPanel = (AddonChatLogPanel*)chatLogPanelPtr;
+                    var chatLogPanel = (AddonChatLogPanel*)chatLogPanelPtr.Address;
                     var lines = SeString.Parse((byte*)chatLogPanel->ChatText->GetText()).TextValue
                         .Split('\r')
                         .TakeLast(15)
@@ -97,7 +97,7 @@ namespace Echoglossian.Chat
 
         public unsafe nint GetActiveChatLogPanel()
         {
-            var addon = (AddonChatLog*)Service.gameGui.GetAddonByName("ChatLog");
+            var addon = (AddonChatLog*)Service.gameGui.GetAddonByName("ChatLog").Address;
             return addon == null ? 0 : addon->TabIndex;
         }
 

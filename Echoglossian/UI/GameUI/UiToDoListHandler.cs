@@ -12,7 +12,7 @@ namespace Echoglossian.UI.GameUI
     {
         private static unsafe void HandleToDoList()
         {
-            var toDoList = (AtkUnitBase*)Service.gameGui.GetAddonByName("_ToDoList");
+            var toDoList = (AtkUnitBase*)Service.gameGui.GetAddonByName("_ToDoList").Address;
             if (toDoList == null || !toDoList->IsVisible)
                 return;
 

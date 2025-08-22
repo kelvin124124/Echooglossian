@@ -1,7 +1,7 @@
 todos:  
 
 - top priorities  
-fix overlay not working  
+fix overlay low resolution blurriness  
 implement get dialogue context (use xivapi for RAG? / SaintCoinach)  
 
 - whatever  

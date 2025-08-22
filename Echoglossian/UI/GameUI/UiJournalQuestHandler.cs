@@ -12,7 +12,7 @@ namespace Echoglossian.UI.GameUI
     {
         private static unsafe void HandleJournalQuest()
         {
-            var journal = (AtkUnitBase*)Service.gameGui.GetAddonByName("Journal");
+            var journal = (AtkUnitBase*)Service.gameGui.GetAddonByName("Journal").Address;
             if (journal == null || !journal->IsVisible)
                 return;
 

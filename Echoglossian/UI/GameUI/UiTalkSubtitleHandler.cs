@@ -80,7 +80,7 @@ namespace Echoglossian.UI.GameUI
         {
             try
             {
-                var talkSubtitleAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("TalkSubtitle");
+                var talkSubtitleAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("TalkSubtitle").Address;
                 if (talkSubtitleAddon == null || !talkSubtitleAddon->IsVisible)
                     return;
 
@@ -112,7 +112,7 @@ namespace Echoglossian.UI.GameUI
         {
             Task.Run(() =>
             {
-                var talkSubtitleAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("TalkSubtitle");
+                var talkSubtitleAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("TalkSubtitle").Address;
                 if (talkSubtitleAddon == null)
                     return;
 

@@ -1,6 +1,5 @@
 using Dalamud.Configuration;
 using Dalamud.Game.Text;
-using Echoglossian.Database;
 using Echoglossian.Utils;
 using System;
 using System.Collections.Generic;

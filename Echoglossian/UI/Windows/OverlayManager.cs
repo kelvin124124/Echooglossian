@@ -1,7 +1,7 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility;
 using Echoglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using ImGuiNET;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -172,7 +172,7 @@ namespace Echoglossian.UI.Windows
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(windowPos);
             ImGui.SetNextWindowSize(talkDimensions);
 
-            //ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
+            ImGui.PushStyleColor(ImGuiCol.Text, Service.config.OverlayTalkTextColor);
 
             ImGui.Begin(talkWindowTitle, talkWindowFlags);
             ImGui.SetWindowFontScale(Service.config.FontScale * Service.config.ImGuiTalkFontMult);

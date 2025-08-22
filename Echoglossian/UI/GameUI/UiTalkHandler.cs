@@ -25,7 +25,7 @@ namespace Echoglossian.UI.GameUI
             switch (type)
             {
                 case AddonEvent.PreReceiveEvent:
-                    var talkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("Talk");
+                    var talkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("Talk").Address;
                     if (talkAddon == null || !talkAddon->IsVisible)
                         return;
 
@@ -120,7 +120,7 @@ namespace Echoglossian.UI.GameUI
         {
             try
             {
-                var talkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("Talk");
+                var talkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("Talk").Address;
                 if (talkAddon == null || !talkAddon->IsVisible)
                     return;
 
@@ -133,7 +133,8 @@ namespace Echoglossian.UI.GameUI
                     nameNode->SetText(CurrentTranslatedName);
 
                 var parentNode = talkAddon->GetNodeById(10);
-                textNode->TextFlags = (byte)((byte)TextFlags.WordWrap | (byte)TextFlags.MultiLine | (byte)TextFlags.AutoAdjustNodeSize);
+
+                textNode->TextFlags = TextFlags.WordWrap | TextFlags.MultiLine | TextFlags.AutoAdjustNodeSize;
 
                 textNode->FontSize = (byte)(CurrentTranslatedText.Length >= 350 ? 11 :
                                            (CurrentTranslatedText.Length >= 256 ? 12 : 14));
@@ -151,7 +152,7 @@ namespace Echoglossian.UI.GameUI
         {
             Task.Run(() =>
             {
-                var talkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("Talk");
+                var talkAddon = (AtkUnitBase*)Service.gameGui.GetAddonByName("Talk").Address;
                 if (talkAddon == null)
                     return;
 
