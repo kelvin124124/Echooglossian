@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Dalamud.NET.Sdk/13.0.0">
+<Project Sdk="Dalamud.NET.Sdk/13.1.0">
     <PropertyGroup>
         <Authors>lokinmodar</Authors>
         <Version>3.21.0</Version>
@@ -41,13 +41,5 @@
             <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <None Include="todos.md" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <PackageReference Update="DalamudPackager" Version="13.0.0" />
     </ItemGroup>
 </Project>
