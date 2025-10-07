@@ -56,7 +56,7 @@ namespace Echooglossian.UI.GameUI
                             try
                             {
                                 var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                                var toLang = Service.config.SelectedTargetLanguage;
+                                var toLang = Service.configuration.SelectedTargetLanguage;
 
                                 string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{capturedText}";
                                 string cachedTranslation;

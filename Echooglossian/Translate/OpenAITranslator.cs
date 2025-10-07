@@ -26,7 +26,7 @@ namespace Echooglossian.Translate
                 return await MachineTranslator.Translate(dialogue);
             }
 
-            var prompt = BuildPrompt(targetLanguage, Service.config.CHAT_UseContext ? GetContext() : null);
+            var prompt = BuildPrompt(targetLanguage, Service.configuration.CHAT_UseContext ? GetContext() : null);
 
             var promptLength = prompt.Length;
             var userMsg = $"Translate to: {targetLanguage}\n#### Original Text\n{content}";

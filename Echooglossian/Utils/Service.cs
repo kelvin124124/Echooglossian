@@ -3,7 +3,6 @@ using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Echooglossian.Chat;
-using Echooglossian.Database;
 using Echooglossian.Translate;
 using Echooglossian.UI.GameUI;
 using Echooglossian.UI.Windows;
@@ -26,14 +25,12 @@ namespace Echooglossian.Utils
         [PluginService] public static INotificationManager notificationManager { get; set; } = null!;
 
         internal static Plugin plugin { get; set; } = null!;
-        internal static Config config { get; set; } = null!;
-        internal static AssetManager assetManager { get; set; } = null!;
+        internal static Configuration configuration { get; set; } = null!;
         internal static FontManager fontManager { get; set; } = null!;
         internal static ConfigWindow mainWindow { get; set; } = null!;
 
-        internal static TranslationCache translationCache { get; set; } = null!;
         internal static TranslationHandler translationHandler { get; set; } = null!;
-        internal static OverlayManager overlayManager { get; set; } = null!;
+        internal static TranslationOverlay overlayManager { get; set; } = null!;
         internal static GameUIManager gameUIManager { get; set; } = null!;
 
         internal static ChatHandler chatHandler { get; set; } = null!;

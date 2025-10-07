@@ -9,7 +9,7 @@ namespace Echooglossian.UI.Windows.ConfigTabs;
 public static class TranslationEngineTab
 {
     private static readonly string[] ApiServices = ["OpenAI", "Google", "DeepL", "Microsoft", "Yandex", "OpenRouter", "DeepSeek"];
-    
+
     // State for custom preset creation/editing
     private static bool showCreatePresetPopup = false;
     private static bool showEditPresetPopup = false;
@@ -23,9 +23,9 @@ public static class TranslationEngineTab
     {
         bool configChanged = false;
 
-        configChanged |= DrawCheckbox("Use LLM Translation", 
-            () => Service.config.UseLLMTranslation, 
-            value => Service.config.UseLLMTranslation = value);
+        configChanged |= DrawCheckbox("Use LLM Translation",
+            () => Service.configuration.UseLLMTranslation,
+            value => Service.configuration.UseLLMTranslation = value);
 
         ImGui.Separator();
 
@@ -35,7 +35,7 @@ public static class TranslationEngineTab
         ImGui.Separator();
 
         // LLM Presets section
-        if (Service.config.UseLLMTranslation)
+        if (Service.configuration.UseLLMTranslation)
         {
             configChanged |= DrawLLMPresetsSection();
         }
@@ -52,16 +52,16 @@ public static class TranslationEngineTab
         bool configChanged = false;
 
         ImGui.TextUnformatted("API Keys:");
-        
+
         foreach (var service in ApiServices)
         {
-            string currentKey = Service.config.API_Keys.TryGetValue(service, out var key) ? key : "";
+            string currentKey = Service.configuration.API_Keys.TryGetValue(service, out var key) ? key : "";
             if (ImGui.InputText($"{service} API Key", ref currentKey, 256, ImGuiInputTextFlags.Password))
             {
                 if (string.IsNullOrWhiteSpace(currentKey))
-                    Service.config.API_Keys.Remove(service);
+                    Service.configuration.API_Keys.Remove(service);
                 else
-                    Service.config.API_Keys[service] = currentKey;
+                    Service.configuration.API_Keys[service] = currentKey;
                 configChanged = true;
             }
         }
@@ -76,16 +76,16 @@ public static class TranslationEngineTab
         ImGui.TextUnformatted("LLM Presets:");
 
         // Selected preset dropdown
-        var selectedPreset = Service.config.SelectedLLMPreset;
+        var selectedPreset = Service.configuration.SelectedLLMPreset;
         string presetName = selectedPreset?.Name ?? "None";
         if (ImGui.BeginCombo("Selected Preset", presetName))
         {
-            foreach (var preset in Service.config.LLMPresets)
+            foreach (var preset in Service.configuration.LLMPresets)
             {
                 bool isSelected = preset == selectedPreset;
                 if (ImGui.Selectable(preset.Name, isSelected))
                 {
-                    Service.config.SelectedLLMPreset = preset;
+                    Service.configuration.SelectedLLMPreset = preset;
                     configChanged = true;
                 }
                 if (isSelected)
@@ -96,34 +96,34 @@ public static class TranslationEngineTab
 
         // Preset management buttons
         ImGui.Spacing();
-        
+
         if (ImGui.Button("Create New Preset"))
         {
             ResetPresetFields();
             showCreatePresetPopup = true;
         }
-        
+
         ImGui.SameLine();
         if (ImGui.Button("Edit Selected") && selectedPreset != null)
         {
             LoadPresetForEditing(selectedPreset);
             showEditPresetPopup = true;
         }
-        
+
         ImGui.SameLine();
         if (ImGui.Button("Delete Selected") && selectedPreset != null && !IsDefaultPreset(selectedPreset))
         {
-            Service.config.LLMPresets.Remove(selectedPreset);
-            Service.config.SelectedLLMPreset = Service.config.LLMPresets.FirstOrDefault();
+            Service.configuration.LLMPresets.Remove(selectedPreset);
+            Service.configuration.SelectedLLMPreset = Service.configuration.LLMPresets.FirstOrDefault();
             configChanged = true;
         }
-        
+
         ImGui.SameLine();
         if (ImGui.Button("Reset to Defaults"))
         {
-            Service.config.LLMPresets.Clear();
-            Service.config.LLMPresets.AddRange(DefaultLLMPresets.Default);
-            Service.config.SelectedLLMPreset = Service.config.LLMPresets.FirstOrDefault();
+            Service.configuration.LLMPresets.Clear();
+            Service.configuration.LLMPresets.AddRange(DefaultLLMPresets.Default);
+            Service.configuration.SelectedLLMPreset = Service.configuration.LLMPresets.FirstOrDefault();
             configChanged = true;
         }
 
@@ -161,8 +161,8 @@ public static class TranslationEngineTab
 
     private static bool IsDefaultPreset(LLMPreset preset)
     {
-        return DefaultLLMPresets.Default.Any(p => p.Name == preset.Name && 
-                                                  p.LLM_API_Endpoint == preset.LLM_API_Endpoint && 
+        return DefaultLLMPresets.Default.Any(p => p.Name == preset.Name &&
+                                                  p.LLM_API_Endpoint == preset.LLM_API_Endpoint &&
                                                   p.Model == preset.Model);
     }
 
@@ -171,7 +171,7 @@ public static class TranslationEngineTab
         if (!showCreatePresetPopup) return;
 
         ImGui.OpenPopup("Create New LLM Preset");
-        
+
         var center = ImGui.GetMainViewport().GetCenter();
         ImGui.SetNextWindowPos(center, ImGuiCond.Appearing, new Vector2(0.5f, 0.5f));
         ImGui.SetNextWindowSize(new Vector2(400, 250));
@@ -197,8 +197,8 @@ public static class TranslationEngineTab
             ImGui.Separator();
             ImGui.Spacing();
 
-            bool canCreate = !string.IsNullOrWhiteSpace(newPresetName) && 
-                           !string.IsNullOrWhiteSpace(newPresetEndpoint) && 
+            bool canCreate = !string.IsNullOrWhiteSpace(newPresetName) &&
+                           !string.IsNullOrWhiteSpace(newPresetEndpoint) &&
                            !string.IsNullOrWhiteSpace(newPresetModel);
 
             if (!canCreate)
@@ -209,8 +209,8 @@ public static class TranslationEngineTab
             if (ImGui.Button("Create Preset"))
             {
                 var newPreset = new LLMPreset(newPresetName, newPresetEndpoint, newPresetModel, newPresetTemperature);
-                Service.config.LLMPresets.Add(newPreset);
-                Service.config.SelectedLLMPreset = newPreset;
+                Service.configuration.LLMPresets.Add(newPreset);
+                Service.configuration.SelectedLLMPreset = newPreset;
                 configChanged = true;
                 showCreatePresetPopup = false;
                 ResetPresetFields();
@@ -237,7 +237,7 @@ public static class TranslationEngineTab
         if (!showEditPresetPopup || presetBeingEdited == null) return;
 
         ImGui.OpenPopup("Edit LLM Preset");
-        
+
         var center = ImGui.GetMainViewport().GetCenter();
         ImGui.SetNextWindowPos(center, ImGuiCond.Appearing, new Vector2(0.5f, 0.5f));
         ImGui.SetNextWindowSize(new Vector2(400, 250));
@@ -270,8 +270,8 @@ public static class TranslationEngineTab
             ImGui.Separator();
             ImGui.Spacing();
 
-            bool canSave = !string.IsNullOrWhiteSpace(newPresetName) && 
-                          !string.IsNullOrWhiteSpace(newPresetEndpoint) && 
+            bool canSave = !string.IsNullOrWhiteSpace(newPresetName) &&
+                          !string.IsNullOrWhiteSpace(newPresetEndpoint) &&
                           !string.IsNullOrWhiteSpace(newPresetModel);
 
             if (!canSave)
@@ -285,8 +285,8 @@ public static class TranslationEngineTab
                 {
                     // Create new preset for default presets
                     var newPreset = new LLMPreset(newPresetName, newPresetEndpoint, newPresetModel, newPresetTemperature);
-                    Service.config.LLMPresets.Add(newPreset);
-                    Service.config.SelectedLLMPreset = newPreset;
+                    Service.configuration.LLMPresets.Add(newPreset);
+                    Service.configuration.SelectedLLMPreset = newPreset;
                 }
                 else
                 {
@@ -296,7 +296,7 @@ public static class TranslationEngineTab
                     presetBeingEdited.Model = newPresetModel;
                     presetBeingEdited.Temperature = newPresetTemperature;
                 }
-                
+
                 configChanged = true;
                 showEditPresetPopup = false;
                 ResetPresetFields();

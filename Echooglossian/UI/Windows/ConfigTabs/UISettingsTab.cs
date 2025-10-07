@@ -35,14 +35,14 @@ public static class UISettingsTab
         bool configChanged = false;
 
         ImGui.TextUnformatted("Colors:");
-        
-        configChanged |= DrawColorEdit4("Talk Text Color", 
-            () => Service.config.OverlayTalkTextColor, 
-            value => Service.config.OverlayTalkTextColor = value);
 
-        configChanged |= DrawColorEdit4("BattleTalk Text Color", 
-            () => Service.config.OverlayBattleTalkTextColor, 
-            value => Service.config.OverlayBattleTalkTextColor = value);
+        configChanged |= DrawColorEdit4("Talk Text Color",
+            () => Service.configuration.OverlayTalkTextColor,
+            value => Service.configuration.OverlayTalkTextColor = value);
+
+        configChanged |= DrawColorEdit4("BattleTalk Text Color",
+            () => Service.configuration.OverlayBattleTalkTextColor,
+            value => Service.configuration.OverlayBattleTalkTextColor = value);
 
         return configChanged;
     }
@@ -52,15 +52,15 @@ public static class UISettingsTab
         bool configChanged = false;
 
         ImGui.TextUnformatted("Position Corrections:");
-        
-        configChanged |= DrawSliderFloat2("Window Position Correction", 
-            () => Service.config.ImGuiWindowPosCorrection, 
-            value => Service.config.ImGuiWindowPosCorrection = value, 
+
+        configChanged |= DrawSliderFloat2("Window Position Correction",
+            () => Service.configuration.ImGuiWindowPosCorrection,
+            value => Service.configuration.ImGuiWindowPosCorrection = value,
             -500f, 500f);
 
-        configChanged |= DrawSliderFloat2("Toast Position Correction", 
-            () => Service.config.ImGuiToastWindowPosCorrection, 
-            value => Service.config.ImGuiToastWindowPosCorrection = value, 
+        configChanged |= DrawSliderFloat2("Toast Position Correction",
+            () => Service.configuration.ImGuiToastWindowPosCorrection,
+            value => Service.configuration.ImGuiToastWindowPosCorrection = value,
             -500f, 500f);
 
         return configChanged;
@@ -71,25 +71,25 @@ public static class UISettingsTab
         bool configChanged = false;
 
         ImGui.TextUnformatted("Font Size Multipliers:");
-        
-        configChanged |= DrawSliderFloat("Talk Font Multiplier", 
-            () => Service.config.ImGuiTalkFontMult, 
-            value => Service.config.ImGuiTalkFontMult = value, 
+
+        configChanged |= DrawSliderFloat("Talk Font Multiplier",
+            () => Service.configuration.ImGuiTalkFontMult,
+            value => Service.configuration.ImGuiTalkFontMult = value,
             0.5f, 3.0f);
 
-        configChanged |= DrawSliderFloat("BattleTalk Font Multiplier", 
-            () => Service.config.ImGuiBattleTalkFontMult, 
-            value => Service.config.ImGuiBattleTalkFontMult = value, 
+        configChanged |= DrawSliderFloat("BattleTalk Font Multiplier",
+            () => Service.configuration.ImGuiBattleTalkFontMult,
+            value => Service.configuration.ImGuiBattleTalkFontMult = value,
             0.5f, 3.0f);
 
-        configChanged |= DrawSliderFloat("Subtitle Font Multiplier", 
-            () => Service.config.ImGuiTalkSubtitleFontMult, 
-            value => Service.config.ImGuiTalkSubtitleFontMult = value, 
+        configChanged |= DrawSliderFloat("Subtitle Font Multiplier",
+            () => Service.configuration.ImGuiTalkSubtitleFontMult,
+            value => Service.configuration.ImGuiTalkSubtitleFontMult = value,
             0.5f, 3.0f);
 
-        configChanged |= DrawSliderFloat("Toast Font Multiplier", 
-            () => Service.config.ImGuiToastFontMult, 
-            value => Service.config.ImGuiToastFontMult = value, 
+        configChanged |= DrawSliderFloat("Toast Font Multiplier",
+            () => Service.configuration.ImGuiToastFontMult,
+            value => Service.configuration.ImGuiToastFontMult = value,
             0.5f, 3.0f);
 
         return configChanged;

@@ -18,7 +18,7 @@ namespace Echooglossian.UI.GameUI
 
         internal static unsafe void OnEvent(AddonEvent type, AddonArgs args)
         {
-            if (!Service.config.TalkSubtitleModuleEnabled)
+            if (!Service.configuration.TalkSubtitleModuleEnabled)
                 return;
 
             AtkValue* atkValues = null;
@@ -39,7 +39,7 @@ namespace Echooglossian.UI.GameUI
             if (string.IsNullOrEmpty(textToTranslate))
                 return;
 
-            if (!Service.config.SUBTITLE_UseImGui)
+            if (!Service.configuration.SUBTITLE_UseImGui)
                 atkValues[0].SetManagedString(string.Empty);
 
             TranslateTalkSubtitle(textToTranslate);
@@ -52,7 +52,7 @@ namespace Echooglossian.UI.GameUI
                 try
                 {
                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                    var toLang = Service.config.SelectedTargetLanguage;
+                    var toLang = Service.configuration.SelectedTargetLanguage;
 
                     var dialogue = new Dialogue(nameof(UiTalkSubtitleHandler), fromLang, toLang, content);
                     if (!Service.translationCache.TryGet(dialogue, out string translatedContent))
@@ -64,7 +64,7 @@ namespace Echooglossian.UI.GameUI
                     CurrentTranslatedText = translatedContent;
                     Service.pluginLog.Debug($"Subtitle translated: {content} -> {translatedContent}");
 
-                    if (Service.config.SUBTITLE_UseImGui)
+                    if (Service.configuration.SUBTITLE_UseImGui)
                         TranslateWithImGui(content, translatedContent);
                     else
                         ReplaceGameText(translatedContent);

@@ -13,7 +13,7 @@ public partial class ConfigWindow : Window
     private bool saveConfig = false;
 
     public ConfigWindow(Plugin plugin) : base(
-        $"Echoglossian - Plugin Version: {Service.config.PluginVersion}",
+        $"Echoglossian - Plugin Version: {Service.configuration.PluginVersion}",
         ImGuiWindowFlags.None)
     {
         Size = new Vector2(1000, 600);
@@ -23,14 +23,15 @@ public partial class ConfigWindow : Window
             MaximumSize = new Vector2(1200, 800)
         };
 
-        Resources.Culture = (CultureInfo)Service.config.SelectedPluginLanguage;
+        Resources.Culture = (CultureInfo)Service.configuration.SelectedPluginLanguage;
 
-        if (Service.config.LLMPresets.Count == 0)
+        if (Service.configuration.LLMPresets.Count == 0)
         {
-            Service.config.LLMPresets.AddRange(DefaultLLMPresets.Default);
+            Service.configuration.LLMPresets.AddRange(DefaultLLMPresets.Default);
         }
     }
 
+    // TODO: use general font handle built in font manager
     public override void Draw()
     {
         // Main tab bar
@@ -71,7 +72,7 @@ public partial class ConfigWindow : Window
 
         if (saveConfig)
         {
-            Service.config.Save();
+            Service.configuration.Save();
             saveConfig = false;
         }
     }

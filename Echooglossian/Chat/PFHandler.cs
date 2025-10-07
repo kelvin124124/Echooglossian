@@ -28,7 +28,7 @@ namespace Echooglossian.Chat
 
         private void OnContextMenuOpened(IMenuOpenedArgs args)
         {
-            if (!Service.config.PFModuleEnabled)
+            if (!Service.configuration.PFModuleEnabled)
                 return;
 
             if (args.AddonName == "LookingForGroupDetail")

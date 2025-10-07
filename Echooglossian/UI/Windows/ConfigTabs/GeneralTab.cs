@@ -1,5 +1,4 @@
 using Dalamud.Bindings.ImGui;
-using Dalamud.Interface.Windowing;
 using Echooglossian.Localization;
 using Echooglossian.Utils;
 using System;
@@ -15,9 +14,9 @@ public static class GeneralTab
         bool configChanged = false;
 
         // Plugin enable main toggle
-        configChanged |= DrawCheckbox("Enable Plugin", 
-            () => Service.config.PluginEnabled, 
-            value => Service.config.PluginEnabled = value);
+        configChanged |= DrawCheckbox("Enable Plugin",
+            () => Service.configuration.PluginEnabled,
+            value => Service.configuration.PluginEnabled = value);
 
         ImGui.Separator();
 
@@ -32,10 +31,11 @@ public static class GeneralTab
         ImGui.Separator();
 
         // Other general settings
-        configChanged |= DrawCheckbox("Show translations in cutscenes", 
-            () => Service.config.ShowInCutscenes, 
-            value => {
-                Service.config.ShowInCutscenes = value;
+        configChanged |= DrawCheckbox("Show translations in cutscenes",
+            () => Service.configuration.ShowInCutscenes,
+            value =>
+            {
+                Service.configuration.ShowInCutscenes = value;
                 Service.pluginInterface.UiBuilder.DisableCutsceneUiHide = value;
             });
 
@@ -48,7 +48,7 @@ public static class GeneralTab
 
         // Plugin Language
         ImGui.TextUnformatted("Plugin Language:");
-        var selectedPluginLanguage = Service.config.SelectedPluginLanguage;
+        var selectedPluginLanguage = Service.configuration.SelectedPluginLanguage;
         if (ImGui.BeginCombo("##PluginLanguage", selectedPluginLanguage.Name))
         {
             foreach (var lang in GetLanguages())
@@ -56,7 +56,7 @@ public static class GeneralTab
                 bool isSelected = lang.Code == selectedPluginLanguage.Code;
                 if (ImGui.Selectable(lang.Name, isSelected))
                 {
-                    Service.config.SelectedPluginLanguage = lang;
+                    Service.configuration.SelectedPluginLanguage = lang;
                     Resources.Culture = (CultureInfo)lang;
                     configChanged = true;
                 }
@@ -68,7 +68,7 @@ public static class GeneralTab
 
         // Target Language
         ImGui.TextUnformatted("Target Language:");
-        var selectedTargetLanguage = Service.config.SelectedTargetLanguage;
+        var selectedTargetLanguage = Service.configuration.SelectedTargetLanguage;
         if (ImGui.BeginCombo("##TargetLanguage", selectedTargetLanguage.Name))
         {
             foreach (var lang in GetLanguages())
@@ -76,7 +76,7 @@ public static class GeneralTab
                 bool isSelected = lang.Code == selectedTargetLanguage.Code;
                 if (ImGui.Selectable(lang.Name, isSelected))
                 {
-                    Service.config.SelectedTargetLanguage = lang;
+                    Service.configuration.SelectedTargetLanguage = lang;
                     configChanged = true;
                 }
                 if (isSelected)
@@ -93,15 +93,15 @@ public static class GeneralTab
         bool configChanged = false;
 
         ImGui.TextUnformatted("Font Settings:");
-        
-        configChanged |= DrawSliderFloat("Font Size", 
-            () => Service.config.FontSize, 
-            value => Service.config.FontSize = value, 
+
+        configChanged |= DrawSliderFloat("Font Size",
+            () => Service.configuration.FontSize,
+            value => Service.configuration.FontSize = value,
             8.0f, 48.0f, "%.1f");
 
-        configChanged |= DrawSliderFloat("Font Scale", 
-            () => Service.config.FontScale, 
-            value => Service.config.FontScale = value, 
+        configChanged |= DrawSliderFloat("Font Scale",
+            () => Service.configuration.FontScale,
+            value => Service.configuration.FontScale = value,
             0.5f, 3.0f, "%.2f");
 
         return configChanged;

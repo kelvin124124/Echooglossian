@@ -15,7 +15,7 @@ namespace Echooglossian.UI.GameUI
 
         internal static unsafe void OnEvent(AddonEvent type, AddonArgs args)
         {
-            if (!Service.config.JournalModuleEnabled || args == null)
+            if (!Service.configuration.JournalModuleEnabled || args == null)
                 return;
 
             try
@@ -75,7 +75,7 @@ namespace Echooglossian.UI.GameUI
                 try
                 {
                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                    var toLang = Service.config.SelectedTargetLanguage;
+                    var toLang = Service.configuration.SelectedTargetLanguage;
 
                     string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{questName}";
 

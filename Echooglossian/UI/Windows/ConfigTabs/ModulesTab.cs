@@ -16,7 +16,7 @@ public static class ModulesTab
     public static bool Draw()
     {
         bool configChanged = false;
-        
+
         if (ImGui.BeginChild("ModuleList", new Vector2(200, 0), true))
         {
             for (int i = 0; i < ModuleNames.Length; i++)
@@ -58,17 +58,17 @@ public static class ModulesTab
             ImGui.Separator();
 
             bool configChanged = false;
-            configChanged |= DrawCheckbox("Enable Talk Module", 
-                () => Service.config.TalkModuleEnabled, 
-                value => Service.config.TalkModuleEnabled = value);
+            configChanged |= DrawCheckbox("Enable Talk Module",
+                () => Service.configuration.TalkModuleEnabled,
+                value => Service.configuration.TalkModuleEnabled = value);
 
-            configChanged |= DrawCheckbox("Use ImGui Overlay", 
-                () => Service.config.TALK_UseImGui, 
-                value => Service.config.TALK_UseImGui = value);
+            configChanged |= DrawCheckbox("Use ImGui Overlay",
+                () => Service.configuration.TALK_UseImGui,
+                value => Service.configuration.TALK_UseImGui = value);
 
-            configChanged |= DrawCheckbox("Translate NPC Names", 
-                () => Service.config.TALK_TranslateNpcNames, 
-                value => Service.config.TALK_TranslateNpcNames = value);
+            configChanged |= DrawCheckbox("Translate NPC Names",
+                () => Service.configuration.TALK_TranslateNpcNames,
+                value => Service.configuration.TALK_TranslateNpcNames = value);
 
             return configChanged;
         }
@@ -82,17 +82,17 @@ public static class ModulesTab
             ImGui.Separator();
 
             bool configChanged = false;
-            configChanged |= DrawCheckbox("Enable BattleTalk Module", 
-                () => Service.config.BattleTalkModuleEnabled, 
-                value => Service.config.BattleTalkModuleEnabled = value);
+            configChanged |= DrawCheckbox("Enable BattleTalk Module",
+                () => Service.configuration.BattleTalkModuleEnabled,
+                value => Service.configuration.BattleTalkModuleEnabled = value);
 
-            configChanged |= DrawCheckbox("Use ImGui Overlay", 
-                () => Service.config.BATTLETALK_UseImGui, 
-                value => Service.config.BATTLETALK_UseImGui = value);
+            configChanged |= DrawCheckbox("Use ImGui Overlay",
+                () => Service.configuration.BATTLETALK_UseImGui,
+                value => Service.configuration.BATTLETALK_UseImGui = value);
 
-            configChanged |= DrawCheckbox("Translate NPC Names", 
-                () => Service.config.BATTLETALK_TranslateNpcNames, 
-                value => Service.config.BATTLETALK_TranslateNpcNames = value);
+            configChanged |= DrawCheckbox("Translate NPC Names",
+                () => Service.configuration.BATTLETALK_TranslateNpcNames,
+                value => Service.configuration.BATTLETALK_TranslateNpcNames = value);
 
             return configChanged;
         }
@@ -106,13 +106,13 @@ public static class ModulesTab
             ImGui.Separator();
 
             bool configChanged = false;
-            configChanged |= DrawCheckbox("Enable TalkSubtitle Module", 
-                () => Service.config.TalkSubtitleModuleEnabled, 
-                value => Service.config.TalkSubtitleModuleEnabled = value);
+            configChanged |= DrawCheckbox("Enable TalkSubtitle Module",
+                () => Service.configuration.TalkSubtitleModuleEnabled,
+                value => Service.configuration.TalkSubtitleModuleEnabled = value);
 
-            configChanged |= DrawCheckbox("Use ImGui Overlay", 
-                () => Service.config.SUBTITLE_UseImGui, 
-                value => Service.config.SUBTITLE_UseImGui = value);
+            configChanged |= DrawCheckbox("Use ImGui Overlay",
+                () => Service.configuration.SUBTITLE_UseImGui,
+                value => Service.configuration.SUBTITLE_UseImGui = value);
 
             return configChanged;
         }
@@ -125,9 +125,9 @@ public static class ModulesTab
             ImGui.TextUnformatted("Journal Module Configuration");
             ImGui.Separator();
 
-            return DrawCheckbox("Enable Journal Module", 
-                () => Service.config.JournalModuleEnabled, 
-                value => Service.config.JournalModuleEnabled = value);
+            return DrawCheckbox("Enable Journal Module",
+                () => Service.configuration.JournalModuleEnabled,
+                value => Service.configuration.JournalModuleEnabled = value);
         }
     }
 
@@ -139,25 +139,25 @@ public static class ModulesTab
             ImGui.Separator();
 
             bool configChanged = false;
-            configChanged |= DrawCheckbox("Enable Toast Module", 
-                () => Service.config.ToastModuleEnabled, 
-                value => Service.config.ToastModuleEnabled = value);
+            configChanged |= DrawCheckbox("Enable Toast Module",
+                () => Service.configuration.ToastModuleEnabled,
+                value => Service.configuration.ToastModuleEnabled = value);
 
-            configChanged |= DrawCheckbox("Use ImGui Overlay", 
-                () => Service.config.TOAST_UseImGui, 
-                value => Service.config.TOAST_UseImGui = value);
+            configChanged |= DrawCheckbox("Use ImGui Overlay",
+                () => Service.configuration.TOAST_UseImGui,
+                value => Service.configuration.TOAST_UseImGui = value);
 
-            configChanged |= DrawCheckbox("Translate Regular Toasts", 
-                () => Service.config.TOAST_TranslateRegular, 
-                value => Service.config.TOAST_TranslateRegular = value);
+            configChanged |= DrawCheckbox("Translate Regular Toasts",
+                () => Service.configuration.TOAST_TranslateRegular,
+                value => Service.configuration.TOAST_TranslateRegular = value);
 
-            configChanged |= DrawCheckbox("Translate Error Toasts", 
-                () => Service.config.TOAST_TranslateError, 
-                value => Service.config.TOAST_TranslateError = value);
+            configChanged |= DrawCheckbox("Translate Error Toasts",
+                () => Service.configuration.TOAST_TranslateError,
+                value => Service.configuration.TOAST_TranslateError = value);
 
-            configChanged |= DrawCheckbox("Translate Quest Toasts", 
-                () => Service.config.TOAST_TranslateQuest, 
-                value => Service.config.TOAST_TranslateQuest = value);
+            configChanged |= DrawCheckbox("Translate Quest Toasts",
+                () => Service.configuration.TOAST_TranslateQuest,
+                value => Service.configuration.TOAST_TranslateQuest = value);
 
             return configChanged;
         }
@@ -171,13 +171,13 @@ public static class ModulesTab
             ImGui.Separator();
 
             bool configChanged = false;
-            configChanged |= DrawCheckbox("Enable Chat Module", 
-                () => Service.config.ChatModuleEnabled, 
-                value => Service.config.ChatModuleEnabled = value);
+            configChanged |= DrawCheckbox("Enable Chat Module",
+                () => Service.configuration.ChatModuleEnabled,
+                value => Service.configuration.ChatModuleEnabled = value);
 
-            configChanged |= DrawCheckbox("Use Context for Translation", 
-                () => Service.config.CHAT_UseContext, 
-                value => Service.config.CHAT_UseContext = value);
+            configChanged |= DrawCheckbox("Use Context for Translation",
+                () => Service.configuration.CHAT_UseContext,
+                value => Service.configuration.CHAT_UseContext = value);
 
             configChanged |= DrawChatTypesSection();
             configChanged |= DrawSourceLanguagesSection();
@@ -195,13 +195,13 @@ public static class ModulesTab
                 var allChatTypes = System.Enum.GetValues<XivChatType>().Where(c => c != XivChatType.None).ToArray();
                 foreach (var chatType in allChatTypes)
                 {
-                    bool isSelected = Service.config.CHAT_SelectedChatTypes.Contains(chatType);
+                    bool isSelected = Service.configuration.CHAT_SelectedChatTypes.Contains(chatType);
                     if (ImGui.Checkbox(chatType.ToString(), ref isSelected))
                     {
                         if (isSelected)
-                            Service.config.CHAT_SelectedChatTypes.Add(chatType);
+                            Service.configuration.CHAT_SelectedChatTypes.Add(chatType);
                         else
-                            Service.config.CHAT_SelectedChatTypes.Remove(chatType);
+                            Service.configuration.CHAT_SelectedChatTypes.Remove(chatType);
                         configChanged = true;
                     }
                 }
@@ -220,13 +220,13 @@ public static class ModulesTab
             {
                 foreach (var lang in GetLanguages())
                 {
-                    bool isSelected = Service.config.CHAT_SelectedSourceLanguages.Any(l => l.Code == lang.Code);
+                    bool isSelected = Service.configuration.CHAT_SelectedSourceLanguages.Any(l => l.Code == lang.Code);
                     if (ImGui.Checkbox(lang.Name, ref isSelected))
                     {
                         if (isSelected)
-                            Service.config.CHAT_SelectedSourceLanguages.Add(lang);
+                            Service.configuration.CHAT_SelectedSourceLanguages.Add(lang);
                         else
-                            Service.config.CHAT_SelectedSourceLanguages.RemoveAll(l => l.Code == lang.Code);
+                            Service.configuration.CHAT_SelectedSourceLanguages.RemoveAll(l => l.Code == lang.Code);
                         configChanged = true;
                     }
                 }
@@ -244,9 +244,9 @@ public static class ModulesTab
             ImGui.TextUnformatted("Party Finder Module Configuration");
             ImGui.Separator();
 
-            return DrawCheckbox("Enable Party Finder Module", 
-                () => Service.config.PFModuleEnabled, 
-                value => Service.config.PFModuleEnabled = value);
+            return DrawCheckbox("Enable Party Finder Module",
+                () => Service.configuration.PFModuleEnabled,
+                value => Service.configuration.PFModuleEnabled = value);
         }
     }
 

@@ -13,7 +13,7 @@ public static class AssetsTab
         ImGui.Separator();
 
         DrawAssetStatus();
-        
+
         if (ImGui.Button("Verify and Download Assets"))
         {
             Task.Run(() => Service.assetManager.VerifyPluginAssets());
@@ -27,7 +27,7 @@ public static class AssetsTab
 
     private static void DrawAssetStatus()
     {
-        bool pluginAssetsStatus = Service.config.AssetPresent;
+        bool pluginAssetsStatus = Service.configuration.AssetPresent;
 
         if (pluginAssetsStatus)
         {

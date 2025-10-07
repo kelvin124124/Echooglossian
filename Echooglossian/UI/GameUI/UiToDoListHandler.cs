@@ -42,7 +42,7 @@ namespace Echooglossian.UI.GameUI
                     if (string.IsNullOrEmpty(todoTextStr))
                         continue;
 
-                    string todoKey = $"todo_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.config.SelectedTargetLanguage.Code}_{todoTextStr.GetHashCode()}";
+                    string todoKey = $"todo_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.configuration.SelectedTargetLanguage.Code}_{todoTextStr.GetHashCode()}";
 
                     if (Service.translationCache.TryGetString(todoKey, out string translatedTodo))
                     {
@@ -58,7 +58,7 @@ namespace Echooglossian.UI.GameUI
                             try
                             {
                                 var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                                var toLang = Service.config.SelectedTargetLanguage;
+                                var toLang = Service.configuration.SelectedTargetLanguage;
 
                                 string cachedTranslation = Service.translationHandler.TranslateString(capturedText, toLang)
                                     .GetAwaiter().GetResult();

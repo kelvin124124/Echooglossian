@@ -1,6 +1,6 @@
 using Dalamud.Networking.Http;
 using Echooglossian.Chat;
-using LanguageDetection;
+using FastPersistentDictionary;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -12,7 +12,8 @@ namespace Echooglossian.Translate
 {
     internal class TranslationHandler : IDisposable
     {
-        private static readonly Dictionary<string, string> ChatTranslationCache = [];
+        public static readonly Dictionary<string, string> ChatTranslationCache = [];
+        public static readonly FastPersistentDictionary<Dialogue, string> DialogueTranslationCache = [];
 
         internal static readonly HttpClient HttpClient = new(new SocketsHttpHandler
         {
@@ -24,8 +25,6 @@ namespace Echooglossian.Translate
             DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrLower,
             Timeout = TimeSpan.FromSeconds(20)
         };
-
-        private readonly LanguageDetector detector = new();
 
         public async Task<string> TranslateUI(Dialogue dialogue)
         {
@@ -47,11 +46,6 @@ namespace Echooglossian.Translate
         public async Task<string> TranslateString(string content, LanguageInfo toLanguage)
         {
             return "debug";
-        }
-
-        public async Task<LanguageInfo> DetermineLanguage(string content)
-        {
-            return GetLanguage(detector.Detect(content));
         }
 
         public void WipeCache() => ChatTranslationCache.Clear();

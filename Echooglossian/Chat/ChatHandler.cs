@@ -15,7 +15,7 @@ namespace Echooglossian.Chat
 {
     internal partial class ChatHandler : IDisposable
     {
-        private static readonly StringBuilder SB = new();
+        private static readonly StringBuilder sb = new();
         private readonly Dictionary<string, int> lastMessageTime = [];
 
         public ChatHandler() => Service.chatGui.ChatMessage += OnChatMessage;
@@ -28,7 +28,7 @@ namespace Echooglossian.Chat
 
         private async void HandleChatMessage(XivChatType type, SeString sender, SeString message)
         {
-            if (!Service.config.ChatModuleEnabled || sender.TextValue.Contains("[E]") || !Service.config.CHAT_SelectedChatTypes.Contains(type))
+            if (!Service.configuration.ChatModuleEnabled || sender.TextValue.Contains("[E]") || !Service.configuration.CHAT_SelectedChatTypes.Contains(type))
                 return;
 
             // Get sender name
@@ -64,7 +64,6 @@ namespace Echooglossian.Chat
             }
         }
 
-        // TODO: mark [user] when message sent by user
         public unsafe string GetChatMessageContext()
         {
             var chatPanelIndex = GetActiveChatLogPanel();
@@ -102,7 +101,7 @@ namespace Echooglossian.Chat
         }
 
         private static async Task<bool> IsCustomSourceLanguage(Message chatMessage) =>
-            Service.config.CHAT_SelectedSourceLanguages.Contains(
+            Service.configuration.CHAT_SelectedSourceLanguages.Contains(
                 await Service.translationHandler.DetermineLanguage(chatMessage.Content)
             );
 
@@ -114,13 +113,13 @@ namespace Echooglossian.Chat
                 return;
             }
 
-            SB.Clear().Append(chatMessage.Content).Append(" || ").Append(translation);
+            sb.Clear().Append(chatMessage.Content).Append(" || ").Append(translation);
 
             Service.chatGui.Print(new XivChatEntry
             {
                 Type = chatMessage.Type,
                 Name = new SeString(new PlayerPayload("[E] " + chatMessage.Sender, 0)),
-                Message = SB.ToString(),
+                Message = sb.ToString(),
             });
         }
 

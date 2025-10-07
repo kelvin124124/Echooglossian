@@ -64,7 +64,7 @@ namespace Echooglossian.UI.GameUI
 
         private void OnFrameworkUpdate(Dalamud.Plugin.Services.IFramework framework)
         {
-            if (!Service.config.ToastModuleEnabled || !Service.clientState.IsLoggedIn)
+            if (!Service.configuration.ToastModuleEnabled || !Service.clientState.IsLoggedIn)
                 return;
 
             CheckToastVisibility("_TextError", ToastType.Error);
@@ -103,7 +103,7 @@ namespace Echooglossian.UI.GameUI
 
         private void OnToast(ref SeString message, ref ToastOptions options, ref bool isHandled)
         {
-            if (!Service.config.ToastModuleEnabled || !Service.config.TOAST_TranslateRegular)
+            if (!Service.configuration.ToastModuleEnabled || !Service.configuration.TOAST_TranslateRegular)
                 return;
 
             pendingRefs[ToastType.Normal] = new SeStringRef
@@ -118,7 +118,7 @@ namespace Echooglossian.UI.GameUI
 
         private void OnErrorToast(ref SeString message, ref bool isHandled)
         {
-            if (!Service.config.ToastModuleEnabled || !Service.config.TOAST_TranslateError)
+            if (!Service.configuration.ToastModuleEnabled || !Service.configuration.TOAST_TranslateError)
                 return;
 
             pendingRefs[ToastType.Error] = new SeStringRef
@@ -132,7 +132,7 @@ namespace Echooglossian.UI.GameUI
 
         private void OnQuestToast(ref SeString message, ref QuestToastOptions options, ref bool isHandled)
         {
-            if (!Service.config.ToastModuleEnabled || !Service.config.TOAST_TranslateQuest)
+            if (!Service.configuration.ToastModuleEnabled || !Service.configuration.TOAST_TranslateQuest)
                 return;
 
             pendingRefs[ToastType.Quest] = new SeStringRef
@@ -150,7 +150,7 @@ namespace Echooglossian.UI.GameUI
             try
             {
                 var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                var toLang = Service.config.SelectedTargetLanguage;
+                var toLang = Service.configuration.SelectedTargetLanguage;
                 string cacheKey = $"toast_{fromLang.Code}_{toLang.Code}_{toastType}_{messageText.GetHashCode()}";
 
                 // Check cache first
@@ -166,7 +166,7 @@ namespace Echooglossian.UI.GameUI
                 currentTranslations[toastType] = "Waiting for translation...";
 
                 // Handle immediate modifications for non-ImGui
-                if (!Service.config.TOAST_UseImGui)
+                if (!Service.configuration.TOAST_UseImGui)
                 {
                     // Store original message reference
                     pendingRefs[toastType] = new SeStringRef
@@ -206,7 +206,7 @@ namespace Echooglossian.UI.GameUI
                         currentTranslations[toastType] = translatedText;
                         Service.translationCache.UpsertString(cacheKey, translatedText);
 
-                        if (Service.config.TOAST_UseImGui)
+                        if (Service.configuration.TOAST_UseImGui)
                         {
                             Service.overlayManager.UpdateToastOverlay(
                                 toastType.ToString(),
@@ -227,7 +227,7 @@ namespace Echooglossian.UI.GameUI
         {
             currentTranslations[toastType] = translatedText;
 
-            if (Service.config.TOAST_UseImGui)
+            if (Service.configuration.TOAST_UseImGui)
             {
                 Service.overlayManager.UpdateToastOverlay(
                     toastType.ToString(),

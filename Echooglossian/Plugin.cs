@@ -3,7 +3,6 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Echooglossian.Chat;
-using Echooglossian.Database;
 using Echooglossian.Translate;
 using Echooglossian.UI.GameUI;
 using Echooglossian.UI.Windows;
@@ -26,7 +25,7 @@ namespace Echooglossian
             Service.pluginInterface = pluginInterface;
             Service.commandManager = commandManager;
 
-            Service.config = pluginInterface.GetPluginConfig() as Config ?? new Config();
+            Service.configuration = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
             Service.plugin = this;
 
@@ -35,27 +34,22 @@ namespace Echooglossian
 
             pluginInterface.UiBuilder.Draw += DrawUI;
             pluginInterface.UiBuilder.OpenMainUi += DrawMainUI;
-            pluginInterface.UiBuilder.DisableCutsceneUiHide = Service.config.ShowInCutscenes;
+            pluginInterface.UiBuilder.DisableCutsceneUiHide = Service.configuration.ShowInCutscenes;
 
             Service.commandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
             {
                 HelpMessage = "Open Echoglossian main window."
             });
 
-            // DEBUG
-            Service.config.AssetPresent = false;
-
-            Service.assetManager = new AssetManager();
             Service.fontManager = new FontManager();
-            Service.translationCache = new TranslationCache();
             Service.translationHandler = new TranslationHandler();
-            Service.overlayManager = new OverlayManager();
+            Service.overlayManager = new TranslationOverlay();
             Service.gameUIManager = new GameUIManager();
             Service.chatHandler = new ChatHandler();
             Service.pfHandler = new PFHandler();
 
-            Service.config.PluginVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString()!;
-            if (Service.config.Version < 5)
+            Service.configuration.PluginVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString()!;
+            if (Service.configuration.Version < 5)
             {
                 MigrateConfig();
             }
@@ -96,9 +90,6 @@ namespace Echooglossian
             Service.overlayManager?.Dispose();
 
             Service.translationHandler?.Dispose();
-            Service.translationCache?.Dispose();
-
-            Service.assetManager?.Dispose();
             Service.fontManager?.Dispose();
         }
     }

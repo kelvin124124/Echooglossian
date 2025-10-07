@@ -19,7 +19,7 @@ namespace Echooglossian.UI.Windows
                 MaximumSize = new Vector2(1920, 1080)
             };
 
-            Resources.Culture = (CultureInfo)Service.config.SelectedPluginLanguage;
+            Resources.Culture = (CultureInfo)Service.configuration.SelectedPluginLanguage;
         }
 
         public override void Draw()

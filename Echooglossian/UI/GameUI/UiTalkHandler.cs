@@ -19,7 +19,7 @@ namespace Echooglossian.UI.GameUI
 
         internal static unsafe void OnEvent(AddonEvent type, AddonArgs args)
         {
-            if (!Service.config.TalkModuleEnabled)
+            if (!Service.configuration.TalkModuleEnabled)
                 return;
 
             switch (type)
@@ -41,7 +41,7 @@ namespace Echooglossian.UI.GameUI
                     return;
 
                 case AddonEvent.PreDraw:
-                    if (!Service.config.TALK_UseImGui)
+                    if (!Service.configuration.TALK_UseImGui)
                         ReplaceGameText();  // Replace the game text with CurrentTranslatedName and CurrentTranslatedText
                     return;
             }
@@ -76,7 +76,7 @@ namespace Echooglossian.UI.GameUI
                 try
                 {
                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                    var toLang = Service.config.SelectedTargetLanguage;
+                    var toLang = Service.configuration.SelectedTargetLanguage;
 
                     // Translate text
                     var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
@@ -89,7 +89,7 @@ namespace Echooglossian.UI.GameUI
 
                     // Translate name
                     string translatedName = name; // Default to original name
-                    if (Service.config.TALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
+                    if (Service.configuration.TALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
                     {
                         string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
                         if (!Service.translationCache.TryGetString(nameKey, out translatedName))
@@ -99,14 +99,14 @@ namespace Echooglossian.UI.GameUI
                         }
                     }
 
-                    if (Service.config.TALK_UseImGui)
+                    if (Service.configuration.TALK_UseImGui)
                     {
                         Service.overlayManager.UpdateTalkOverlay(name, text, translatedName, translatedText);
                     }
                     else
                     {
                         CurrentTranslatedText = translatedText;
-                        CurrentTranslatedName = Service.config.TALK_TranslateNpcNames ? translatedName : name;
+                        CurrentTranslatedName = Service.configuration.TALK_TranslateNpcNames ? translatedName : name;
                     }
                 }
                 catch (Exception e)
@@ -129,7 +129,7 @@ namespace Echooglossian.UI.GameUI
                     return;
 
                 var nameNode = talkAddon->GetTextNodeById(2);
-                if (Service.config.TALK_TranslateNpcNames && nameNode != null && !nameNode->NodeText.IsEmpty)
+                if (Service.configuration.TALK_TranslateNpcNames && nameNode != null && !nameNode->NodeText.IsEmpty)
                     nameNode->SetText(CurrentTranslatedName);
 
                 var parentNode = talkAddon->GetNodeById(10);

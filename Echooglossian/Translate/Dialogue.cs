@@ -7,7 +7,7 @@ namespace Echooglossian.Translate
     {
         public string Source { get; } = source;
         public LanguageInfo? SourceLanguage { get; } = sourceLanguage;
-        public LanguageInfo TargetLanguage { get; } = targetLanguage ?? Service.config.SelectedTargetLanguage;
+        public LanguageInfo TargetLanguage { get; } = targetLanguage ?? Service.configuration.SelectedTargetLanguage;
         public string Content { get; } = content;
 
         public override string ToString()

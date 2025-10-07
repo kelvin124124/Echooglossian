@@ -36,7 +36,7 @@ namespace Echooglossian.UI.GameUI
                     var descText = MemoryHelper.ReadSeStringAsString(out _, (nint)atkValues[4].String.Value);
                     if (!string.IsNullOrEmpty(descText))
                     {
-                        string descKey = $"desc_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.config.SelectedTargetLanguage.Code}_{descText.GetHashCode()}";
+                        string descKey = $"desc_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.configuration.SelectedTargetLanguage.Code}_{descText.GetHashCode()}";
 
                         if (Service.translationCache.TryGetString(descKey, out string translatedDesc))
                         {
@@ -51,7 +51,7 @@ namespace Echooglossian.UI.GameUI
                                 try
                                 {
                                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
-                                    var toLang = Service.config.SelectedTargetLanguage;
+                                    var toLang = Service.configuration.SelectedTargetLanguage;
 
                                     string cachedTranslation = Service.translationHandler.TranslateString(capturedDesc, toLang)
                                         .GetAwaiter().GetResult();
