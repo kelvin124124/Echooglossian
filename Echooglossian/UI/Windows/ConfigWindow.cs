@@ -34,6 +34,9 @@ public partial class ConfigWindow : Window
     // TODO: use general font handle built in font manager
     public override void Draw()
     {
+        // Load font for the entire window
+        Service.fontManager.GeneralFontHandle.Push();
+
         // Main tab bar
         if (ImGui.BeginTabBar("ConfigTabBar##Echo"))
         {
@@ -63,6 +66,8 @@ public partial class ConfigWindow : Window
 
             ImGui.EndTabBar();
         }
+
+        Service.fontManager.GeneralFontHandle.Pop();
 
         if (saveConfig)
         {

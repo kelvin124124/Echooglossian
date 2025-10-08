@@ -96,7 +96,7 @@ namespace Echooglossian.UI.GameUI
 
                     if (Service.configuration.TALK_UseImGui)
                     {
-                        Service.overlayManager.UpdateTalkOverlay(name, text, translatedName, translatedText);
+                        Service.translationOverlay.UpdateTalkOverlay(name, text, translatedName, translatedText);
                     }
                     else
                     {
@@ -153,12 +153,12 @@ namespace Echooglossian.UI.GameUI
 
                 while (talkAddon->IsVisible)
                 {
-                    Service.overlayManager.SetTalkOverlayVisible(true);
-                    Service.overlayManager.UpdateTalkOverlayPosition(talkAddon);
+                    Service.translationOverlay.SetTalkOverlayVisible(true);
+                    Service.translationOverlay.UpdateTalkOverlayPosition(talkAddon);
                     Thread.Sleep(OverlayCheckDelay);
                 }
 
-                Service.overlayManager.SetTalkOverlayVisible(false);
+                Service.translationOverlay.SetTalkOverlayVisible(false);
             });
         }
     }

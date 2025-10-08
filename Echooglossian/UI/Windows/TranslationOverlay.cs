@@ -164,7 +164,7 @@ namespace Echooglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(translatedTalkText)) return;
 
-            PushFontHandle();
+            Service.fontManager.LanguageFontHandle.Push(); ;
 
             var windowPos = CalculateWindowPosition(talkPosition, talkDimensions);
             windowPos += Service.configuration.ImGuiWindowPosCorrection;
@@ -180,7 +180,7 @@ namespace Echooglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle();
+            Service.fontManager.LanguageFontHandle.Pop(); ;
         }
         #endregion
 
@@ -234,7 +234,7 @@ namespace Echooglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(translatedBattleTalkText)) return;
 
-            PushFontHandle();
+            Service.fontManager.LanguageFontHandle.Push(); ;
 
             var windowPos = CalculateWindowPosition(battleTalkPosition, battleTalkDimensions);
             windowPos += Service.configuration.ImGuiWindowPosCorrection;
@@ -250,7 +250,7 @@ namespace Echooglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle();
+            Service.fontManager.LanguageFontHandle.Pop(); ;
         }
         #endregion
 
@@ -297,7 +297,7 @@ namespace Echooglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(translatedTalkSubtitleText)) return;
 
-            PushFontHandle();
+            Service.fontManager.LanguageFontHandle.Push(); ;
 
             var windowPos = CalculateWindowPosition(talkSubtitlePosition, talkSubtitleDimensions);
             windowPos += Service.configuration.ImGuiWindowPosCorrection;
@@ -313,7 +313,7 @@ namespace Echooglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle();
+            Service.fontManager.LanguageFontHandle.Pop(); ;
         }
         #endregion
 
@@ -356,7 +356,7 @@ namespace Echooglossian.UI.Windows
         {
             if (string.IsNullOrEmpty(overlay.TranslatedText)) return;
 
-            PushFontHandle();
+            Service.fontManager.LanguageFontHandle.Push(); ;
 
             var windowPos = CalculateWindowPosition(overlay.Position, overlay.Dimensions);
             windowPos += Service.configuration.ImGuiToastWindowPosCorrection;
@@ -372,7 +372,7 @@ namespace Echooglossian.UI.Windows
             ImGui.End();
 
             ImGui.PopStyleColor();
-            PopFontHandle();
+            Service.fontManager.LanguageFontHandle.Pop(); ;
         }
         #endregion
 
@@ -380,16 +380,6 @@ namespace Echooglossian.UI.Windows
         private static Vector2 CalculateWindowPosition(Vector2 position, Vector2 dimensions)
         {
             return new Vector2(position.X, position.Y - dimensions.Y - 40);
-        }
-
-        private static void PushFontHandle()
-        {
-            Service.fontManager.LanguageFontHandle.Push();
-        }
-
-        private static void PopFontHandle()
-        {
-            Service.fontManager.LanguageFontHandle.Pop();
         }
         #endregion
     }

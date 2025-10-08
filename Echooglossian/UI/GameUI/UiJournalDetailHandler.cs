@@ -112,7 +112,7 @@ namespace Echooglossian.UI.GameUI
                         if (!string.IsNullOrEmpty(objectiveText))
                         {
                             Dialogue dialogue = new(nameof(UiJournalHandler), GetLanguage(Service.clientState.ClientLanguage.ToString()), Service.configuration.SelectedTargetLanguage, objectiveText);
-                            
+
                             if (TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedObj))
                             {
                                 objectiveNode->NodeText.SetString(translatedObj);

@@ -23,22 +23,9 @@
           <LastGenOutput>Resources.Designer.cs</LastGenOutput>
           <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </EmbeddedResource>
-
-        <Content Include="..\Data\**\*.*">
-            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
     
     <ItemGroup>
-      <Content Remove="..\Data\Font\GoNotoKurrent-Regular.ttf.gz" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Include="..\Data\Font\GoNotoKurrent-Regular.ttf.gz" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <ProjectReference Include="E:\Fast-Persistent-Dictionary-main\FastPersistentDictionary\FastPersistentDictionary.csproj" />
+      <EmbeddedResource Include="..\Data\Font\*.ttf.gz" />
     </ItemGroup>
 </Project>

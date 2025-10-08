@@ -89,7 +89,7 @@ namespace Echooglossian.UI.GameUI
 
             if (addon->IsVisible)
             {
-                Service.overlayManager.UpdateToastOverlayPosition(
+                Service.translationOverlay.UpdateToastOverlayPosition(
                     toastType.ToString(),
                     addon->RootNode->X,
                     addon->RootNode->Y,
@@ -98,7 +98,7 @@ namespace Echooglossian.UI.GameUI
             }
             else
             {
-                Service.overlayManager.SetToastOverlayVisible(toastType.ToString(), false);
+                Service.translationOverlay.SetToastOverlayVisible(toastType.ToString(), false);
             }
         }
 
@@ -180,7 +180,7 @@ namespace Echooglossian.UI.GameUI
                 else
                 {
                     // Show overlay for ImGui
-                    Service.overlayManager.UpdateToastOverlay(
+                    Service.translationOverlay.UpdateToastOverlay(
                         toastType.ToString(),
                         messageText,
                         currentTranslations[toastType]);
@@ -210,11 +210,11 @@ namespace Echooglossian.UI.GameUI
 
                         if (Service.configuration.TOAST_UseImGui)
                         {
-                            Service.overlayManager.UpdateToastOverlay(
+                            Service.translationOverlay.UpdateToastOverlay(
                                 toastType.ToString(),
                                 dialogue.Content,
                                 translatedText);
-                            Service.overlayManager.SetToastOverlayVisible(toastType.ToString(), true);
+                            Service.translationOverlay.SetToastOverlayVisible(toastType.ToString(), true);
                         }
                     }
                 }
@@ -231,12 +231,12 @@ namespace Echooglossian.UI.GameUI
 
             if (Service.configuration.TOAST_UseImGui)
             {
-                Service.overlayManager.UpdateToastOverlay(
+                Service.translationOverlay.UpdateToastOverlay(
                     toastType.ToString(),
                     originalText,
                     translatedText);
 
-                Service.overlayManager.SetToastOverlayVisible(toastType.ToString(), true);
+                Service.translationOverlay.SetToastOverlayVisible(toastType.ToString(), true);
             }
             else
             {

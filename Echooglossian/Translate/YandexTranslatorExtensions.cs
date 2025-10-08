@@ -15,7 +15,7 @@ namespace Echooglossian.Translate
         public static async Task<TranslationResult> TranslateWithKeyAsync(
             this YandexTranslator translator, string text, string toLanguage)
         {
-            if (!KeyValidator.IsValidAPIKey(nameof(YandexTranslator), out string IAM_Token))
+            if (!KeyValidator.APIKeyExists(nameof(YandexTranslator), out string IAM_Token))
             {
                 throw new Exception("Translate with key is enabled but key is not set.");
             }

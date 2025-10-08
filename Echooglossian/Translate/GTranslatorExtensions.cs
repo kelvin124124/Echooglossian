@@ -16,7 +16,7 @@ namespace Echooglossian.Translate
         public static async Task<TranslationResult> TranslateWithKeyAsync(
             this GoogleTranslator translator, string text, string toLanguage)
         {
-            if (!KeyValidator.IsValidAPIKey(nameof(GoogleTranslator), out string accessToken))
+            if (!KeyValidator.APIKeyExists(nameof(GoogleTranslator), out string accessToken))
             {
                 throw new Exception("Translate with key is enabled but key is not set.");
             }

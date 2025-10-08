@@ -93,7 +93,7 @@ namespace Echooglossian.UI.GameUI
 
                     if (Service.configuration.BATTLETALK_UseImGui)
                     {
-                        Service.overlayManager.UpdateBattleTalkOverlay(name, text, translatedName, translatedText);
+                        Service.translationOverlay.UpdateBattleTalkOverlay(name, text, translatedName, translatedText);
                     }
                     else
                     {
@@ -161,12 +161,12 @@ namespace Echooglossian.UI.GameUI
 
                 while (battleTalkAddon->IsVisible)
                 {
-                    Service.overlayManager.SetBattleTalkOverlayVisible(true);
-                    Service.overlayManager.UpdateBattleTalkOverlayPosition(battleTalkAddon);
+                    Service.translationOverlay.SetBattleTalkOverlayVisible(true);
+                    Service.translationOverlay.UpdateBattleTalkOverlayPosition(battleTalkAddon);
                     Thread.Sleep(OverlayCheckDelay);
                 }
 
-                Service.overlayManager.SetBattleTalkOverlayVisible(false);
+                Service.translationOverlay.SetBattleTalkOverlayVisible(false);
             });
         }
     }

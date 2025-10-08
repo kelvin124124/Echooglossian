@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using static Echooglossian.Utils.LanguageDictionary;
 
 namespace Echooglossian
 {
@@ -16,7 +17,7 @@ namespace Echooglossian
 
         public FontManager()
         {
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Echooglossian.Resources.GoNotoCurrent.ttf.gz");
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Echooglossian.GoNotoKurrent-Regular.ttf.gz");
             using var gzip = new GZipStream(stream, CompressionMode.Decompress);
             using var memory = new MemoryStream();
 
@@ -27,12 +28,18 @@ namespace Echooglossian
             {
                 e.OnPreBuild(tk =>
                 {
-                    tk.AddFontFromMemory(fontData, new SafeFontConfig { SizePx = 16.0f }, "Echo.GeneralFontHandle");
+                    tk.AddFontFromMemory(fontData, new SafeFontConfig
+                    {
+                        SizePx = 16.0f,
+                        GlyphRanges = ConfigUIGlyphRanges
+                    }, "Echo.GeneralFontHandle");
                 });
             });
+
+            BuildLanguageFont(Service.configuration.SelectedTargetLanguage);
         }
 
-        public void BuildLanguageFont(string targetLanguage)
+        public void BuildLanguageFont(LanguageInfo targetLanguage)
         {
             LanguageFontHandle?.Dispose();
 
@@ -42,7 +49,7 @@ namespace Echooglossian
                 {
                     tk.AddFontFromMemory(fontData, new SafeFontConfig
                     {
-                        SizePx = 18.0f,
+                        SizePx = 16.0f,
                         GlyphRanges = GetGlyphRanges(targetLanguage)
                     }, "Echo.LanguageFontHandle");
                 });
@@ -53,7 +60,7 @@ namespace Echooglossian
         /// Placeholder: Returns null to load all glyphs.
         /// TODO: Implement language-specific glyph ranges for font subsetting.
         /// </summary>
-        private ushort[] GetGlyphRanges(string language) => null;
+        private ushort[] GetGlyphRanges(LanguageInfo language) => null;
         private ushort[] ConfigUIGlyphRanges = null; // TODO: Define glyph ranges for UI elements.
 
         public void Dispose()

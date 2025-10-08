@@ -7,7 +7,6 @@ using Echooglossian.Translate;
 using Echooglossian.UI.GameUI;
 using Echooglossian.UI.Windows;
 using Echooglossian.Utils;
-using System;
 using System.Reflection;
 
 namespace Echooglossian
@@ -43,7 +42,7 @@ namespace Echooglossian
 
             Service.fontManager = new FontManager();
             Service.translationHandler = new TranslationHandler();
-            Service.overlayManager = new TranslationOverlay();
+            Service.translationOverlay = new TranslationOverlay();
             Service.gameUIManager = new GameUIManager();
             Service.chatHandler = new ChatHandler();
             Service.pfHandler = new PFHandler();
@@ -57,7 +56,7 @@ namespace Echooglossian
 
         private static void MigrateConfig()
         {
-            throw new NotImplementedException();
+            // not implemented yet
         }
 
         private void OnCommand(string command, string args)
@@ -70,7 +69,7 @@ namespace Echooglossian
             WindowSystem.Draw();
 
             // draw overlays
-            Service.overlayManager?.Draw();
+            Service.translationOverlay?.Draw();
         }
 
         public static void DrawMainUI()
@@ -87,7 +86,7 @@ namespace Echooglossian
             Service.pfHandler?.Dispose();
 
             Service.gameUIManager?.Dispose();
-            Service.overlayManager?.Dispose();
+            Service.translationOverlay?.Dispose();
 
             Service.translationHandler?.Dispose();
             Service.fontManager?.Dispose();

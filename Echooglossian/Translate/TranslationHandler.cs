@@ -28,7 +28,7 @@ namespace Echooglossian.Translate
 
         public async Task<string> TranslateUI(Dialogue dialogue)
         {
-            return "debug";
+            return dialogue.Content;
 
             //if (Service.config.UseLLMTranslation) 
             //{
@@ -40,20 +40,20 @@ namespace Echooglossian.Translate
 
         public async Task<string> TranslateChat(Message chatMessage)
         {
-            return "debug";
+            return "हिन्दी";
         }
 
         public async Task<string> TranslateString(string content, LanguageInfo toLanguage)
         {
-            return "debug";
+            return "हिन्दी";
         }
 
         public async Task<string> TranslateName(string content, LanguageInfo toLanguage)
         {
-            return "debug";
+            return "हिन्दी";
         }
 
-        public async Task<LanguageInfo> DetermineLanguage(string text) 
+        public async Task<LanguageInfo> DetermineLanguage(string text)
         {
             throw new NotImplementedException();
         }

@@ -30,7 +30,7 @@ namespace Echooglossian.Utils
         internal static ConfigWindow mainWindow { get; set; } = null!;
 
         internal static TranslationHandler translationHandler { get; set; } = null!;
-        internal static TranslationOverlay overlayManager { get; set; } = null!;
+        internal static TranslationOverlay translationOverlay { get; set; } = null!;
         internal static GameUIManager gameUIManager { get; set; } = null!;
 
         internal static ChatHandler chatHandler { get; set; } = null!;

@@ -103,7 +103,7 @@ namespace Echooglossian.UI.GameUI
 
         private static void TranslateWithImGui(string originalText, string translatedText)
         {
-            Service.overlayManager.UpdateTalkSubtitleOverlay(originalText, translatedText);
+            Service.translationOverlay.UpdateTalkSubtitleOverlay(originalText, translatedText);
 
             ShowTalkSubtitleOverlay();
         }
@@ -118,12 +118,12 @@ namespace Echooglossian.UI.GameUI
 
                 while (talkSubtitleAddon->IsVisible)
                 {
-                    Service.overlayManager.SetTalkSubtitleOverlayVisible(true);
-                    Service.overlayManager.UpdateTalkSubtitleOverlayPosition(talkSubtitleAddon);
+                    Service.translationOverlay.SetTalkSubtitleOverlayVisible(true);
+                    Service.translationOverlay.UpdateTalkSubtitleOverlayPosition(talkSubtitleAddon);
                     Thread.Sleep(OverlayCheckDelay);
                 }
 
-                Service.overlayManager.SetTalkSubtitleOverlayVisible(false);
+                Service.translationOverlay.SetTalkSubtitleOverlayVisible(false);
             });
         }
     }

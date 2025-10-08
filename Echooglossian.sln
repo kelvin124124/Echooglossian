@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Echooglossian", "Echooglossian\Echooglossian.csproj", "{517A4352-7F10-48B9-B332-BB592157E377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastPersistentDictionary", "E:\Fast-Persistent-Dictionary-main\FastPersistentDictionary\FastPersistentDictionary.csproj", "{86068B9F-FD8B-7EC8-5027-BC3B399681FF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,14 +21,6 @@ Global
 		{517A4352-7F10-48B9-B332-BB592157E377}.Release|Any CPU.Build.0 = Release|x64
 		{517A4352-7F10-48B9-B332-BB592157E377}.Release|x64.ActiveCfg = Release|x64
 		{517A4352-7F10-48B9-B332-BB592157E377}.Release|x64.Build.0 = Release|x64
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Debug|x64.Build.0 = Debug|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Release|x64.ActiveCfg = Release|Any CPU
-		{86068B9F-FD8B-7EC8-5027-BC3B399681FF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
