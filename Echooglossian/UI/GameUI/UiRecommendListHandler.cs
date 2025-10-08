@@ -1,4 +1,5 @@
 using Dalamud.Memory;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -46,9 +47,9 @@ namespace Echooglossian.UI.GameUI
                     var questNameText = MemoryHelper.ReadSeStringAsString(out _, (nint)questName->NodeText.StringPtr.Value);
 
                     // Check cache first
-                    if (TranslatedQuestNames.TryGetValue(questNameText, out string translatedName))
+                    if (TranslatedQuestNames.TryGetValue(questNameText, out string translatedQuestName))
                     {
-                        questName->NodeText.SetString(translatedName);
+                        questName->NodeText.SetString(translatedQuestName);
                         continue;
                     }
 
@@ -64,19 +65,17 @@ namespace Echooglossian.UI.GameUI
                             var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                             var toLang = Service.configuration.SelectedTargetLanguage;
 
-                            string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{capturedQuestText}";
-                            string cachedTranslation;
+                            Dialogue dialogue = new(nameof(UiJournalHandler), fromLang, toLang, capturedQuestText);
 
-                            if (!Service.translationCache.TryGetString(questNameKey, out cachedTranslation))
+                            if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedQuestText))
                             {
                                 // Call async method synchronously to avoid await in this Task
-                                cachedTranslation = Service.translationHandler.TranslateString(capturedQuestText, toLang)
-                                    .GetAwaiter().GetResult();
-                                Service.translationCache.UpsertString(questNameKey, cachedTranslation);
+                                translatedQuestText = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
+                                TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedQuestText);
                             }
 
-                            TranslatedQuestNames[capturedQuestText] = cachedTranslation;
-                            capturedNode->NodeText.SetString(cachedTranslation);
+                            TranslatedQuestNames[capturedQuestText] = translatedQuestText;
+                            capturedNode->NodeText.SetString(translatedQuestText);
                         }
                         catch (Exception e)
                         {

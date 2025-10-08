@@ -1,4 +1,5 @@
 using Dalamud.Memory;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -42,9 +43,9 @@ namespace Echooglossian.UI.GameUI
                     if (string.IsNullOrEmpty(todoTextStr))
                         continue;
 
-                    string todoKey = $"todo_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.configuration.SelectedTargetLanguage.Code}_{todoTextStr.GetHashCode()}";
+                    Dialogue dialogue = new(nameof(UiJournalHandler), (LanguageInfo)Service.clientState.ClientLanguage, Service.configuration.SelectedTargetLanguage, todoTextStr);
 
-                    if (Service.translationCache.TryGetString(todoKey, out string translatedTodo))
+                    if (TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedTodo))
                     {
                         todoText->NodeText.SetString(translatedTodo);
                     }
@@ -60,12 +61,10 @@ namespace Echooglossian.UI.GameUI
                                 var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                 var toLang = Service.configuration.SelectedTargetLanguage;
 
-                                string cachedTranslation = Service.translationHandler.TranslateString(capturedText, toLang)
-                                    .GetAwaiter().GetResult();
+                                string translatedTodo = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
 
-                                string finalKey = $"todo_{fromLang.Code}_{toLang.Code}_{capturedText.GetHashCode()}";
-                                Service.translationCache.UpsertString(finalKey, cachedTranslation);
-                                capturedNode->NodeText.SetString(cachedTranslation);
+                                TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedTodo);
+                                capturedNode->NodeText.SetString(translatedTodo);
                             }
                             catch (Exception e)
                             {

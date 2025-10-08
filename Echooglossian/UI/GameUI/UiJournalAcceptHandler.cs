@@ -1,5 +1,6 @@
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using Dalamud.Memory;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -36,16 +37,14 @@ namespace Echooglossian.UI.GameUI
                     var descText = MemoryHelper.ReadSeStringAsString(out _, (nint)atkValues[4].String.Value);
                     if (!string.IsNullOrEmpty(descText))
                     {
-                        string descKey = $"desc_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.configuration.SelectedTargetLanguage.Code}_{descText.GetHashCode()}";
+                        Dialogue dialogue = new(nameof(UiJournalHandler), GetLanguage(Service.clientState.ClientLanguage.ToString()), Service.configuration.SelectedTargetLanguage, descText);
 
-                        if (Service.translationCache.TryGetString(descKey, out string translatedDesc))
+                        if (TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedDesc))
                         {
                             atkValues[4].SetManagedString(translatedDesc);
                         }
                         else
                         {
-                            string capturedDesc = descText;
-
                             Task.Run(() =>
                             {
                                 try
@@ -53,12 +52,10 @@ namespace Echooglossian.UI.GameUI
                                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                     var toLang = Service.configuration.SelectedTargetLanguage;
 
-                                    string cachedTranslation = Service.translationHandler.TranslateString(capturedDesc, toLang)
-                                        .GetAwaiter().GetResult();
+                                    string translatedText = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
 
-                                    string finalKey = $"desc_{fromLang.Code}_{toLang.Code}_{capturedDesc.GetHashCode()}";
-                                    Service.translationCache.UpsertString(finalKey, cachedTranslation);
-                                    atkValues[4].SetManagedString(cachedTranslation);
+                                    TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedText);
+                                    atkValues[4].SetManagedString(translatedText);
                                 }
                                 catch (Exception e)
                                 {

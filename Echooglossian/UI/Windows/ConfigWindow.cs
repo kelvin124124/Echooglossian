@@ -61,12 +61,6 @@ public partial class ConfigWindow : Window
                 ImGui.EndTabItem();
             }
 
-            if (ImGui.BeginTabItem("Assets"))
-            {
-                AssetsTab.Draw();
-                ImGui.EndTabItem();
-            }
-
             ImGui.EndTabBar();
         }
 

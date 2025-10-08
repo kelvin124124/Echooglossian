@@ -1,5 +1,6 @@
 using Dalamud.Game.Gui.Toast;
 using Dalamud.Game.Text.SeStringHandling;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -151,12 +152,13 @@ namespace Echooglossian.UI.GameUI
             {
                 var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                 var toLang = Service.configuration.SelectedTargetLanguage;
-                string cacheKey = $"toast_{fromLang.Code}_{toLang.Code}_{toastType}_{messageText.GetHashCode()}";
+
+                Dialogue dialogue = new(nameof(UiToastsHandlers), fromLang, toLang, messageText);
 
                 // Check cache first
-                if (Service.translationCache.TryGetString(cacheKey, out string cachedTranslation))
+                if (TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedMessage))
                 {
-                    ApplyToastTranslation(toastType, messageText, cachedTranslation, ref originalMessage);
+                    ApplyToastTranslation(toastType, messageText, translatedMessage, ref originalMessage);
                     return;
                 }
 
@@ -184,7 +186,7 @@ namespace Echooglossian.UI.GameUI
                         currentTranslations[toastType]);
                 }
 
-                StartToastTranslation(toastType, messageText, cacheKey, translationId, toLang);
+                StartToastTranslation(toastType, dialogue, translationId);
             }
             catch (Exception e)
             {
@@ -192,25 +194,25 @@ namespace Echooglossian.UI.GameUI
             }
         }
 
-        private void StartToastTranslation(ToastType toastType, string messageText, string cacheKey, int translationId, LanguageInfo toLang)
+        private void StartToastTranslation(ToastType toastType, Dialogue dialogue, int translationId)
         {
             Task.Run(async () =>
             {
                 try
                 {
-                    string translatedText = await Service.translationHandler.TranslateString(messageText, toLang);
+                    string translatedText = await Service.translationHandler.TranslateUI(dialogue);
 
                     // Only update if this is still the active toast
                     if (translationIds[toastType] == translationId)
                     {
                         currentTranslations[toastType] = translatedText;
-                        Service.translationCache.UpsertString(cacheKey, translatedText);
+                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedText);
 
                         if (Service.configuration.TOAST_UseImGui)
                         {
                             Service.overlayManager.UpdateToastOverlay(
                                 toastType.ToString(),
-                                messageText,
+                                dialogue.Content,
                                 translatedText);
                             Service.overlayManager.SetToastOverlayVisible(toastType.ToString(), true);
                         }

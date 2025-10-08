@@ -1,5 +1,6 @@
 using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -77,21 +78,21 @@ namespace Echooglossian.UI.GameUI
                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                     var toLang = Service.configuration.SelectedTargetLanguage;
 
-                    string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{questName}";
+                    Dialogue dialogue = new(nameof(UiJournalHandler), fromLang, toLang, questName);
 
-                    if (!Service.translationCache.TryGetString(questNameKey, out var cachedTranslation))
+                    if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedQuestName))
                     {
-                        cachedTranslation = Service.translationHandler.TranslateString(questName, toLang).GetAwaiter().GetResult();
-                        Service.translationCache.UpsertString(questNameKey, cachedTranslation);
+                        translatedQuestName = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
+                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedQuestName);
                     }
 
-                    TranslatedQuestNames[questName] = cachedTranslation;
+                    TranslatedQuestNames[questName] = translatedQuestName;
 
                     var addon = Service.gameGui.GetAddonByName(atkValues[valueIndex].Type.ToString());
                     if (addon == IntPtr.Zero)
                         return;
 
-                    atkValues[valueIndex].SetManagedString(cachedTranslation);
+                    atkValues[valueIndex].SetManagedString(translatedQuestName);
                 }
                 catch (Exception e)
                 {

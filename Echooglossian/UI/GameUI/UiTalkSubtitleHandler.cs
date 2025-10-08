@@ -55,10 +55,10 @@ namespace Echooglossian.UI.GameUI
                     var toLang = Service.configuration.SelectedTargetLanguage;
 
                     var dialogue = new Dialogue(nameof(UiTalkSubtitleHandler), fromLang, toLang, content);
-                    if (!Service.translationCache.TryGet(dialogue, out string translatedContent))
+                    if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedContent))
                     {
                         translatedContent = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, translatedContent);
+                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedContent);
                     }
 
                     CurrentTranslatedText = translatedContent;

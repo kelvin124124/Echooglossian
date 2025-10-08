@@ -1,4 +1,5 @@
 using Dalamud.Memory;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -58,18 +59,16 @@ namespace Echooglossian.UI.GameUI
                                 var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                 var toLang = Service.configuration.SelectedTargetLanguage;
 
-                                string questNameKey = $"quest_{fromLang.Code}_{toLang.Code}_{capturedText}";
-                                string cachedTranslation;
+                                Dialogue dialogue = new(nameof(UiJournalHandler), fromLang, toLang, capturedText);
 
-                                if (!Service.translationCache.TryGetString(questNameKey, out cachedTranslation))
+                                if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedQuestName))
                                 {
-                                    cachedTranslation = Service.translationHandler.TranslateString(capturedText, toLang)
-                                        .GetAwaiter().GetResult();
-                                    Service.translationCache.UpsertString(questNameKey, cachedTranslation);
+                                    translatedQuestName = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
+                                    TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedQuestName);
                                 }
 
-                                TranslatedQuestNames[capturedText] = cachedTranslation;
-                                capturedNode->NodeText.SetString(cachedTranslation);
+                                TranslatedQuestNames[capturedText] = translatedQuestName;
+                                capturedNode->NodeText.SetString(translatedQuestName);
                             }
                             catch (Exception e)
                             {

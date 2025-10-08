@@ -1,4 +1,5 @@
 using Dalamud.Memory;
+using Echooglossian.Translate;
 using Echooglossian.Utils;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using System;
@@ -41,18 +42,17 @@ namespace Echooglossian.UI.GameUI
                                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                     var toLang = Service.configuration.SelectedTargetLanguage;
 
-                                    string titleKey = $"quest_{fromLang.Code}_{toLang.Code}_{capturedTitle}";
-                                    string cachedTranslation;
+                                    Dialogue dialogue = new(nameof(UiJournalHandler), fromLang, toLang, capturedTitle);
+                                    string translatedTitle;
 
-                                    if (!Service.translationCache.TryGetString(titleKey, out cachedTranslation))
+                                    if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out translatedTitle))
                                     {
-                                        cachedTranslation = Service.translationHandler.TranslateString(capturedTitle, toLang)
-                                            .GetAwaiter().GetResult();
-                                        Service.translationCache.UpsertString(titleKey, cachedTranslation);
+                                        translatedTitle = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
+                                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedTitle);
                                     }
 
-                                    TranslatedQuestNames[capturedTitle] = cachedTranslation;
-                                    capturedNode->NodeText.SetString(cachedTranslation);
+                                    TranslatedQuestNames[capturedTitle] = translatedTitle;
+                                    capturedNode->NodeText.SetString(translatedTitle);
                                 }
                                 catch (Exception e)
                                 {
@@ -70,9 +70,9 @@ namespace Echooglossian.UI.GameUI
                     var descText = MemoryHelper.ReadSeStringAsString(out _, (nint)descNode->NodeText.StringPtr.Value);
                     if (!string.IsNullOrEmpty(descText))
                     {
-                        string descKey = $"desc_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.configuration.SelectedTargetLanguage.Code}_{descText.GetHashCode()}";
+                        Dialogue dialogue = new(nameof(UiJournalHandler), GetLanguage(Service.clientState.ClientLanguage.ToString()), Service.configuration.SelectedTargetLanguage, descText);
 
-                        if (Service.translationCache.TryGetString(descKey, out string translatedDesc))
+                        if (TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedDesc))
                         {
                             descNode->NodeText.SetString(translatedDesc);
                         }
@@ -88,12 +88,10 @@ namespace Echooglossian.UI.GameUI
                                     var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                     var toLang = Service.configuration.SelectedTargetLanguage;
 
-                                    string cachedTranslation = Service.translationHandler.TranslateString(capturedDesc, toLang)
-                                        .GetAwaiter().GetResult();
+                                    string translatedDesc = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
 
-                                    string finalKey = $"desc_{fromLang.Code}_{toLang.Code}_{capturedDesc.GetHashCode()}";
-                                    Service.translationCache.UpsertString(finalKey, cachedTranslation);
-                                    capturedNode->NodeText.SetString(cachedTranslation);
+                                    TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedDesc);
+                                    capturedNode->NodeText.SetString(translatedDesc);
                                 }
                                 catch (Exception e)
                                 {
@@ -113,11 +111,11 @@ namespace Echooglossian.UI.GameUI
                         var objectiveText = MemoryHelper.ReadSeStringAsString(out _, (nint)objectiveNode->NodeText.StringPtr.Value);
                         if (!string.IsNullOrEmpty(objectiveText))
                         {
-                            string objectiveKey = $"obj_{GetLanguage(Service.clientState.ClientLanguage.ToString()).Code}_{Service.configuration.SelectedTargetLanguage.Code}_{objectiveText.GetHashCode()}";
-
-                            if (Service.translationCache.TryGetString(objectiveKey, out string translatedObjective))
+                            Dialogue dialogue = new(nameof(UiJournalHandler), GetLanguage(Service.clientState.ClientLanguage.ToString()), Service.configuration.SelectedTargetLanguage, objectiveText);
+                            
+                            if (TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedObj))
                             {
-                                objectiveNode->NodeText.SetString(translatedObjective);
+                                objectiveNode->NodeText.SetString(translatedObj);
                             }
                             else
                             {
@@ -131,12 +129,10 @@ namespace Echooglossian.UI.GameUI
                                         var fromLang = (LanguageInfo)Service.clientState.ClientLanguage;
                                         var toLang = Service.configuration.SelectedTargetLanguage;
 
-                                        string cachedTranslation = Service.translationHandler.TranslateString(capturedObjective, toLang)
-                                            .GetAwaiter().GetResult();
+                                        string translatedObj = Service.translationHandler.TranslateUI(dialogue).GetAwaiter().GetResult();
 
-                                        string finalKey = $"obj_{fromLang.Code}_{toLang.Code}_{capturedObjective.GetHashCode()}";
-                                        Service.translationCache.UpsertString(finalKey, cachedTranslation);
-                                        capturedNode->NodeText.SetString(cachedTranslation);
+                                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedObj);
+                                        capturedNode->NodeText.SetString(translatedObj);
                                     }
                                     catch (Exception e)
                                     {

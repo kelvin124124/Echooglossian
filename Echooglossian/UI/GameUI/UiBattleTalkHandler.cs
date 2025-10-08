@@ -78,22 +78,17 @@ namespace Echooglossian.UI.GameUI
 
                     // Translate text
                     var dialogue = new Dialogue(nameof(UiBattleTalkHandler), fromLang, toLang, text);
-                    if (!Service.translationCache.TryGet(dialogue, out string translatedText))
+                    if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedText))
                     {
                         translatedText = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, translatedText);
+                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedText);
                     }
 
                     // Translate name
                     string translatedName = name;
                     if (Service.configuration.BATTLETALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
                     {
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        if (!Service.translationCache.TryGetString(nameKey, out translatedName))
-                        {
-                            translatedName = await Service.translationHandler.TranslateString(name, toLang);
-                            Service.translationCache.UpsertString(nameKey, translatedName);
-                        }
+                        translatedName = await Service.translationHandler.TranslateName(name, toLang); // Do not cache names
                     }
 
                     if (Service.configuration.BATTLETALK_UseImGui)

@@ -48,11 +48,19 @@ namespace Echooglossian.Translate
             return "debug";
         }
 
-        public void WipeCache() => ChatTranslationCache.Clear();
+        public async Task<string> TranslateName(string content, LanguageInfo toLanguage)
+        {
+            return "debug";
+        }
+
+        public async Task<LanguageInfo> DetermineLanguage(string text) 
+        {
+            throw new NotImplementedException();
+        }
 
         public void Dispose()
         {
-            this.WipeCache();
+            ChatTranslationCache.Clear();
             HttpClient.Dispose();
         }
     }

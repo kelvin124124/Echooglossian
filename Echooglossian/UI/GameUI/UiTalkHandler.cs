@@ -80,10 +80,10 @@ namespace Echooglossian.UI.GameUI
 
                     // Translate text
                     var dialogue = new Dialogue(nameof(UiTalkHandler), fromLang, toLang, text);
-                    if (!Service.translationCache.TryGet(dialogue, out string translatedText))
+                    if (!TranslationHandler.DialogueTranslationCache.TryGetValue(dialogue, out string translatedText))
                     {
                         translatedText = await Service.translationHandler.TranslateUI(dialogue);
-                        Service.translationCache.Upsert(dialogue, translatedText);
+                        TranslationHandler.DialogueTranslationCache.Add(dialogue, translatedText);
                         Service.pluginLog.Debug($"Translated content: {translatedText}");
                     }
 
@@ -91,12 +91,7 @@ namespace Echooglossian.UI.GameUI
                     string translatedName = name; // Default to original name
                     if (Service.configuration.TALK_TranslateNpcNames && !string.IsNullOrEmpty(name))
                     {
-                        string nameKey = $"name_{fromLang.Code}_{toLang.Code}_{name}";
-                        if (!Service.translationCache.TryGetString(nameKey, out translatedName))
-                        {
-                            translatedName = await Service.translationHandler.TranslateString(name, toLang);
-                            Service.translationCache.UpsertString(nameKey, translatedName);
-                        }
+                        translatedName = await Service.translationHandler.TranslateName(name, toLang); // Do not cache names
                     }
 
                     if (Service.configuration.TALK_UseImGui)
